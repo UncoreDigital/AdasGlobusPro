@@ -313,6 +313,50 @@ Nothing is deleted; flipping a flag restores the feature exactly as it was.
 
 ---
 
+## Deploying to Vercel
+
+Set these in **Project Settings → Environment Variables**, for every environment
+you build (Production *and* Preview — a preview build with them missing renders
+the "not configured" states rather than failing, but the canonical tags will be
+wrong):
+
+| Variable | Notes |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | **Must include the protocol** — `https://example.com`, not `example.com` |
+| `NEXT_PUBLIC_SUPABASE_URL` | From Supabase → Project Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Safe in the browser; RLS is what enforces access |
+
+### The bare-host trap
+
+Pasting a host without `https://` into `NEXT_PUBLIC_SITE_URL` used to fail the
+build outright, with an error that named the wrong thing entirely:
+
+```
+TypeError: Invalid URL
+> Build error occurred
+Error: Failed to collect page data for /_not-found
+```
+
+`/_not-found` has nothing to do with it — `metadataBase: new URL(site.url)` in
+[`app/layout.tsx`](app/layout.tsx) was throwing. Both that and the Supabase host
+in [`next.config.mjs`](next.config.mjs) now go through
+[`lib/origin.ts`](lib/origin.ts), which upgrades a bare host to `https://` and
+falls back with a named warning rather than taking the deploy down. Set the
+variable properly anyway — the fallback is a placeholder domain.
+
+### Reproducing a Vercel build locally
+
+```bash
+git clone <repo> /tmp/cibuild && cd /tmp/cibuild
+npm ci          # exactly what Vercel runs, lockfile-strict
+npx next build
+```
+
+Building the working tree is not the same test: it uses whatever is in
+`node_modules` and includes files git never received.
+
+---
+
 ## Redirects from the old site
 
 The previous site used `.php` URLs. These are already shipped as permanent (308) redirects in

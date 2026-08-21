@@ -1,7 +1,25 @@
 /** @type {import('next').NextConfig} */
-const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
-  : undefined;
+
+/*
+  Same trap as NEXT_PUBLIC_SITE_URL: an unparseable value here throws while the
+  config module is being evaluated, which fails the build before Next has even
+  started. A malformed Supabase URL should cost you remote images, not the
+  deploy — the app already degrades gracefully when Supabase is unreachable.
+*/
+function hostFrom(value) {
+  if (!value) return undefined;
+  try {
+    return new URL(value.trim()).hostname || undefined;
+  } catch {
+    console.warn(
+      `[config] NEXT_PUBLIC_SUPABASE_URL is not a usable URL (received: ${JSON.stringify(value)}). ` +
+        "Remote images from Supabase storage will not be optimised."
+    );
+    return undefined;
+  }
+}
+
+const supabaseHost = hostFrom(process.env.NEXT_PUBLIC_SUPABASE_URL);
 
 /**
  * Legacy .php routes, mapped to their equivalents here.

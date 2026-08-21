@@ -1,3 +1,5 @@
+import { normaliseOrigin } from "@/lib/origin";
+
 /**
  * Single source of truth for brand, contact and navigation.
  *
@@ -50,8 +52,12 @@ export const site = {
    * deploy environment before go-live, because two sites cannot both claim
    * adasglobus.com as canonical without one being dropped from the index in
    * the other's favour.
+   *
+   * Normalised rather than used raw: app/layout.tsx passes this to
+   * `new URL()` for metadataBase, which throws on a bare host and takes the
+   * entire build with it. See lib/origin.ts.
    */
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://us.adasglobus.com").replace(/\/$/, ""),
+  url: normaliseOrigin(process.env.NEXT_PUBLIC_SITE_URL, "https://us.adasglobus.com"),
 
   /** The global site, cross-linked from the footer. */
   globalSite: "https://adasglobus.com",
