@@ -12,11 +12,17 @@ import { cn } from "@/lib/utils";
  * /industries/hospitality.
  *
  * `image` is optional. Where a page supplies one it sits *behind* the existing
- * brand treatment rather than replacing it: photo, then the navy wash, then the
- * gradient and grid the band already had. The stack matters — the photographs
- * are mid-tone and white type on them alone falls below 4.5:1, so the wash is
- * doing accessibility work, not decoration. Text sits on `relative z-10` above
- * all of it.
+ * brand treatment rather than replacing it.
+ *
+ * The overlay is a single left-to-right ramp, not a ramp on top of a flat wash.
+ * Stacking the two multiplied out to ~99% navy over the copy and ~86% at the
+ * far edge, which buried the photograph everywhere — it read as a navy band
+ * with a faint texture rather than as photography.
+ *
+ * The ramp now holds ~0.86 across the left 40% where the heading and lead sit
+ * (white on that measures about 5.1:1 even over the brightest frame in the set)
+ * and opens to 0.34 at the right, where there is no text and the image can
+ * actually be seen. Text sits on `relative z-10` above all of it.
  *
  * `object-right` on the photo is deliberate: every supplied header image places
  * its subject right of centre, and the copy runs down the left, so pinning the
@@ -62,30 +68,20 @@ export default function PageBanner({
         />
       )}
 
-      {/*
-        Two layers over the photo. The horizontal ramp keeps the left side —
-        where the copy is — close to solid navy while letting the right side of
-        the image show through; the flat wash underneath guarantees a floor of
-        contrast even on the lightest frame in the set.
-      */}
-      <div
-        className={cn(
-          "absolute inset-0",
-          image ? "bg-navy-deep/70" : "bg-transparent"
-        )}
-        aria-hidden="true"
-      />
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: image
-            ? "linear-gradient(100deg, hsl(var(--navy-deep) / 0.97) 0%, hsl(var(--navy-deep) / 0.86) 42%, hsl(var(--navy-deep) / 0.55) 100%)"
+            ? "linear-gradient(100deg, hsl(var(--navy-deep) / 0.93) 0%, hsl(var(--navy-deep) / 0.86) 40%, hsl(var(--navy-deep) / 0.50) 72%, hsl(var(--navy-deep) / 0.34) 100%)"
             : "var(--gradient-brand)",
         }}
         aria-hidden="true"
       />
       {!image && <div className="absolute inset-0 bg-navy-deep/72" aria-hidden="true" />}
-      <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
+      <div
+        className={cn("absolute inset-0 bg-grid", image ? "opacity-[0.18]" : "opacity-40")}
+        aria-hidden="true"
+      />
       <div
         className="pointer-events-none absolute -right-28 top-0 h-[26rem] w-[26rem] rounded-full opacity-25 blur-[110px]"
         style={{ backgroundImage: "var(--gradient-accent)" }}

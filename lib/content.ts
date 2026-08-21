@@ -660,42 +660,60 @@ export const allFaqs = faqs.flatMap((g) => g.items);
 /* ---------------------------------------------------------------------------
    Software stack — U.S. platforms only.
 
-   The global site's marquee includes BGL and Reckon, which are Australian
-   SMSF and SME products with effectively no U.S. installed base. Listing them
-   to a U.S. CPA firm signals the deck was written for someone else.
+   The global site's marquee includes BGL, Reckon, Class and Cashflow Manager,
+   which are Australian SMSF and SME products with effectively no U.S. installed
+   base. Listing them to a U.S. CPA firm signals the deck was written for
+   somebody else, so they are not here.
+
+   `logo` points at a normalised vendor mark where the client already has one —
+   see scripts/build-software-logos.js. Where it is absent the tile falls back
+   to the name set as a wordmark, which is why every entry carries a `name`
+   whether or not it has artwork.
+
+   ⚠️ These are third-party trademarks. They are reproduced here because the
+   client already publishes them on adasglobus.com, but each vendor has its own
+   brand-usage terms and a partner logo is not a licence to imply partnership.
+   Worth confirming before launch.
    --------------------------------------------------------------------------- */
 
-export const softwareStack = {
+export type SoftwareTool = { name: string; logo?: string };
+
+export const softwareStack: Record<string, SoftwareTool[]> = {
   "Accounting & ERP": [
-    "QuickBooks Online",
-    "QuickBooks Desktop",
-    "Xero",
-    "Sage Intacct",
-    "NetSuite",
-    "Microsoft Dynamics 365",
+    { name: "QuickBooks Online & Desktop", logo: "/assets/software/quickbooks.webp" },
+    { name: "Xero", logo: "/assets/software/xero.webp" },
+    { name: "Sage Intacct", logo: "/assets/software/sage.webp" },
+    { name: "Microsoft Dynamics", logo: "/assets/software/microsoft-dynamics.webp" },
+    { name: "NetSuite" },
   ],
   "Tax Preparation": [
-    "Drake Tax",
-    "UltraTax CS",
-    "Lacerte",
-    "ProSeries",
-    "ProConnect",
-    "CCH Axcess",
+    { name: "UltraTax CS", logo: "/assets/software/ultratax.webp" },
+    { name: "ProSeries", logo: "/assets/software/proseries.webp" },
+    { name: "ProConnect", logo: "/assets/software/proconnect.webp" },
+    { name: "Drake Tax" },
+    { name: "Lacerte" },
+    { name: "CCH Axcess" },
   ],
-  "Audit & Workpapers": ["CaseWare", "TeamMate", "Workiva", "SafeSend", "Suralink"],
+  "Audit & Workpapers": [
+    { name: "CaseWare", logo: "/assets/software/caseware.webp" },
+    { name: "TeamMate", logo: "/assets/software/teammate.webp" },
+    { name: "Workiva", logo: "/assets/software/workiva.webp" },
+    { name: "SafeSend" },
+    { name: "Suralink" },
+  ],
   "Payroll, AP & Reporting": [
-    "Gusto",
-    "ADP",
-    "Paychex",
-    "Bill.com",
-    "Expensify",
-    "Dext",
-    "Power BI",
+    { name: "Gusto" },
+    { name: "ADP" },
+    { name: "Paychex" },
+    { name: "Bill.com" },
+    { name: "Expensify" },
+    { name: "Dext" },
+    { name: "Power BI" },
   ],
 };
 
 /** Flat list, for the marquee. */
-export const softwareFlat = Object.values(softwareStack).flat();
+export const softwareFlat: SoftwareTool[] = Object.values(softwareStack).flat();
 
 /**
  * U.S. states, for the lead form.

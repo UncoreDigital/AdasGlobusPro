@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 import type { Post } from "@/lib/supabase/types";
 
 /**
@@ -20,7 +20,7 @@ function publishedFilter<T extends { eq: Function; not: Function; lte: Function 
 }
 
 export async function getPosts(limit?: number): Promise<Post[]> {
-  const supabase = createClient();
+  const supabase = createStaticClient();
   if (!supabase) return [];
 
   let query = supabase.from("posts").select("*");
@@ -33,7 +33,7 @@ export async function getPosts(limit?: number): Promise<Post[]> {
 }
 
 export async function getPost(slug: string): Promise<Post | null> {
-  const supabase = createClient();
+  const supabase = createStaticClient();
   if (!supabase) return null;
 
   const { data, error } = await publishedFilter(
@@ -45,7 +45,7 @@ export async function getPost(slug: string): Promise<Post | null> {
 }
 
 export async function getPostSlugs(): Promise<string[]> {
-  const supabase = createClient();
+  const supabase = createStaticClient();
   if (!supabase) return [];
 
   const { data, error } = await publishedFilter(supabase.from("posts").select("slug"));
@@ -55,7 +55,7 @@ export async function getPostSlugs(): Promise<string[]> {
 
 /** Related posts: same category first, most recent, excluding the current one. */
 export async function getRelatedPosts(post: Post, limit = 3): Promise<Post[]> {
-  const supabase = createClient();
+  const supabase = createStaticClient();
   if (!supabase) return [];
 
   const { data } = await publishedFilter(

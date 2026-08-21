@@ -15,11 +15,17 @@ import { EASE, fadeUp, stagger } from "@/lib/motion";
  * orbit rings — angled plates cut to the A's slope, and a chevron field drifting
  * along the same diagonal.
  *
- * The photograph is understated on purpose. It sits at 45% under a navy wash,
- * because the headline is white and the frame is mid-tone: at full strength the
- * H1 drops below 4.5:1 over the brighter part of the image. It is also cropped
- * `object-right` — the supplied frame puts its subject right of centre and its
- * darkest area on the left, which is exactly where the headline runs.
+ * The photograph is protected by a left-to-right ramp rather than a flat wash.
+ * A flat wash has to be set for the worst case — the brightest part of the
+ * frame — and then applies that everywhere, which is what buried the image at
+ * 45% opacity under an additional 55% navy. The ramp instead holds contrast
+ * only where the type is: ~0.90 navy behind the headline on the left, opening
+ * to ~0.30 on the right where the skyline can be seen.
+ *
+ * That works because of how this specific frame is composed. It is cropped
+ * `object-right`, and the supplied image puts its subject and light on the
+ * right with the near-empty dark office on the left — exactly where the
+ * headline runs.
  *
  * Motion here does not wait for the viewport. Everything above the fold is
  * already visible on load, so a scroll-triggered variant would either fire
@@ -42,17 +48,25 @@ export default function Hero({
         priority
         sizes="100vw"
         aria-hidden="true"
-        className="-z-10 object-cover object-right opacity-45"
+        className="-z-10 object-cover object-right opacity-90"
       />
 
-      {/* Ribbon gradient from the mark, over the photo. */}
+      {/* Ribbon gradient from the mark, tinting the photo rather than hiding it. */}
       <div
-        className="absolute inset-0 -z-10 mix-blend-multiply"
+        className="absolute inset-0 -z-10 opacity-60 mix-blend-multiply"
         style={{ backgroundImage: "var(--gradient-brand)" }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 -z-10 bg-navy-deep/55" aria-hidden="true" />
-      <div className="absolute inset-0 -z-10 bg-grid opacity-[0.5]" aria-hidden="true" />
+      {/* Contrast ramp: heavy under the headline, open over the skyline. */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(100deg, hsl(var(--navy-deep) / 0.90) 0%, hsl(var(--navy-deep) / 0.82) 34%, hsl(var(--navy-deep) / 0.48) 66%, hsl(var(--navy-deep) / 0.30) 100%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 -z-10 bg-grid opacity-[0.22]" aria-hidden="true" />
 
       {/*
         Chevron plates. The 2026 monogram is flat and angular — a straight-sided

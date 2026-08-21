@@ -1,21 +1,63 @@
+import Image from "next/image";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { softwareFlat, softwareStack, technologyTeaser } from "@/lib/content";
+import { softwareFlat, softwareStack, technologyTeaser, type SoftwareTool } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 /**
  * Platform proficiency.
  *
- * Set as wordmarks rather than vendor logos on purpose. Reproducing Intuit,
- * Xero, Sage and Thomson Reuters brand assets is a trademark question the
- * client has not cleared, and a wall of unlicensed logos on a compliance
- * services site is the wrong first impression. Typeset names make the same
- * claim and are the client's own statement of proficiency.
+ * Tiles carry the vendor logo where the client has one, and the product name
+ * set as a wordmark where they do not. That mix is deliberate rather than a
+ * half-finished state: the client's own library covers ten of the platforms on
+ * this list and none of the remaining thirteen, and a row that silently drops
+ * Drake, Lacerte and CCH Axcess would be a worse answer for a U.S. CPA firm
+ * than a row where three tiles are typeset. Every tile is the same size and
+ * plate, so the row still reads as one set.
+ *
+ * Logos are normalised to a common optical weight by
+ * scripts/build-software-logos.js — the raw files range from 300x300 squares
+ * with a floating mark to 179px JPEGs, and dropping those in unprocessed gives
+ * a row where every logo is a different size.
  *
  * Two presentations from one data source:
  *   `marquee` — the homepage strip, scanned rather than read.
- *   `grouped` — the technology page, where the categories are the argument:
- *               a firm needs to see its tax stack listed, not just its GL.
+ *   `grouped` — the technology page, where the categories are the argument: a
+ *               firm needs to see its tax stack listed, not just its GL.
  */
+
+/** One tile. Logo if there is one, wordmark if there is not. */
+function Tool({ tool, className }: { tool: SoftwareTool; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "flex h-16 shrink-0 items-center justify-center rounded-xl border border-border bg-white px-7 transition-colors",
+        className
+      )}
+    >
+      {tool.logo ? (
+        <Image
+          src={tool.logo}
+          alt={tool.name}
+          width={220}
+          height={80}
+          /*
+            Height-constrained, not width-constrained. The set mixes wide
+            wordmarks (Sage, Workiva) with square badges (Xero, UltraTax);
+            matching on height is what makes them read as one row, and the
+            max-width only stops the widest from crowding its neighbour.
+          */
+          className="h-9 w-auto max-w-[8rem] object-contain"
+        />
+      ) : (
+        <span className="whitespace-nowrap font-display text-[15px] font-bold text-navy-deep/70">
+          {tool.name}
+        </span>
+      )}
+    </span>
+  );
+}
+
 export default function Software({
   variant = "marquee",
 }: {
@@ -42,13 +84,10 @@ export default function Software({
                 <h3 className="text-[12px] font-bold uppercase tracking-[0.16em] text-brand">
                   {category}
                 </h3>
-                <ul className="mt-5 flex flex-wrap gap-2">
+                <ul className="mt-5 flex flex-wrap gap-2.5">
                   {tools.map((tool) => (
-                    <li
-                      key={tool}
-                      className="rounded-lg border border-border bg-white px-3.5 py-2 text-[13.5px] font-medium text-navy-deep"
-                    >
-                      {tool}
+                    <li key={tool.name}>
+                      <Tool tool={tool} className="h-14 px-5" />
                     </li>
                   ))}
                 </ul>
@@ -96,14 +135,12 @@ export default function Software({
                 cycle does; three overfill any viewport we support and -50%
                 still lands on a copy boundary.
               */}
-              {[...row, ...row, ...row].map((name, j) => (
-                <span
-                  key={`${name}-${j}`}
-                  aria-hidden={j >= row.length}
-                  className="flex h-16 shrink-0 items-center whitespace-nowrap rounded-xl border border-border bg-slate-50 px-8 font-display text-[15px] font-bold text-navy-deep/70 transition-colors hover:border-brand/30 hover:text-brand"
-                >
-                  {name}
-                </span>
+              {[...row, ...row, ...row].map((tool, j) => (
+                <Tool
+                  key={`${tool.name}-${j}`}
+                  tool={tool}
+                  className="hover:border-brand/30"
+                />
               ))}
             </div>
           </div>

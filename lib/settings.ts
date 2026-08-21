@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createStaticClient } from "@/lib/supabase/server";
 import type { SiteSetting } from "@/lib/supabase/types";
 
 /**
@@ -8,6 +8,10 @@ import type { SiteSetting } from "@/lib/supabase/types";
  * values most likely to change without a developer present — client counts,
  * transaction volumes, a new office phone number. The admin edits one row and
  * every surface that prints the figure updates together.
+ *
+ * Read through the cookie-free client: these values are fetched during static
+ * generation, where there is no request scope for cookies() to read, and they
+ * are public anyway.
  *
  * This is also a correctness guard. The live site prints "1,150+" on the
  * homepage, "1,000+ projects" on the about page and "1150+" in the stats band;
@@ -31,7 +35,7 @@ const FALLBACK: Settings = {
 };
 
 export async function getSettings(): Promise<Settings> {
-  const supabase = createClient();
+  const supabase = createStaticClient();
   if (!supabase) return FALLBACK;
 
   const { data, error } = await supabase

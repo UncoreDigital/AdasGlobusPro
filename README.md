@@ -207,6 +207,7 @@ Outputs are committed, so these only need running when new artwork arrives.
 | `logo-compact.png` / `-alpha` | monogram + wordmark |
 | `logo-mark-alpha.png` | AGP monogram — header, footer, admin, favicons |
 | `og.jpg` | 1200×630 social card, photo + composited lockup |
+| `software/*.webp` | 10 vendor logos, normalised to a common optical weight |
 
 ---
 
@@ -270,10 +271,14 @@ nothing in the mark does.
   flag glyphs, so regional-indicator pairs fall back to bare letters, and this
   audience is overwhelmingly Windows. See
   [`components/CountryCode.tsx`](components/CountryCode.tsx).
-- **Software platforms are set as wordmarks, not vendor logos.** Reproducing
-  Intuit / Xero / Sage / Thomson Reuters brand assets is a trademark question
-  the client has not cleared. BGL and Reckon were dropped from the global
-  site's list — both are Australian products with no meaningful U.S. install base.
+- **⚠️ Vendor logos are third-party trademarks.** The ten in
+  `public/assets/software/` are the client's own files, already published on
+  adasglobus.com, but each vendor has its own brand-usage terms and a logo is
+  not a licence to imply partnership. Worth confirming before launch. Platforms
+  without a logo fall back to a typeset wordmark in an identical tile —
+  see `components/sections/Software.tsx`. BGL, Reckon, Class, Recruitlive and
+  Cashflow Manager were dropped from the client's list: all Australian
+  products with no meaningful U.S. install base.
 - **The tagline changed with the rebrand.** It is now FINANCE · TALENT ·
   GROWTH. Anything still quoting "Partner. Innovate. Grow." is out of date.
 - **Two figures on `/team` are assumptions.** The bench-composition split is
