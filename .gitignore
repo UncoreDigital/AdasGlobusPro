@@ -1,0 +1,14 @@
+
+node_modules
+.next
+out
+build
+.env
+.env.local
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Delivery archives. The contents are extracted into assets-src/ and public/,
+# so committing the zip as well would carry the same 25 MB twice.
+docs/*.zip

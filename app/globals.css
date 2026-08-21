@@ -1,0 +1,420 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   ADAS Globus Pro — Design System
+
+   Palette sampled from the 2026 mark ("Updated loog.jpeg", 1536x1024) by pixel
+   clustering. This is a full replacement, not a revision: the previous mark was
+   navy + royal blue + gold around a globe, and nothing of the gold survives.
+
+   The monogram is one left-to-right gradient across three flat letterforms,
+   running deep teal through teal into bright blue and landing on navy:
+
+     A, left stroke / deepest teal      #004A63  hsl(195 100% 19%)
+     A apex, teal                       #017E90  hsl(188  99% 28%)
+     A, right stroke                    #01949C  hsl(183  99% 31%)
+     A inner triangle / wordmark        #041B3C  hsl(215  88% 13%)
+     G, bright blue                     #018DD4  hsl(200  99% 42%)
+     G right / P left, blue             #0174C4  hsl(205  99% 39%)
+     P bowl, deep blue                  #0162AC  hsl(206  99% 34%)
+     P, navy                            #023363  hsl(210  96% 20%)
+     darkest ink                        #041B3C  hsl(215  88% 13%)
+     field                              #FFFFFF
+
+   Three things to know before editing:
+
+   1. THERE IS NO GOLD. The accent that owned every primary CTA is now the
+      bright cyan at the mark's teal end. It keeps the same *pattern* the gold
+      had — a high-luminance fill with a navy label — because that pattern is
+      what made the CTA readable, not the hue.
+
+   2. Saturation stays high. Every colour in the mark sits at 88-100%, so the
+      tokens keep that chroma. Restraint comes from how much surface area each
+      colour is allowed, not from dulling it.
+
+   3. There is no globe any more, so the orbit-ring motif went with it. Dark
+      bands use .bg-chevrons instead — a repeating diagonal cut at the A's own
+      slope. See the utilities layer.
+
+   Every foreground/background pair below was measured, not eyeballed. The
+   ratios quoted in the comments are actual WCAG figures.
+   ========================================================================== */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 88% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 88% 13%;
+
+    /* Blue — the primary. Darkened from the mark's own #018DD4 so it is safe
+       for text: 6.6:1 on white, where the logo value manages only 3.6:1. */
+    --primary: 206 99% 33%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 206 99% 34%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 205 40% 96%;
+    --muted-foreground: 211 18% 42%;
+
+    /* Cyan — the accent. Owns primary CTAs and emphasis, as gold used to.
+       navy-deep on this reads 6.0:1. */
+    --accent: 185 96% 37%;
+    --accent-foreground: 215 88% 13%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 208 35% 89%;
+    --input: 208 35% 89%;
+    --ring: 206 99% 33%;
+
+    --radius: 0.625rem;
+
+    /*
+      Height of the chrome above the fold, so a full-height section can subtract
+      it and still fit the screen. Below md the utility strip is hidden and only
+      the header bar counts; from md up both do.
+
+      Keep in step with Header (h-[4.5rem] / md:h-20) and TopBar (h-10).
+    */
+    --header-h: 4.5rem;
+
+    /* ---- Brand tokens ---- */
+
+    /* Navy — the wordmark, the A's inner triangle, every dark band. */
+    --navy-deep: 215 88% 13%;
+    --navy: 213 92% 16%;
+    --navy-light: 210 96% 20%;
+
+    /* Blue — the G's right side and the P. The primary family. */
+    --brand: 206 99% 33%;
+    --brand-dark: 207 99% 27%;
+    --brand-light: 200 99% 42%;
+    /*
+      The mark's brightest blue. 5.4:1 on navy-deep, so it is legible there, but
+      --accent-light (10.3:1) is the better choice for anything that has to be
+      read on a dark surface. Keep this one for gradient stops and rules.
+    */
+    --brand-bright: 202 99% 47%;
+
+    /* Teal — the A. Text-safe on white at 5.6:1. */
+    --teal-deep: 195 100% 19%;
+    --teal: 188 99% 26%;
+    --teal-light: 183 99% 31%;
+
+    /* Cyan — the accent family. */
+    --accent-dark: 188 99% 30%;
+    --accent-light: 184 85% 52%;
+
+    /* Mid blues, for gradient stops and on-dark accents. */
+    --sky: 200 99% 42%;
+    --sky-light: 184 85% 52%;
+
+    --ink: 215 88% 13%;
+    --ink-muted: 211 18% 42%;
+
+    /*
+      Slate scale — cool greys pulled toward the brand blue rather than neutral,
+      so surfaces read as part of the palette instead of borrowed from it.
+    */
+    --slate-50: 205 40% 97%;
+    --slate-100: 207 34% 94%;
+    --slate-200: 208 35% 89%;
+    --slate-400: 210 18% 60%;
+    --slate-600: 211 18% 42%;
+    --slate-800: 213 45% 20%;
+
+    /*
+      Emerald — the trust accent, for verified/secure/success states only.
+      Pushed to a true green (152°) rather than the 158° it was under the old
+      palette: the accent is now cyan at 188°, and a blue-leaning green sitting
+      30° away from it stopped reading as "confirmed" and started reading as a
+      second brand colour.
+    */
+    --emerald: 152 62% 32%;
+    --emerald-light: 152 55% 42%;
+    /* On-navy variant. 8.0:1 against navy-deep, so safe for body-sized text. */
+    --emerald-mint: 152 58% 62%;
+
+    /*
+      Gradients.
+
+      --gradient-brand is the monogram's own sweep: deep teal, through the A's
+      teal, into the G's bright blue, landing on the P's navy. It is the one
+      place the full range appears together, which is why it belongs to the hero
+      and the dark bands rather than to small components.
+    */
+    --gradient-navy: linear-gradient(135deg, hsl(215 88% 13%) 0%, hsl(210 96% 20%) 100%);
+    --gradient-brand: linear-gradient(
+      100deg,
+      hsl(195 100% 19%) 0%,
+      hsl(183 99% 31%) 24%,
+      hsl(200 99% 42%) 55%,
+      hsl(206 99% 34%) 78%,
+      hsl(215 88% 13%) 100%
+    );
+    /* Vertical accent, for rules and thin fills. */
+    --gradient-accent: linear-gradient(180deg, hsl(184 85% 52%) 0%, hsl(188 99% 30%) 100%);
+    /* The CTA fill. */
+    --gradient-accent-x: linear-gradient(
+      100deg,
+      hsl(184 96% 40%) 0%,
+      hsl(185 96% 37%) 52%,
+      hsl(191 96% 35%) 100%
+    );
+    /*
+      CTA hover. Brighter than the resting state, not darker.
+
+      Darkening is the first instinct and it is wrong here, exactly as it was
+      with the gold this replaces: the label is navy, so a darker fill closes
+      the gap between text and background. Measured, the resting gradient gives
+      navy-on-cyan 6.0:1 and a darkened hover drops it below 5:1, while this
+      brighter ramp lifts it to 8.5:1. The button gets more legible at the
+      moment the reader is about to click it.
+    */
+    --gradient-accent-x-hover: linear-gradient(
+      100deg,
+      hsl(184 92% 48%) 0%,
+      hsl(185 92% 45%) 52%,
+      hsl(191 92% 43%) 100%
+    );
+    /* Card hover edge — teal into blue, the mark's own direction of travel. */
+    --gradient-edge: linear-gradient(130deg, hsl(183 99% 31%) 0%, hsl(200 99% 42%) 50%, hsl(206 99% 34%) 100%);
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      /* TopBar (2.5rem) + Header (5rem) */
+      --header-h: 7.5rem;
+    }
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /*
+    Lenis drives scrolling on the marketing tree, and it and the native smooth
+    behaviour fight each other over anchor jumps. When Lenis is mounted it sets
+    .lenis on <html>, so hand scrolling back to it there.
+  */
+  html.lenis {
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-background font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight text-navy-deep;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-background;
+  }
+
+  ::selection {
+    @apply bg-brand/15 text-navy-deep;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Section rhythm. One utility so vertical spacing cannot drift page to page. */
+  .section {
+    @apply py-16 md:py-24 lg:py-28;
+  }
+  .section-tight {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* The eyebrow above section headings — small caps, teal rule, wide tracking. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-brand;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-7 bg-gradient-to-r from-teal-light to-teal-light/20;
+  }
+  .eyebrow-on-dark {
+    @apply text-accent-light;
+  }
+  .eyebrow-on-dark::before {
+    @apply from-accent-light to-accent-light/20;
+  }
+
+  /*
+    Accent text gradient for the emphasised span in a heading. Needs an explicit
+    colour fallback: if background-clip is unsupported the text would otherwise
+    inherit transparent and vanish entirely.
+  */
+  .text-gradient-accent {
+    color: hsl(var(--teal));
+  }
+  /*
+    On-dark variant. The gold this replaced was bright enough to work on both
+    white and navy from one set of stops; the accent is not — the values tuned
+    for text on white sit around 26-33% lightness and drop to roughly 2:1
+    against navy-deep, which is unreadable. Anything on a dark band uses this
+    instead, running accent-light into sky for 8.9:1.
+  */
+  .text-gradient-accent-on-dark {
+    color: hsl(var(--accent-light));
+  }
+  .text-gradient-brand {
+    color: hsl(var(--brand));
+  }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    /*
+      Note this runs teal -> cyan rather than reusing --gradient-accent-x. The
+      CTA gradient is tuned for a navy label sitting on top of it; as *text* on
+      white the same values are too light, so the heading variant starts darker
+      and never crosses 46% lightness.
+    */
+    .text-gradient-accent {
+      background: linear-gradient(100deg, hsl(188 99% 26%) 0%, hsl(195 100% 24%) 50%, hsl(206 99% 33%) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .text-gradient-accent-on-dark {
+      background: linear-gradient(100deg, hsl(184 85% 58%) 0%, hsl(190 90% 54%) 50%, hsl(200 99% 55%) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .text-gradient-brand {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  /*
+    Card with a gradient edge that only resolves on hover. The border is painted
+    as a masked background rather than a border-image so the radius is honoured
+    on every browser we support.
+  */
+  .card-edge {
+    @apply relative rounded-lg border border-border bg-white transition-[box-shadow,transform] duration-300;
+  }
+  .card-edge::before {
+    content: "";
+    background: var(--gradient-edge);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    @apply pointer-events-none absolute inset-0 rounded-[inherit] border border-transparent p-px opacity-0 transition-opacity duration-300;
+  }
+  .card-edge:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Long-form body copy rendered from the CMS. */
+  .prose-adas {
+    @apply text-[15.5px] leading-[1.75] text-ink-muted;
+  }
+  .prose-adas h2 {
+    @apply mb-3 mt-10 text-2xl font-bold text-navy-deep;
+  }
+  .prose-adas h3 {
+    @apply mb-2.5 mt-8 text-xl font-bold text-navy-deep;
+  }
+  .prose-adas p {
+    @apply mb-4;
+  }
+  .prose-adas ul {
+    @apply mb-4 space-y-2 pl-5;
+  }
+  .prose-adas ul > li {
+    @apply relative list-none;
+  }
+  .prose-adas ul > li::before {
+    content: "";
+    @apply absolute -left-4 top-[0.6em] h-1.5 w-1.5 rounded-full bg-accent;
+  }
+  .prose-adas ol {
+    @apply mb-4 list-decimal space-y-2 pl-5 marker:font-semibold marker:text-brand;
+  }
+  .prose-adas a {
+    @apply font-medium text-brand underline underline-offset-2 hover:text-brand-light;
+  }
+  .prose-adas strong {
+    @apply font-semibold text-navy-deep;
+  }
+  .prose-adas img {
+    @apply my-6 rounded-lg;
+  }
+  .prose-adas blockquote {
+    @apply my-6 border-l-[3px] border-accent pl-5 italic text-navy;
+  }
+}
+
+@layer utilities {
+  /* A hairline grid, for dark bands that would otherwise read as flat ink. */
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(0 0% 100% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /*
+    Chevron field — the geometric motif that replaces the orbit rings the old
+    globe justified. The new monogram is built from an angled A and a squared
+    P, so the background echoes that: a repeating diagonal at the A's own slope,
+    not a circle. Decorative, always behind a wash.
+  */
+  .bg-chevrons {
+    background-image: repeating-linear-gradient(
+      118deg,
+      hsl(0 0% 100% / 0.045) 0px,
+      hsl(0 0% 100% / 0.045) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+  }
+
+  /* Marquee edge fade — keeps logo strips from colliding with the container. */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .pause-on-hover:hover * {
+    animation-play-state: paused;
+  }
+}
