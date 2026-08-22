@@ -66,6 +66,8 @@ The site runs without Supabase — the contact form returns a "not configured" m
    [`0002_seed_insights.sql`](supabase/migrations/0002_seed_insights.sql).
    The second seeds four blog posts **as drafts** — read them, adjust anything
    that does not sound like the firm, and publish from `/admin/posts`.
+   [`0003_lead_notification.sql`](supabase/migrations/0003_lead_notification.sql)
+   is last, and has its own prerequisites — see **Lead notifications** below.
 4. Create the admin user under **Authentication → Users → Add user** (email + password).
    There is no public sign-up — that screen is the only way to get an admin account.
 5. Sign in at `/admin/login`.
@@ -310,6 +312,73 @@ Nothing is deleted; flipping a flag restores the feature exactly as it was.
 | `insights` | on | `/blog`, `/blog/[slug]`, the nav link, the admin editor |
 | `clientPortal` | off | secure document exchange |
 | `newsletter` | off | footer signup |
+
+---
+
+## Lead notifications
+
+A new row in `public.leads` emails the firm. The path is:
+
+```
+contact form → POST /api/contact → insert into leads
+                                        ↓ Postgres trigger (pg_net, async)
+                                   lead-notification edge function → SMTP
+```
+
+The email is **not** sent from the API route. It is fired by a database trigger,
+so a lead inserted by anything other than that route still produces an alert,
+and a mail outage can never cost the row — the insert has already committed by
+the time the trigger runs. pg_net is asynchronous, so a slow mail server cannot
+make the contact form time out either.
+
+### Setting it up
+
+Four steps, in order. Miss any one and no email arrives:
+
+```bash
+# 1. a shared secret — any long random string, NOT a Supabase key
+openssl rand -hex 32
+
+# 2. give it to the function, with the SMTP settings
+supabase secrets set WEBHOOK_SECRET=<that string>
+supabase secrets set SMTP_HOST=smtp.gmail.com SMTP_PORT=465 \
+  SMTP_USER=<sending mailbox> SMTP_PASS=<app password> \
+  NOTIFICATION_EMAIL=<who gets the alert>
+
+# 3. deploy (config.toml already turns JWT verification off)
+supabase functions deploy lead-notification
+
+# 4. give the SAME secret to the database, then run 0003_lead_notification.sql
+#    select vault.create_secret('<that same string>', 'lead_notification_secret', '…');
+```
+
+### Why a shared secret rather than a Supabase key
+
+The current Supabase key format (`sb_publishable_…` / `sb_secret_…`) is not
+accepted in an `Authorization: Bearer` header. The gateway rejects such a call
+*before the function boots*, so the failure leaves no entry in the invocation
+log and looks exactly like the trigger never firing. Our own header is checked
+inside the function, so a bad call is logged as a 401 instead of vanishing.
+
+JWT verification is therefore off — which means the secret check **is** the
+authentication. Without it the endpoint is an open relay: anyone who learns the
+URL could post arbitrary JSON and have it emailed from the client's mailbox.
+
+### Diagnosing it
+
+```sql
+select id, status_code, created from net._http_response order by created desc limit 5;
+```
+
+| Result | Meaning |
+|---|---|
+| `200` | delivered |
+| `401` | the Vault secret and `WEBHOOK_SECRET` do not match |
+| `5xx` | the function ran and threw — read the Edge Function logs |
+| no row | the trigger did not fire, or `pg_net` is not installed |
+
+⚠️ No credential belongs in these files. SMTP passwords and the webhook secret
+live in `supabase secrets` and Vault; this repo is public.
 
 ---
 

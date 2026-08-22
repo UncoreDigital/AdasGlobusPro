@@ -17,5 +17,6 @@
     "paths": { "@/*": ["./*"] }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "//": "supabase/ is excluded because supabase/functions/** is Deno, not Node: it imports npm: specifiers and uses the Deno global, neither of which this config knows. Left in, it fails both tsc --noEmit and next build. Deno type-checks it at deploy time instead.",
+  "exclude": ["node_modules", "supabase", "scripts"]
 }
