@@ -8,7 +8,7 @@ import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Schedule a Call — Talk to ADAS Globus",
+  title: "Schedule a Call — Talk to ADAS Globus Pro",
   description:
     "Tell us your volumes, your software and your review protocol. A senior member of the advisory team responds within one business day with a proposed engagement structure.",
   alternates: { canonical: "/contact" },

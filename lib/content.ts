@@ -21,7 +21,7 @@
  *     not a copy improvement. The same applies to SOC 2: we support clients'
  *     SOC 2 work, we do not claim to hold a report.
  *
- *  3. ADAS Globus is not a CPA firm and does not sign, file or issue opinions.
+ *  3. ADAS Globus Pro is not a CPA firm and does not sign, file or issue opinions.
  *     Copy must never imply otherwise — the client firm keeps the engagement,
  *     the judgement and the sign-off. See `boundary` below.
  */
@@ -31,7 +31,7 @@
    --------------------------------------------------------------------------- */
 
 export const boundary =
-  "ADAS Globus is an outsourcing partner, not a CPA firm. We do not sign returns, issue audit opinions, or hold ourselves out as licensed to practise public accounting in any U.S. state. Your firm retains the client relationship, the professional judgement and the final sign-off.";
+  "ADAS Globus Pro is an outsourcing partner, not a CPA firm. We do not sign returns, issue audit opinions, or hold ourselves out as licensed to practise public accounting in any U.S. state. Your firm retains the client relationship, the professional judgement and the final sign-off.";
 
 /* ---------------------------------------------------------------------------
    Homepage
@@ -65,7 +65,7 @@ export const aboutTeaser = {
 };
 
 /**
- * "Why Choose ADAS Globus" — four differentiators.
+ * "Why Choose ADAS Globus Pro" — four differentiators.
  *
  * Rewritten for the U.S. reader. The global site's version claims fluency in
  * "US GAAP, IFRS, UK FRS 102, Australian AAS and UAE corporate tax", which on a
@@ -230,7 +230,7 @@ export const pricingTeaser = {
 export const testimonials = [
   {
     quote:
-      "ADAS Globus operates as a genuine extension of our practice — not a third-party supplier. Their technical precision, structured communication, and consistent adherence to our internal review protocols have materially elevated the quality and capacity of our accounting operations.",
+      "ADAS Globus Pro operates as a genuine extension of our practice — not a third-party supplier. Their technical precision, structured communication, and consistent adherence to our internal review protocols have materially elevated the quality and capacity of our accounting operations.",
     name: "Managing Partner",
     role: "Regional CPA Firm",
   },
@@ -282,7 +282,7 @@ export const about = {
     eyebrow: "Our Story",
     heading: "Started by Chartered Accountants Who Had Done the Work",
     paragraphs: [
-      "ADAS Globus was founded in 2020 by three practising Chartered Accountants who had spent their careers inside audit, tax and financial reporting engagements — and had seen from the inside why offshore arrangements so often disappoint.",
+      "ADAS Globus Pro was founded in 2020 by three practising Chartered Accountants who had spent their careers inside audit, tax and financial reporting engagements — and had seen from the inside why offshore arrangements so often disappoint.",
       "The pattern was consistent. Work came back technically defensible but structurally wrong: right numbers, wrong templates; complete files, no documentation trail; capacity delivered, review burden increased. Firms ended up paying for support and then paying again in partner time to make it usable.",
       "So the firm was built the other way round. Templates, checklists, review layers and communication protocols are set up before any live work is touched, and the professionals assigned to a client learn that firm's conventions during onboarding rather than during busy season. The measure of success is simple: work that comes back ready to review, not ready to redo.",
     ],
@@ -431,7 +431,7 @@ export const technology = {
     "AI-Augmented Delivery on an Enterprise-Grade, ISO 27001-Aligned Infrastructure",
   intro: [
     "Offshore accounting stopped being a labour-arbitrage decision some years ago. A U.S. firm evaluating a partner today is evaluating an operating environment: what runs automatically, what a person reviews, where client data physically sits, and who can reach it.",
-    "ADAS Globus has invested deliberately in that environment. Cloud-native accounting platforms, AI-enabled workflow automation and analytics sit on top of an information-security framework modelled on ISO 27001 — because the firms we serve are themselves subject to professional standards on confidentiality and are asked about ours during their own peer review.",
+    "ADAS Globus Pro has invested deliberately in that environment. Cloud-native accounting platforms, AI-enabled workflow automation and analytics sit on top of an information-security framework modelled on ISO 27001 — because the firms we serve are themselves subject to professional standards on confidentiality and are asked about ours during their own peer review.",
     "The result is meant to be measurable rather than impressive: faster close cycles, fewer first-pass errors, a clearer view of where work stands, and a documentation trail that survives scrutiny.",
   ],
   pillars: [
@@ -543,12 +543,12 @@ export const faqs: FaqGroup[] = [
     group: "General",
     items: [
       {
-        q: "What does ADAS Globus actually do?",
+        q: "What does ADAS Globus Pro actually do?",
         a: "We provide U.S. CPA firms and finance teams with dedicated offshore capacity across bookkeeping and accounting, tax preparation, audit support, and financial reporting — plus dedicated professional hiring where a firm wants a permanent offshore bench. The work is prepared in your software, to your templates, and returned for your review.",
       },
       {
         q: "Are you a CPA firm?",
-        a: "No. ADAS Globus is an outsourcing partner, not a licensed CPA firm. We do not sign returns, issue audit opinions, or practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off on everything we prepare.",
+        a: "No. ADAS Globus Pro is an outsourcing partner, not a licensed CPA firm. We do not sign returns, issue audit opinions, or practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off on everything we prepare.",
       },
       {
         q: "Who are your typical clients?",

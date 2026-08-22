@@ -19,53 +19,66 @@ export default {
       screens: {
         short: { raw: "(max-height: 820px)" },
       },
+      /*
+        Every colour below carries the <alpha-value> placeholder.
+
+        Without it Tailwind cannot build the opacity modifiers, and — this is
+        the dangerous part — it does not warn. `bg-brand/10` simply produces no
+        rule, so the element renders with no background at all rather than a
+        tint. That silently broke 39 classes across this site: every tinted icon
+        plate, every hover border, and the wash that darkens photo-free page
+        banners.
+
+        The CSS variables must stay in space-separated `H S% L%` form for this
+        to work. A variable written as `hsl(215 88% 13%)` would break it again.
+      */
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border) / <alpha-value>)",
+        input: "hsl(var(--input) / <alpha-value>)",
+        ring: "hsl(var(--ring) / <alpha-value>)",
+        background: "hsl(var(--background) / <alpha-value>)",
+        foreground: "hsl(var(--foreground) / <alpha-value>)",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "hsl(var(--primary) / <alpha-value>)",
+          foreground: "hsl(var(--primary-foreground) / <alpha-value>)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "hsl(var(--secondary) / <alpha-value>)",
+          foreground: "hsl(var(--secondary-foreground) / <alpha-value>)",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "hsl(var(--muted) / <alpha-value>)",
+          foreground: "hsl(var(--muted-foreground) / <alpha-value>)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "hsl(var(--card) / <alpha-value>)",
+          foreground: "hsl(var(--card-foreground) / <alpha-value>)",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
+          foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
         },
 
         /* ---- Brand tokens, sampled from "Updated loog.jpeg" ---- */
 
         /* Navy — the wordmark, the A's inner triangle, the P's right edge. */
         navy: {
-          DEFAULT: "hsl(var(--navy))",
-          deep: "hsl(var(--navy-deep))",
-          light: "hsl(var(--navy-light))",
+          DEFAULT: "hsl(var(--navy) / <alpha-value>)",
+          deep: "hsl(var(--navy-deep) / <alpha-value>)",
+          light: "hsl(var(--navy-light) / <alpha-value>)",
         },
         /* Blue — the G and the P bowl. The primary. */
         brand: {
-          DEFAULT: "hsl(var(--brand))",
-          dark: "hsl(var(--brand-dark))",
-          light: "hsl(var(--brand-light))",
-          bright: "hsl(var(--brand-bright))",
+          DEFAULT: "hsl(var(--brand) / <alpha-value>)",
+          dark: "hsl(var(--brand-dark) / <alpha-value>)",
+          light: "hsl(var(--brand-light) / <alpha-value>)",
+          bright: "hsl(var(--brand-bright) / <alpha-value>)",
         },
         /* Teal — the A. */
         teal: {
-          DEFAULT: "hsl(var(--teal))",
-          deep: "hsl(var(--teal-deep))",
-          light: "hsl(var(--teal-light))",
+          DEFAULT: "hsl(var(--teal) / <alpha-value>)",
+          deep: "hsl(var(--teal-deep) / <alpha-value>)",
+          light: "hsl(var(--teal-light) / <alpha-value>)",
         },
         /*
           Cyan — the accent. Owns primary CTAs and emphasis.
@@ -76,33 +89,33 @@ export default {
           a token change rather than another site-wide find-and-replace.
         */
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          dark: "hsl(var(--accent-dark))",
-          light: "hsl(var(--accent-light))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "hsl(var(--accent) / <alpha-value>)",
+          dark: "hsl(var(--accent-dark) / <alpha-value>)",
+          light: "hsl(var(--accent-light) / <alpha-value>)",
+          foreground: "hsl(var(--accent-foreground) / <alpha-value>)",
         },
         /* Mid blues, for gradient stops and on-dark accents. */
         sky: {
-          DEFAULT: "hsl(var(--sky))",
-          light: "hsl(var(--sky-light))",
+          DEFAULT: "hsl(var(--sky) / <alpha-value>)",
+          light: "hsl(var(--sky-light) / <alpha-value>)",
         },
         ink: {
-          DEFAULT: "hsl(var(--ink))",
-          muted: "hsl(var(--ink-muted))",
+          DEFAULT: "hsl(var(--ink) / <alpha-value>)",
+          muted: "hsl(var(--ink-muted) / <alpha-value>)",
         },
         /* Trust accent — verified / secure / success states only. */
         emerald: {
-          DEFAULT: "hsl(var(--emerald))",
-          light: "hsl(var(--emerald-light))",
-          mint: "hsl(var(--emerald-mint))",
+          DEFAULT: "hsl(var(--emerald) / <alpha-value>)",
+          light: "hsl(var(--emerald-light) / <alpha-value>)",
+          mint: "hsl(var(--emerald-mint) / <alpha-value>)",
         },
         slate: {
-          50: "hsl(var(--slate-50))",
-          100: "hsl(var(--slate-100))",
-          200: "hsl(var(--slate-200))",
-          400: "hsl(var(--slate-400))",
-          600: "hsl(var(--slate-600))",
-          800: "hsl(var(--slate-800))",
+          50: "hsl(var(--slate-50) / <alpha-value>)",
+          100: "hsl(var(--slate-100) / <alpha-value>)",
+          200: "hsl(var(--slate-200) / <alpha-value>)",
+          400: "hsl(var(--slate-400) / <alpha-value>)",
+          600: "hsl(var(--slate-600) / <alpha-value>)",
+          800: "hsl(var(--slate-800) / <alpha-value>)",
         },
       },
       fontFamily: {

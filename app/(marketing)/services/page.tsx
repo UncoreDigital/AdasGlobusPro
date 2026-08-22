@@ -67,7 +67,7 @@ export default function ServicesPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "ItemList",
-          name: "ADAS Globus service lines",
+          name: "ADAS Globus Pro service lines",
           itemListElement: services.map((service, i) => ({
             "@type": "ListItem",
             position: i + 1,

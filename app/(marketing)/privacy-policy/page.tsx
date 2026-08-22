@@ -16,7 +16,7 @@ export const metadata: Metadata = {
  * contact form, the data it stores, where it is stored and who can reach it.
  * It is accurate about the mechanics, but it has not been reviewed by counsel
  * and it does not attempt to enumerate every obligation across the five
- * jurisdictions ADAS Globus operates in. It must be reviewed before launch.
+ * jurisdictions ADAS Globus Pro operates in. It must be reviewed before launch.
  */
 export default function PrivacyPolicyPage() {
   const sections = [
@@ -36,7 +36,7 @@ export default function PrivacyPolicyPage() {
     {
       heading: "Where it is stored",
       body: [
-        "Form submissions are stored in a managed Postgres database operated by Supabase, protected by row-level security so that only authenticated administrators of this site can read them. Access is limited to the ADAS Globus personnel who need it to respond to you.",
+        "Form submissions are stored in a managed Postgres database operated by Supabase, protected by row-level security so that only authenticated administrators of this site can read them. Access is limited to the ADAS Globus Pro personnel who need it to respond to you.",
       ],
     },
     {
@@ -87,7 +87,7 @@ export default function PrivacyPolicyPage() {
               <strong className="font-semibold text-navy-deep">Draft pending legal review.</strong>{" "}
               This policy accurately describes what this website does with the information
               you submit. It has not yet been reviewed by counsel against every jurisdiction
-              in which ADAS Globus operates.
+              in which ADAS Globus Pro operates.
             </p>
 
             <div className="prose-adas mt-10">

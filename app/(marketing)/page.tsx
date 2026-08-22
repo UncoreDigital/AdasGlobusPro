@@ -62,7 +62,6 @@ export default async function HomePage() {
             "@type": "ProfessionalService",
             "@id": `${site.url}/#organization`,
             name: site.name,
-            alternateName: site.markName,
             description: site.description,
             url: site.url,
             logo: `${site.url}${site.logo}`,

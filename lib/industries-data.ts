@@ -110,7 +110,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/manufacturing-hd.webp",
     icon: "Factory",
     meta: {
-      title: "Manufacturing Accounting Outsourcing — ADAS Globus",
+      title: "Manufacturing Accounting Outsourcing — ADAS Globus Pro",
       description:
         "Standard costing, ASC 330 inventory valuation, Section 263A schedules, multi-plant P&L and multi-state compliance for U.S. manufacturers.",
     },
@@ -180,7 +180,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/it-software-tech-services-hd.webp",
     icon: "Cpu",
     meta: {
-      title: "SaaS & Technology Accounting Outsourcing — ADAS Globus",
+      title: "SaaS & Technology Accounting Outsourcing — ADAS Globus Pro",
       description:
         "ASC 606 revenue recognition, deferred revenue waterfalls, ASC 718 stock compensation, Section 174 and SaaS nexus analysis for U.S. technology companies.",
     },
@@ -252,7 +252,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/hospitality-hd.webp",
     icon: "Hotel",
     meta: {
-      title: "Hospitality Accounting Outsourcing — ADAS Globus",
+      title: "Hospitality Accounting Outsourcing — ADAS Globus Pro",
       description:
         "Night audit reconciliation, USALI departmental reporting, tipped payroll compliance and occupancy tax for U.S. hotels, F&B and serviced apartments.",
     },
@@ -322,7 +322,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/qsr-restaurants-food-chains-hd.webp",
     icon: "UtensilsCrossed",
     meta: {
-      title: "Restaurant & QSR Accounting Outsourcing — ADAS Globus",
+      title: "Restaurant & QSR Accounting Outsourcing — ADAS Globus Pro",
       description:
         "Location-level P&L, weekly prime cost reporting, delivery platform reconciliation, franchise royalty accounting and multi-state food tax for U.S. operators.",
     },
@@ -392,7 +392,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/e-commerce-hd.webp",
     icon: "ShoppingCart",
     meta: {
-      title: "E-Commerce & D2C Accounting Outsourcing — ADAS Globus",
+      title: "E-Commerce & D2C Accounting Outsourcing — ADAS Globus Pro",
       description:
         "Multi-channel reconciliation, marketplace fee accounting, landed cost tracking, economic nexus monitoring and unit economics reporting for U.S. D2C brands.",
     },

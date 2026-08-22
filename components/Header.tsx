@@ -84,7 +84,7 @@ export default function Header() {
       >
         <div className="container flex h-[4.5rem] items-center justify-between gap-6 md:h-20">
           <Link href="/" className="shrink-0" aria-label={`${site.name} home`}>
-            <Logo size="md" rule={false} priority />
+            <Logo size="md" priority />
           </Link>
 
           <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
@@ -251,7 +251,7 @@ function MobileDrawer({
             aria-label="Menu"
           >
             <div className="flex h-[4.5rem] shrink-0 items-center justify-between border-b border-border px-5">
-              <Logo size="sm" rule={false} />
+              <Logo size="sm" />
               <button type="button" onClick={onClose} className="rounded-md p-2 text-navy-deep" aria-label="Close menu">
                 <X className="h-5 w-5" />
               </button>

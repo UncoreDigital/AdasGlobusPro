@@ -1,5 +1,5 @@
 -- ============================================================================
--- ADAS Globus — initial schema
+-- ADAS Globus Pro — initial schema
 -- Run in the Supabase SQL Editor (Dashboard > SQL Editor > New query) against
 -- the project referenced by NEXT_PUBLIC_SUPABASE_URL.
 --
@@ -66,7 +66,7 @@ create table if not exists public.posts (
   excerpt          text not null default '',
   content          text not null default '',
   category         text not null default 'Insights',
-  author           text not null default 'ADAS Globus',
+  author           text not null default 'ADAS Globus Pro',
   cover_url        text,
   cover_alt        text,
   meta_title       text,

@@ -21,7 +21,7 @@ export default function LoginPage() {
       <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
 
       <div className="relative w-full max-w-md">
-        <Link href="/" className="flex flex-col items-center" aria-label="ADAS Globus home">
+        <Link href="/" className="flex flex-col items-center" aria-label="ADAS Globus Pro home">
           <Image
             src="/assets/logo-mark-alpha.png"
             alt=""

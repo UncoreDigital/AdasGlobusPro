@@ -7,13 +7,17 @@ import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import CTA from "@/components/sections/CTA";
 import { team } from "@/lib/content";
+import { getIcon } from "@/lib/icons";
+
+/** Practice-area icons, in the order lib/content.ts lists the three areas. */
+const PRACTICE_ICONS = ["Calculator", "Receipt", "ShieldCheck"] as const;
 import { figure, getSettings } from "@/lib/settings";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Our Team — Leadership, Bench Depth and Review Layers",
   description:
-    "The Chartered Accountants who lead ADAS Globus, how the delivery team is structured by grade, and the three layers of review every deliverable passes before it reaches your firm.",
+    "The Chartered Accountants who lead ADAS Globus Pro, how the delivery team is structured by grade, and the three layers of review every deliverable passes before it reaches your firm.",
   alternates: { canonical: "/team" },
 };
 
@@ -34,45 +38,50 @@ export default async function TeamPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Leadership"
-            title="Chartered Accountants Who Built"
-            accent="the Delivery Model Themselves"
+            title="Three Practice Areas, Each Led by"
+            accent="a Chartered Accountant"
             lead="The people who set the review standard are the people accountable for it — each leading the practice area they spent their own career in."
             align="center"
           />
 
+          {/*
+            Practice areas rather than people. Profiles are withheld behind
+            features.leadershipProfiles; the structural claim — three areas,
+            each owned by a qualified accountant — is the part a prospect is
+            actually evaluating, and it survives the anonymity.
+          */}
           <RevealGroup className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.leadership.map((leader) => (
-              <RevealItem
-                key={leader.name}
-                className="card-edge group flex h-full flex-col overflow-hidden transition-transform hover:-translate-y-1.5 hover:shadow-lift"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
-                  <Image
-                    src={leader.photo}
-                    alt={`${leader.name}, ${leader.role} at ${site.name}`}
-                    fill
-                    sizes="(min-width: 1024px) 20rem, (min-width: 640px) 45vw, 90vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                  {/* Gradient foot, so the name plate below never fights the photo. */}
-                  <div
-                    className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy-deep/70 to-transparent"
-                    aria-hidden="true"
-                  />
-                  <span className="absolute bottom-4 left-5 rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-navy-deep">
-                    {leader.focus}
+            {team.leadership.map((leader, i) => {
+              const AreaIcon = getIcon(PRACTICE_ICONS[i] ?? "Users");
+              return (
+                <RevealItem
+                  key={leader.focus}
+                  className="card-edge group flex h-full flex-col p-8 text-center transition-transform hover:-translate-y-1.5 hover:shadow-lift"
+                >
+                  <span
+                    className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl text-white"
+                    style={{ backgroundImage: "var(--gradient-brand)" }}
+                  >
+                    <AreaIcon className="h-7 w-7" aria-hidden="true" />
                   </span>
-                </div>
 
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-[17px] font-bold text-navy-deep">{leader.name}</h3>
-                  <p className="mt-1 text-[13px] font-semibold text-brand">{leader.role}</p>
-                  <p className="mt-4 flex-1 text-[14px] leading-[1.7] text-ink-muted">
+                  <h3 className="mt-6 text-[17px] font-bold leading-snug text-navy-deep">
+                    {leader.focus}
+                  </h3>
+                  <p className="mt-2 text-[13px] font-semibold text-brand">
+                    {leader.role}
+                  </p>
+
+                  <p className="mt-5 flex-1 border-t border-border pt-5 text-[14px] leading-[1.7] text-ink-muted">
                     {leader.bio}
                   </p>
-                </div>
-              </RevealItem>
-            ))}
+
+                  <p className="mt-5 text-[11.5px] font-bold uppercase tracking-[0.14em] text-accent-dark">
+                    Chartered Accountant
+                  </p>
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </div>
       </section>
@@ -89,7 +98,7 @@ export default async function TeamPage() {
           <Reveal className="relative -mb-px overflow-hidden rounded-t-2xl">
             <Image
               src="/assets/photos/team-floor.webp"
-              alt="The ADAS Globus delivery floor, with accounting professionals at work"
+              alt="The ADAS Globus Pro delivery floor, with accounting professionals at work"
               width={1536}
               height={1024}
               sizes="(min-width: 1320px) 1320px, 100vw"
@@ -266,13 +275,10 @@ export default async function TeamPage() {
             "@id": `${site.url}/#organization`,
             "@type": "Organization",
             name: site.name,
-            employee: team.leadership.map((leader) => ({
-              "@type": "Person",
-              name: leader.name,
-              jobTitle: leader.role,
-              image: `${site.url}${leader.photo}`,
-              worksFor: { "@id": `${site.url}/#organization` },
-            })),
+            /* No Person entries while features.leadershipProfiles is off —
+               structured data is published content, and naming people here
+               would undo the point of hiding them on the page. */
+            knowsAbout: team.leadership.map((leader) => leader.focus),
           },
         }}
       />

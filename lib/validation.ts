@@ -42,7 +42,7 @@ export const postSchema = z.object({
   excerpt: z.string().trim().max(400).default(""),
   content: z.string().default(""),
   category: z.string().trim().max(80).default("Insights"),
-  author: z.string().trim().max(120).default("ADAS Globus"),
+  author: z.string().trim().max(120).default("ADAS Globus Pro"),
   cover_url: z.string().trim().url().max(500).nullable().or(z.literal("")),
   cover_alt: z.string().trim().max(200).nullable().or(z.literal("")),
   meta_title: z.string().trim().max(200).nullable().or(z.literal("")),

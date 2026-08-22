@@ -321,7 +321,7 @@ export default function LeadsTable({ initialLeads }: { initialLeads: Lead[] }) {
 
                       <a
                         href={`mailto:${lead.email}?subject=${encodeURIComponent(
-                          "Re: your enquiry to ADAS Globus"
+                          "Re: your enquiry to ADAS Globus Pro"
                         )}`}
                         className="mt-5 inline-flex h-10 items-center gap-2 rounded-lg bg-navy-deep px-4 text-[13.5px] font-semibold text-white transition-colors hover:bg-navy"
                       >

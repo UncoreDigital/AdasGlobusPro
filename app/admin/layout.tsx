@@ -9,7 +9,7 @@ import type { Metadata } from "next";
  * independently.
  */
 export const metadata: Metadata = {
-  title: { default: "Admin", template: "%s | ADAS Globus Admin" },
+  title: { default: "Admin", template: "%s | ADAS Globus Pro Admin" },
   robots: { index: false, follow: false, nocache: true },
 };
 

@@ -29,7 +29,7 @@ export default function IndustriesPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "ItemList",
-          name: "Industries served by ADAS Globus",
+          name: "Industries served by ADAS Globus Pro",
           itemListElement: industries.map((industry, i) => ({
             "@type": "ListItem",
             position: i + 1,

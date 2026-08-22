@@ -16,6 +16,7 @@ const CROPS = [
   { name: "logo", top: 0.18, bottom: 0.83, note: "full lockup incl. ruled tagline" },
   { name: "logo-compact", top: 0.18, bottom: 0.69, note: "monogram + wordmark" },
   { name: "logo-mark", top: 0.19, bottom: 0.57, note: "AGP monogram alone" },
+  { name: "logo-wordmark", top: 0.565, bottom: 0.83, note: "ADAS GLOBUS PRO + ruled tagline" },
 ];
 
 /**
@@ -99,6 +100,63 @@ async function knockout(buf) {
     const out = await sharp(path.join(OUT, `${crop.name}.png`)).metadata();
     console.log(
       `${crop.name.padEnd(18)} ${String(out.width).padStart(4)}x${String(out.height).padEnd(4)} ratio ${(out.width / out.height).toFixed(3)}  field cleared ${clearedPct}%  ${crop.note}`
+    );
+  }
+
+  /*
+    Horizontal lockup, composited from the client's own artwork.
+
+    The supplied file is a poster lockup — monogram stacked over wordmark over a
+    ruled tagline. In a site header that whole stack has to fit ~50px, which
+    leaves the wordmark around 8px tall and the tagline illegible. Setting the
+    monogram beside the wordmark instead lets the header carry roughly three
+    times the wordmark height in the same vertical space, using nothing but the
+    client's own pixels — no re-typeset approximation of their letterforms.
+
+    Both halves are the alpha crops, so this works on any ground *except* navy,
+    where the wordmark is navy ink and disappears. Dark surfaces put it on a
+    light plate — see components/brand/Logo.tsx.
+  */
+  {
+    const mark = await sharp(path.join(OUT, "logo-mark-alpha.png")).toBuffer();
+    const word = await sharp(path.join(OUT, "logo-wordmark-alpha.png")).toBuffer();
+
+    const H = 320;                       // monogram height in the composite
+    const markMeta = await sharp(mark).metadata();
+    const markW = Math.round((markMeta.width / markMeta.height) * H);
+
+    /* Wordmark set to ~62% of the monogram height: enough to read, not so much
+       that it competes with the mark it is supposed to sit beside. */
+    const wordH = Math.round(H * 0.62);
+    const wordMeta = await sharp(word).metadata();
+    const wordW = Math.round((wordMeta.width / wordMeta.height) * wordH);
+
+    const GAP = Math.round(H * 0.16);
+    const width = markW + GAP + wordW;
+
+    const markScaled = await sharp(mark).resize({ width: markW, height: H }).toBuffer();
+    const wordScaled = await sharp(word).resize({ width: wordW, height: wordH }).toBuffer();
+
+    await sharp({
+      create: { width, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+    })
+      .composite([
+        { input: markScaled, left: 0, top: 0 },
+        /* Optically centred on the monogram rather than the box: the wordmark
+           block is bottom-heavy because of the ruled tagline under it. */
+        { input: wordScaled, left: markW + GAP, top: Math.round((H - wordH) / 2) },
+      ])
+      .png({ compressionLevel: 9 })
+      .toFile(path.join(OUT, "logo-horizontal-alpha.png"));
+
+    /* Opaque twin, for white surfaces where a flat file is cheaper to reason about. */
+    await sharp(path.join(OUT, "logo-horizontal-alpha.png"))
+      .flatten({ background: "#ffffff" })
+      .png({ compressionLevel: 9 })
+      .toFile(path.join(OUT, "logo-horizontal.png"));
+
+    console.log(
+      `${"logo-horizontal".padEnd(18)} ${width}x${H}  ratio ${(width / H).toFixed(3)}  monogram + wordmark, side by side`
     );
   }
 

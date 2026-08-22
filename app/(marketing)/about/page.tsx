@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Compass, Target } from "lucide-react";
+import { ArrowRight, Compass, Target, UserRound } from "lucide-react";
 import CountryCode from "@/components/CountryCode";
 import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
@@ -18,7 +18,7 @@ import { fadeLeft, fadeRight } from "@/lib/motion";
 export const metadata: Metadata = {
   title: "Who We Are — Offshore Accounting Built for U.S. Firms",
   description:
-    "ADAS Globus was founded in 2020 by three Chartered Accountants to give U.S. CPA firms offshore capacity that arrives ready to review. Our story, vision, mission and values.",
+    "ADAS Globus Pro was founded in 2020 by three Chartered Accountants to give U.S. CPA firms offshore capacity that arrives ready to review. Our story, vision, mission and values.",
   alternates: { canonical: "/about" },
 };
 
@@ -189,32 +189,29 @@ export default async function AboutPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Leadership"
-            title="Three Managing Directors,"
-            accent="Three Practice Areas"
+            title="Three Practice Areas,"
+            accent="Three Managing Directors"
             align="center"
           />
+          {/* Practice areas, not people — see features.leadershipProfiles. */}
           <RevealGroup className="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-3">
             {team.leadership.map((leader) => (
-              <RevealItem key={leader.name}>
+              <RevealItem key={leader.focus}>
                 <Link
                   href="/team"
-                  className="card-edge group flex h-full flex-col overflow-hidden transition-transform hover:-translate-y-1"
+                  className="card-edge group flex h-full flex-col items-center p-7 text-center transition-transform hover:-translate-y-1"
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
-                    <Image
-                      src={leader.photo}
-                      alt={`${leader.name}, ${leader.role}`}
-                      fill
-                      sizes="(min-width: 640px) 16rem, 90vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div className="p-5 text-center">
-                    <h3 className="text-[15px] font-bold text-navy-deep transition-colors group-hover:text-brand">
-                      {leader.name}
-                    </h3>
-                    <p className="mt-1 text-[12.5px] text-ink-muted">{leader.focus}</p>
-                  </div>
+                  <span
+                    className="flex h-14 w-14 items-center justify-center rounded-xl text-white"
+                    style={{ backgroundImage: "var(--gradient-brand)" }}
+                    aria-hidden="true"
+                  >
+                    <UserRound className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-5 text-[15px] font-bold leading-snug text-navy-deep transition-colors group-hover:text-brand">
+                    {leader.focus}
+                  </h3>
+                  <p className="mt-1.5 text-[12.5px] text-ink-muted">{leader.role}</p>
                 </Link>
               </RevealItem>
             ))}
@@ -274,22 +271,6 @@ export default async function AboutPage() {
             ))}
           </RevealGroup>
 
-          {/* Partnership disclosure, at poster scale where it was designed to sit. */}
-          <Reveal className="mt-12 flex flex-col items-center gap-4">
-            <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">
-              Strategic partnership
-            </p>
-            <div className="rounded-xl border border-border bg-white px-8 py-4">
-              <Image
-                src="/assets/logo-partnership.png"
-                alt="ADAS Globus in collaboration with POS Accounts"
-                width={1144}
-                height={166}
-                className="h-10 w-auto"
-              />
-            </div>
-          </Reveal>
-
           <Reveal className="mx-auto mt-12 max-w-3xl rounded-xl border border-border bg-white p-6">
             <p className="text-[13px] leading-relaxed text-ink-muted">
               <strong className="font-semibold text-navy-deep">Scope of practice.</strong>{" "}
@@ -311,11 +292,8 @@ export default async function AboutPage() {
             "@type": "Organization",
             name: site.name,
             foundingDate: String(site.founded),
-            employee: team.leadership.map((leader) => ({
-              "@type": "Person",
-              name: leader.name,
-              jobTitle: leader.role,
-            })),
+            /* No Person entries while features.leadershipProfiles is off. */
+            knowsAbout: team.leadership.map((leader) => leader.focus),
           },
         }}
       />

@@ -16,17 +16,18 @@ import { normaliseOrigin } from "@/lib/origin";
  *      here is deliberately rewritten rather than reused, so search engines see
  *      two distinct properties instead of one duplicated twice.
  *
- * The rebrand also introduces a second name: the domain says "ADAS Globus"
- * while the new mark reads "ADAS GLOBUS PRO". Both are kept separately below —
- * `name` is what body copy and page titles say, `markName` is what the logo
- * lockup renders. Copy that says "Pro" where the client only licenses
- * "ADAS Globus" is a legal problem, not a styling one.
+ * Naming is settled: the firm is "ADAS Globus Pro" everywhere on this site —
+ * body copy, page titles, structured data and the logo alike. The earlier build
+ * split `name` from `markName` because the domain said one thing and the mark
+ * said another; the client has confirmed Pro, so that split is gone.
+ *
+ * The domain and email addresses still read adasglobus.com. Those are real
+ * addresses, not brand names, and must not be "corrected".
  */
 
 export const site = {
-  name: "ADAS Globus",
-  markName: "ADAS Globus Pro",
-  legalName: "ADAS Globus",
+  name: "ADAS Globus Pro",
+  legalName: "ADAS Globus Pro",
 
   /**
    * From the mark's own ruled line: FINANCE · TALENT · GROWTH.
@@ -42,7 +43,7 @@ export const site = {
     "Precision-Engineered Accounting Outsourcing for U.S. CPA Firms and Enterprises",
 
   description:
-    "ADAS Globus gives U.S. CPA firms and finance teams dedicated offshore capacity across bookkeeping, tax preparation, audit support and professional hiring — working in your software, to your review standard, on your busy-season calendar.",
+    "ADAS Globus Pro gives U.S. CPA firms and finance teams dedicated offshore capacity across bookkeeping, tax preparation, audit support and professional hiring — working in your software, to your review standard, on your busy-season calendar.",
 
   /**
    * Canonical origin.
@@ -170,6 +171,23 @@ export const features = {
   clientPortal: false,
   /** Footer newsletter signup and POST /api/newsletter behind it. */
   newsletter: false,
+
+  /**
+   * Named leadership profiles — headshots, names, roles and bios on /team and
+   * /about.
+   *
+   * Off at the client's request. The sections stay, because "who leads each
+   * practice area" is a real answer a prospect wants; what is withheld is the
+   * identification. Each card renders the practice area and the credential
+   * instead of a person.
+   *
+   * Nothing is deleted: `team.leadership` in lib/content.ts keeps the names,
+   * bios and photo paths, and the headshots stay in public/assets/team/. This
+   * also governs the Person entries in the structured data on both pages —
+   * publishing names in JSON-LD while hiding them on the page would leak
+   * exactly what the flag exists to withhold.
+   */
+  leadershipProfiles: false,
 } as const;
 
 export type NavItem = {
@@ -183,7 +201,7 @@ export const navItems: NavItem[] = [
     name: "Who We Are",
     href: "/about",
     dropdown: [
-      { name: "About ADAS Globus", href: "/about", blurb: "How the firm is built, and why" },
+      { name: "About ADAS Globus Pro", href: "/about", blurb: "How the firm is built, and why" },
       { name: "Our Team", href: "/team", blurb: "Leadership, bench depth and review layers" },
       {
         name: "Technology & Security",

@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "FAQs — Engagement, Security, Pricing and Support",
   description:
-    "Answers on what ADAS Globus does, who we serve, how engagements are structured, how client data is protected, how pricing works and how we communicate.",
+    "Answers on what ADAS Globus Pro does, who we serve, how engagements are structured, how client data is protected, how pricing works and how we communicate.",
   alternates: { canonical: "/faqs" },
 };
 

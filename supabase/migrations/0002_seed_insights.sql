@@ -1,5 +1,5 @@
 -- ============================================================================
--- ADAS Globus — Insights seed content
+-- ADAS Globus Pro — Insights seed content
 -- Run after 0001_init.sql.
 --
 -- Four launch-ready posts, so the blog does not go live empty. An Insights
@@ -32,7 +32,7 @@ values
   'The Work That Should Happen Before January, Not During It',
   'Most busy-season pain is created in the autumn, when there is still time to prevent it. Here is what to fix between October and December.',
   'Practice Growth',
-  'ADAS Globus',
+  'ADAS Globus Pro',
   'Busy Season Readiness: A Q4 Checklist for CPA Firms',
   'The preparation work that decides how January through April actually goes — organiser chase, prior-year cleanup, capacity planning and template calibration.',
   'draft',
@@ -92,7 +92,7 @@ $post$
   'Offshore Support and Client Confidentiality: What Actually Applies',
   'The compliance question partners ask first, answered plainly — what the AICPA rules require, what disclosure looks like in practice, and what to ask a provider.',
   'Tax & Compliance',
-  'ADAS Globus',
+  'ADAS Globus Pro',
   'Offshore Accounting and AICPA Client Confidentiality Rules',
   'What U.S. CPA firms need to consider on confidentiality, client disclosure and due diligence before engaging an offshore accounting provider.',
   'draft',
@@ -146,7 +146,7 @@ $post$
   'Your SaaS Client Probably Owes Sales Tax in States They Have Never Visited',
   'Economic nexus caught up with software years ago. Most growing SaaS businesses have crossed thresholds nobody has checked — and the exposure compounds quietly.',
   'Tax & Compliance',
-  'ADAS Globus',
+  'ADAS Globus Pro',
   'Economic Nexus for SaaS: A Guide for CPA Firms',
   'How economic nexus thresholds and SaaS taxability rules create silent multi-state sales tax exposure for growing software clients, and how to find it.',
   'draft',
@@ -205,7 +205,7 @@ $post$
   'Prime Cost: The Number Multi-Unit Restaurant Clients Should See Every Week',
   'A monthly P&L tells a restaurant operator what went wrong after it is too late to fix. Weekly prime cost by location tells them while it still matters.',
   'Insights',
-  'ADAS Globus',
+  'ADAS Globus Pro',
   'Weekly Prime Cost Reporting for Restaurant and QSR Clients',
   'Why prime cost is the operating metric multi-unit restaurant clients need weekly, how to calculate it by location, and what the ratio should be.',
   'draft',

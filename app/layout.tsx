@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "tax preparation outsourcing",
     "audit support",
     "offshore bookkeeping",
-    "ADAS Globus",
+    "ADAS Globus Pro",
   ],
   authors: [{ name: site.name }],
   openGraph: {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.proposition}`,
     description: site.description,
     url: site.url,
-    images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.markName }],
+    images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.name }],
   },
   twitter: {
     card: "summary_large_image",

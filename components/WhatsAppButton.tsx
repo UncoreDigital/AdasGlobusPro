@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
   }, []);
 
   const href = `${site.whatsapp}?text=${encodeURIComponent(
-    "Hello, I would like to enquire about ADAS Globus."
+    "Hello, I would like to enquire about ADAS Globus Pro."
   )}`;
 
   return (

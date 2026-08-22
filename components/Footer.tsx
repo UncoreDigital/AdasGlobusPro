@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import CountryCode from "@/components/CountryCode";
 import Logo from "@/components/brand/Logo";
@@ -118,27 +117,6 @@ export default async function Footer() {
               </a>
             </div>
           ))}
-        </div>
-
-        {/*
-          Partnership disclosure. It is part of the supplied lockup, so it is
-          published here rather than cropped out and forgotten — but it belongs
-          in the footer, not in every page's chrome.
-
-          Uses the opaque crop on a light plate rather than the alpha version:
-          both wordmarks in that strip are navy, so knocking the field out would
-          leave navy-on-navy and the disclosure would be invisible.
-        */}
-        <div className="flex justify-center border-t border-white/10 py-8">
-          <div className="rounded-xl bg-white/95 px-6 py-3 shadow-soft">
-            <Image
-              src="/assets/logo-partnership.png"
-              alt="ADAS Globus in collaboration with POS Accounts"
-              width={1144}
-              height={166}
-              className="h-8 w-auto"
-            />
-          </div>
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-7 text-[13px] text-white/45 sm:flex-row">

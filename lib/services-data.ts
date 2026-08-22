@@ -206,7 +206,7 @@ export const services: Service[] = [
       "Our tax practice gives U.S. CPA firms the offshore preparation capacity to absorb high-volume, deadline-driven return work across individual, corporate, partnership, trust and non-profit entities.",
       "Preparation is the constraint, not review. A firm can review far more returns than it can prepare, which is why January to April is a staffing problem rather than a capability one. We take preparation off the critical path so your reviewers spend the season reviewing.",
       "Returns arrive review-ready: the workpapers are complete, the diagnostics are cleared, the carryforwards tie to last year, and open questions are listed in writing rather than buried in the file. Our preparers work in your tax software — Drake, UltraTax CS, Lacerte, ProSeries, ProConnect, CCH Axcess — against your own review checklist.",
-      "Nothing is signed or filed by ADAS Globus. Your firm remains the preparer of record and holds the final review.",
+      "Nothing is signed or filed by ADAS Globus Pro. Your firm remains the preparer of record and holds the final review.",
     ],
     scopeHeading: "Service scope",
     scope: [
@@ -276,7 +276,7 @@ export const services: Service[] = [
       "Our audit support service is built for U.S. CPA firms working under constrained assurance capacity — qualified offshore professionals who execute audit procedures, compile working papers and support engagements to your firm's own methodology and documentation standards.",
       "Audit support is the hardest offshore work to get right, because the deliverable is not a number but a file. A file that reaches the right conclusion with inadequate documentation fails peer review just as surely as one that reaches the wrong conclusion. Our professionals are trained on that distinction: GAAS, US GAAP, PCAOB standards and AICPA guidance, applied to your templates rather than to a generic house style.",
       "Every engagement begins by learning your methodology — how you structure a file, how much documentation a testing conclusion carries, how exceptions are escalated, and what your reviewers expect to find where. That calibration happens during onboarding, not during the engagement.",
-      "ADAS Globus does not issue opinions and is not a licensed audit firm. We prepare; your firm reviews, concludes and signs.",
+      "ADAS Globus Pro does not issue opinions and is not a licensed audit firm. We prepare; your firm reviews, concludes and signs.",
     ],
     scopeHeading: "Service scope",
     scope: [
@@ -344,7 +344,7 @@ export const services: Service[] = [
       "A dedicated offshore accountant — or a structured team — employed, managed and quality-controlled by us, working as part of yours.",
     intro: [
       "For firms scaling practice capacity and finance teams managing structural or seasonal volume, Professional Hiring places a dedicated accounting professional — or a structured multi-grade team — who operates as an integrated member of your organisation.",
-      "This is not a staffing agency arrangement, and the distinction matters commercially. Every professional placed under this model is employed, managed, quality-controlled and professionally developed by ADAS Globus. You receive the output of a supervised professional working inside your systems, without the payroll, benefits, recruitment, training, workspace or employment-risk overhead of an additional hire.",
+      "This is not a staffing agency arrangement, and the distinction matters commercially. Every professional placed under this model is employed, managed, quality-controlled and professionally developed by ADAS Globus Pro. You receive the output of a supervised professional working inside your systems, without the payroll, benefits, recruitment, training, workspace or employment-risk overhead of an additional hire.",
       "It also solves the problem an agency cannot: continuity. The person on your engagement is the person who learned your templates, sat through your onboarding and closed your books last month — and there is a trained second who can step in when they take leave.",
     ],
     scopeHeading: "What every placement includes",
@@ -397,7 +397,7 @@ export const services: Service[] = [
     meta: {
       title: "Hire Dedicated Offshore Accountants — Professional Hiring",
       description:
-        "Full-time, part-time, seasonal or team-build offshore accounting professionals for U.S. firms — employed, managed and quality-controlled by ADAS Globus.",
+        "Full-time, part-time, seasonal or team-build offshore accounting professionals for U.S. firms — employed, managed and quality-controlled by ADAS Globus Pro.",
     },
   },
 ];

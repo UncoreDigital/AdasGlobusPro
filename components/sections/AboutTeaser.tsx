@@ -81,7 +81,7 @@ export default function AboutTeaser({
 
             <Reveal variants={fadeLeft} className="mt-9">
               <Button href="/about" variant="outline" size="lg">
-                More about ADAS Globus
+                More about ADAS Globus Pro
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Button>
             </Reveal>
