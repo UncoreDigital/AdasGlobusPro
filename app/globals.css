@@ -80,9 +80,11 @@
       it and still fit the screen. Below md the utility strip is hidden and only
       the header bar counts; from md up both do.
 
-      Keep in step with Header (h-[4.5rem] / md:h-20) and TopBar (h-10).
+      Keep in step with Header (h-20 / md:h-24) and TopBar (h-10). The header
+      is sized around the stacked logo lockup, so changing one means changing
+      the other.
     */
-    --header-h: 4.5rem;
+    --header-h: 5rem;
 
     /* ---- Brand tokens ---- */
 
@@ -189,8 +191,8 @@
 
   @media (min-width: 768px) {
     :root {
-      /* TopBar (2.5rem) + Header (5rem) */
-      --header-h: 7.5rem;
+      /* TopBar (2.5rem) + Header (6rem) */
+      --header-h: 8.5rem;
     }
   }
 

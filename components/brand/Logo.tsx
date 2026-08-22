@@ -2,32 +2,34 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * The ADAS Globus Pro lockup — the client's artwork, not a re-typeset copy.
+ * The ADAS Globus Pro lockup — the client's artwork, exactly as supplied.
  *
- * The supplied file is a poster lockup: monogram stacked over wordmark over a
- * ruled tagline. Dropped into a site header that whole stack has to fit inside
- * ~50px, which leaves the wordmark around 8px tall and the tagline illegible.
+ * This is the full stacked lockup: AGP monogram, ADAS GLOBUS PRO beneath it,
+ * then the ruled FINANCE · TALENT · GROWTH line. Nothing is rearranged,
+ * re-typeset or recomposed.
  *
- * So `scripts/build-logo-assets.js` composites a horizontal lockup from the
- * client's own crops — monogram beside wordmark — which carries roughly three
- * times the wordmark height in the same vertical space. Every pixel is still
- * theirs; nothing is re-drawn.
+ * An earlier revision split the monogram out and set it beside the wordmark, to
+ * buy the wordmark more height in the header. The client asked for the artwork
+ * as drawn instead, so the header is sized around the lockup rather than the
+ * lockup being reshaped to fit the header: it runs at 64px tall on desktop
+ * inside a 96px bar. Do not shrink the header without checking what happens to
+ * the tagline rule — it is the first thing to become unreadable.
  *
  * ── Why `tone` matters ──────────────────────────────────────────────────────
  * The wordmark and tagline are navy ink (#041B3C) and the site's dark bands are
- * navy (#041C3E). They are the same colour to within a rounding error, so on a
- * dark surface the wordmark does not merely look weak — it is invisible.
+ * navy (#041C3E) — the same colour to within a rounding error. On a dark
+ * surface the lower two thirds of this lockup do not merely look weak, they are
+ * invisible.
  *
- * There is no light-ink version of this artwork, and inverting it would change
- * the client's colours. The honest options are a light plate behind it or a
- * re-typeset wordmark; the plate keeps the real artwork, so that is what
- * `tone="dark"` renders.
+ * There is no light-ink version of the artwork, and inverting it would change
+ * the client's colours. So `tone="dark"` sets the real lockup on a white plate,
+ * which is the only option that keeps the artwork intact.
  */
 
 const SIZES = {
-  sm: "h-8",
-  md: "h-10",
-  lg: "h-14",
+  sm: "h-11",
+  md: "h-16",
+  lg: "h-20",
 } as const;
 
 export default function Logo({
@@ -46,14 +48,14 @@ export default function Logo({
     flattened: the artwork's transparent counters would otherwise let the navy
     behind it show through the letterforms and undo the point of the plate.
   */
-  const src = tone === "dark" ? "/assets/logo-horizontal.png" : "/assets/logo-horizontal-alpha.png";
+  const src = tone === "dark" ? "/assets/logo.png" : "/assets/logo-alpha.png";
 
   const image = (
     <Image
       src={src}
       alt="ADAS Globus Pro — Finance, Talent, Growth"
-      width={2056}
-      height={320}
+      width={1149}
+      height={615}
       priority={priority}
       className={cn(SIZES[size], "w-auto object-contain")}
     />
@@ -63,7 +65,7 @@ export default function Logo({
     return (
       <span
         className={cn(
-          "inline-flex items-center rounded-xl bg-white px-4 py-2.5 shadow-soft",
+          "inline-flex items-center rounded-xl bg-white px-5 py-4 shadow-soft",
           className
         )}
       >

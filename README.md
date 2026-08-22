@@ -179,20 +179,38 @@ anything else.
 [`scripts/build-logo-assets.js`](scripts/build-logo-assets.js) derives three
 crops into `public/assets`, each in an opaque and an alpha version.
 
-The alpha cut is now a **global white key**, not the flood fill the old mark
-needed. That is a deliberate change: the 2025 globe had white landmasses
-*enclosed* inside the mark, so keying every white pixel punched holes through
-the continents and a border flood fill was the only safe approach. The 2026 mark
-has no white interior elements — the A's inner triangle is navy ink, and the P's
+The alpha cut is a **global white key**, not the flood fill the old mark needed.
+That is a deliberate change: the 2025 globe had white landmasses *enclosed*
+inside the mark, so keying every white pixel punched holes through the
+continents and a border flood fill was the only safe approach. The 2026 mark has
+no white interior elements — the A's inner triangle is navy ink, and the P's
 counter is background that *should* be transparent, which a flood fill cannot
 reach. If a future revision introduces a genuinely white-filled shape inside the
 mark, this has to go back to a flood fill.
 
-**The header and footer do not use the artwork.** At the ~40px a header allows
-the stacked wordmark is illegible, and on navy the wordmark and rule disappear
-because they are navy ink. [`components/brand/Logo.tsx`](components/brand/Logo.tsx)
-composes a horizontal lockup instead: the AGP monogram beside the wordmark as
-live text. The full artwork still appears at poster scale, on the OG card.
+### The lockup is used exactly as drawn
+
+Header, footer and 404 all render the full stacked lockup — monogram, wordmark,
+ruled tagline — with nothing rearranged or re-typeset.
+
+An earlier revision composited a *horizontal* lockup (monogram set beside the
+wordmark) to buy the wordmark roughly three times the height inside a header
+bar. The client asked for the artwork as drawn instead, so that composite is
+gone and **the header is sized around the lockup rather than the other way
+round**: 64px logo inside a 96px bar on desktop, 44px inside 80px on mobile.
+
+⚠️ Do not shrink the header without checking the tagline rule — FINANCE · TALENT
+· GROWTH is the first thing to become unreadable, and it is the reason the bar
+is as tall as it is. `--header-h` in
+[`app/globals.css`](app/globals.css) must be kept in step, or the hero stops
+fitting the fold.
+
+**Dark surfaces get a white plate.** The wordmark and tagline are navy ink
+(`#041B3C`) and the dark bands are navy (`#041C3E`) — the same colour to within
+a rounding error, so on navy the lower two thirds of the lockup are not weak,
+they are invisible. There is no light-ink version of the artwork and inverting
+it would change the client's colours, so the plate is the only option that keeps
+the artwork intact.
 
 ### Assets
 
@@ -205,10 +223,10 @@ Outputs are committed, so these only need running when new artwork arrives.
 
 | File | Use |
 |---|---|
-| `logo.png` / `logo-alpha.png` | full lockup incl. ruled tagline |
-| `logo-compact.png` / `-alpha` | monogram + wordmark |
-| `logo-mark-alpha.png` | AGP monogram — header, footer, admin, favicons |
-| `og.jpg` | 1200×630 social card, photo + composited lockup |
+| `logo.png` / `logo-alpha.png` | **the lockup** — header, footer, 404 |
+| `logo-compact.png` / `-alpha` | monogram + wordmark, no tagline |
+| `logo-mark-alpha.png` | AGP monogram — admin rail, favicons |
+| `og.jpg` | 1200×630 social card — built by `build-photo-assets.js`, not the logo script |
 | `software/*.webp` | 10 vendor logos, normalised to a common optical weight |
 
 ---

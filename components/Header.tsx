@@ -82,7 +82,7 @@ export default function Header() {
             : "border-transparent bg-white"
         )}
       >
-        <div className="container flex h-[4.5rem] items-center justify-between gap-6 md:h-20">
+        <div className="container flex h-20 items-center justify-between gap-6 md:h-24">
           <Link href="/" className="shrink-0" aria-label={`${site.name} home`}>
             <Logo size="md" priority />
           </Link>
@@ -250,7 +250,7 @@ function MobileDrawer({
             aria-modal="true"
             aria-label="Menu"
           >
-            <div className="flex h-[4.5rem] shrink-0 items-center justify-between border-b border-border px-5">
+            <div className="flex h-20 shrink-0 items-center justify-between border-b border-border px-5">
               <Logo size="sm" />
               <button type="button" onClick={onClose} className="rounded-md p-2 text-navy-deep" aria-label="Close menu">
                 <X className="h-5 w-5" />
