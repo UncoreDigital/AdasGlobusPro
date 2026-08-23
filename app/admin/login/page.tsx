@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Logo from "@/components/brand/Logo";
 import LoginForm from "@/components/admin/LoginForm";
 
 export const metadata: Metadata = {
@@ -21,20 +21,8 @@ export default function LoginPage() {
       <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
 
       <div className="relative w-full max-w-md">
-        <Link href="/" className="flex flex-col items-center" aria-label="ADAS Globus Pro home">
-          <Image
-            src="/assets/logo-mark-alpha.png"
-            alt=""
-            width={1094}
-            height={469}
-            aria-hidden="true"
-            className="h-14 w-auto"
-          />
-          <span className="mt-4 font-display text-lg font-extrabold uppercase tracking-tight">
-            <span className="text-white">Adas </span>
-            <span className="text-sky-light">Globus </span>
-            <span className="text-accent-light">Pro</span>
-          </span>
+        <Link href="/" className="flex justify-center" aria-label="ADAS Globus Pro home">
+          <Logo size="lg" tone="dark" />
         </Link>
 
         <div className="mt-8 rounded-2xl border border-white/10 bg-white p-8 shadow-lift">

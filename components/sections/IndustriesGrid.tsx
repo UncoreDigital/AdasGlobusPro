@@ -17,8 +17,10 @@ import { industries, industriesIntro } from "@/lib/industries-data";
  * that specificity is what separates this from a competitor's identical
  * five-industry grid.
  *
- * The source images are 418x536, so they are used as card headers at roughly
- * their native width and never stretched to full-bleed.
+ * Cards use the HD frames, not the 418x536 crops carried over from the old
+ * site. Those crops measure 16-27 mean luminance — near black — so they read as
+ * dark rectangles whatever the overlay does. The HD set is two to four times
+ * brighter and is already shipped for the detail-page banners.
  */
 export default function IndustriesGrid({ compact = false }: { compact?: boolean }) {
   return (
@@ -52,24 +54,33 @@ export default function IndustriesGrid({ compact = false }: { compact?: boolean 
                 >
                   <div className="relative h-36 overflow-hidden bg-navy-deep">
                     <Image
-                      src={industry.image}
+                      src={industry.imageHd}
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+                      quality={82}
                       aria-hidden="true"
-                      className="object-cover opacity-70 transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div
-                      className="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-navy-deep/20 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-navy-deep/10 to-transparent"
                       aria-hidden="true"
                     />
                     <span className="absolute bottom-4 left-5 flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-accent-light backdrop-blur transition-colors group-hover:bg-accent group-hover:text-navy-deep">
                       <Icon className="h-4 w-4" aria-hidden="true" />
                     </span>
-                    <ArrowUpRight
-                      className="absolute right-4 top-4 h-5 w-5 text-white/50 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-light"
-                      aria-hidden="true"
-                    />
+                    {/*
+                      Chipped, like the icon badge at the foot. A bare glyph was
+                      fine while the frames were near black; now that they are
+                      properly exposed it lands on whatever happens to be in the
+                      top-right corner and disappears against the light ones.
+                    */}
+                    <span className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg bg-navy-deep/55 backdrop-blur transition-colors group-hover:bg-accent">
+                      <ArrowUpRight
+                        className="h-4 w-4 text-white transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-navy-deep"
+                        aria-hidden="true"
+                      />
+                    </span>
                   </div>
 
                   <div className="flex flex-1 flex-col p-6">

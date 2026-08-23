@@ -36,9 +36,10 @@ export type Industry = {
   /** The sector-specific service list. */
   scope: string[];
   faqs: { q: string; a: string }[];
-  /** Card thumbnail, 418x536, imported from the live site. */
-  image: string;
-  /** Page-header photography, 1536x1024. See scripts/build-photo-assets.js. */
+  /**
+   * Photography, 1536x1024. Used for both the card header and the detail-page
+   * banner — the old site's 418x536 crops were too dark to read as images.
+   */
   imageHd: string;
   /** Lucide icon name, resolved through lib/icons.ts. */
   icon: string;
@@ -106,7 +107,6 @@ export const industries: Industry[] = [
         a: "Yes. Manufacturing exemption rules vary substantially by state, and we track exemption certificates and apply the correct treatment per jurisdiction as part of multi-state sales and use tax compliance.",
       },
     ],
-    image: "/assets/industries/manufacturing.webp",
     imageHd: "/assets/industries/manufacturing-hd.webp",
     icon: "Factory",
     meta: {
@@ -176,7 +176,6 @@ export const industries: Industry[] = [
         a: "Yes. We prepare the capitalisation and amortisation schedules, track the book-tax difference, and coordinate the substantiation your firm needs to support an R&D credit claim.",
       },
     ],
-    image: "/assets/industries/it-software-tech-services.webp",
     imageHd: "/assets/industries/it-software-tech-services-hd.webp",
     icon: "Cpu",
     meta: {
@@ -248,7 +247,6 @@ export const industries: Industry[] = [
         a: "Yes. Cost percentages by outlet and period, margin analysis, waste and variance reporting, and the trend view that shows where margin is actually leaking.",
       },
     ],
-    image: "/assets/industries/hospitality.webp",
     imageHd: "/assets/industries/hospitality-hd.webp",
     icon: "Hotel",
     meta: {
@@ -318,7 +316,6 @@ export const industries: Industry[] = [
         a: "Yes — royalty and advertising fund accruals, reconciliation to franchisor statements, area developer reporting and the periodic financial reporting a franchise agreement requires.",
       },
     ],
-    image: "/assets/industries/qsr-restaurants-food-chains.webp",
     imageHd: "/assets/industries/qsr-restaurants-food-chains-hd.webp",
     icon: "UtensilsCrossed",
     meta: {
@@ -388,7 +385,6 @@ export const industries: Industry[] = [
         a: "Yes — contribution margin by channel and SKU, cohort analysis, CAC and LTV, inventory turns and the diligence-ready statements a raise or credit facility will require.",
       },
     ],
-    image: "/assets/industries/e-commerce.webp",
     imageHd: "/assets/industries/e-commerce-hd.webp",
     icon: "ShoppingCart",
     meta: {

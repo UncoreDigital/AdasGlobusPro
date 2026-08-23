@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -14,6 +13,7 @@ import {
   Settings,
   X,
 } from "lucide-react";
+import Logo from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { features, site } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
@@ -59,25 +59,14 @@ export default function AdminShell({
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-white/10 bg-navy-deep transition-transform lg:static lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-white/10 bg-navy-deep transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex items-start justify-between gap-3 border-b border-white/10 p-5">
           <Link href="/admin" className="min-w-0">
-            <Image
-              src="/assets/logo-mark-alpha.png"
-              alt=""
-              width={1094}
-              height={469}
-              aria-hidden="true"
-              className="h-8 w-auto"
-            />
-            <span className="mt-2.5 block font-display text-[13px] font-extrabold uppercase tracking-tight text-white">
-              Adas <span className="text-sky-light">Globus</span>{" "}
-              <span className="text-accent-light">Pro</span>
-            </span>
-            <span className="mt-0.5 block text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/40">
+            <Logo size="md" tone="dark" />
+            <span className="mt-3 block text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/40">
               Admin Panel
             </span>
           </Link>
@@ -91,7 +80,7 @@ export default function AdminShell({
           </button>
         </div>
 
-        <nav className="flex-1 space-y-1 p-3" aria-label="Admin">
+        <nav className="flex-1 space-y-1 overflow-y-auto p-3" aria-label="Admin">
           {navItems.map((item) => {
             const active = isActive(item.href, item.exact);
             return (
@@ -165,12 +154,13 @@ export default function AdminShell({
           >
             <Menu className="h-6 w-6" />
           </button>
-          <span className="font-display text-[14px] font-extrabold text-navy-deep">
-            Admin Panel
+          <Logo size="sm" />
+          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-muted">
+            Admin
           </span>
         </header>
 
-        <main className="flex-1 overflow-auto p-5 lg:p-9">{children}</main>
+        <main className="flex-1 p-5 lg:p-9">{children}</main>
       </div>
     </div>
   );
