@@ -69,8 +69,8 @@ export default function Software({
         <div className="container">
           <SectionHeading
             eyebrow={technologyTeaser.eyebrow}
-            title="We Adapt to Your Stack."
-            accent="You Change Nothing."
+            title={technologyTeaser.title}
+            accent={technologyTeaser.accent}
             lead={technologyTeaser.body}
             align="center"
           />
@@ -114,8 +114,8 @@ export default function Software({
       <div className="container">
         <SectionHeading
           eyebrow={technologyTeaser.eyebrow}
-          title="We Adapt to Your Stack."
-          accent="You Change Nothing."
+          title={technologyTeaser.title}
+          accent={technologyTeaser.accent}
           lead={technologyTeaser.body}
           align="center"
         />

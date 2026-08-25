@@ -7,10 +7,10 @@ import { getIcon } from "@/lib/icons";
  * The four ways a firm can engage us.
  *
  * On the source site this was buried three-quarters of the way down the
- * Professional Hiring page, where only a reader already sold on the idea would
- * find it. It belongs earlier and higher: "what would this actually look like
- * for us" is a question people ask before they ask what it costs, and answering
- * it up front removes the main reason a visitor leaves to think about it.
+ * Dedicated Offshore Professionals page, where only a reader already sold on the
+ * idea would find it. It belongs earlier and higher: "what would this actually
+ * look like for us" is a question people ask before they ask what it costs, and
+ * answering it up front removes the main reason a visitor leaves to think.
  */
 export default function EngagementModels({
   onDark = false,

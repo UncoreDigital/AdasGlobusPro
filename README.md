@@ -459,7 +459,7 @@ survive the cutover:
 | `/elite-accounting-solutions.php` | `/services/elite-accounting-solutions` |
 | `/spectrum-of-taxes.php` | `/services/spectrum-of-taxes` |
 | `/audit-excellence.php` | `/services/audit-excellence` |
-| `/professional-hiring.php` | `/services/professional-hiring` |
+| `/professional-hiring.php` | `/services/dedicated-offshore-professionals` |
 | `/industries-we-serve.php` | `/industries` |
 | `/manufacturing.php` | `/industries/manufacturing` |
 | `/it-software-tech-services.php` | `/industries/it-software-tech-services` |

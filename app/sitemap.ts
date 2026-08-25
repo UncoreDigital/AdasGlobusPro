@@ -20,7 +20,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/about", priority: 0.8, freq: "monthly" },
     { path: "/team", priority: 0.7, freq: "monthly" },
     { path: "/services", priority: 0.9, freq: "monthly" },
-    { path: "/industries", priority: 0.8, freq: "monthly" },
+    /* High priority: it is what the top nav points at, and it carries the role
+       vocabulary the client's outreach uses. */
+    { path: "/accounting-roles", priority: 0.9, freq: "monthly" },
+    /* Dropped from 0.8 when industries left the top nav — the pages stay, but
+       they are no longer a primary entry point. */
+    { path: "/industries", priority: 0.6, freq: "monthly" },
     { path: "/technology-and-security", priority: 0.7, freq: "monthly" },
     { path: "/faqs", priority: 0.6, freq: "monthly" },
     { path: "/contact", priority: 0.9, freq: "monthly" },

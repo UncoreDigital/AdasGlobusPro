@@ -39,11 +39,16 @@ export const site = {
    */
   tagline: "Finance. Talent. Growth.",
 
-  proposition:
-    "Precision-Engineered Accounting Outsourcing for U.S. CPA Firms and Enterprises",
+  /*
+    Rewritten on the 24 August brief. The old line — "Precision-Engineered
+    Accounting Outsourcing for U.S. CPA Firms and Enterprises" — was exactly the
+    enterprise-outsourcing register the client asked us to drop, and "Enterprises"
+    named an audience they do not sell to.
+  */
+  proposition: "Add Accounting Capacity Without Adding U.S. Headcount",
 
   description:
-    "ADAS Globus Pro gives U.S. CPA firms and finance teams dedicated offshore capacity across bookkeeping, tax preparation, audit support and professional hiring — working in your software, to your review standard, on your busy-season calendar.",
+    "ADAS Globus Pro gives U.S. CPA, accounting and tax firms qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team — part-time, full-time or seasonal, potentially 60%+ below the cost of a U.S. hire. Built and run by Chartered Accountants. 3-day free trial.",
 
   /**
    * Canonical origin.
@@ -188,6 +193,20 @@ export const features = {
    * exactly what the flag exists to withhold.
    */
   leadershipProfiles: false,
+
+  /**
+   * The certification badges on the homepage and the security page.
+   *
+   * The 24 August brief asks for "AICPA/SOC 2 Certified" and "ISO Certified —
+   * use the exact certification wording", but supplied wording for neither. The
+   * AICPA/SOC 2 entry ships in the client's own words; the ISO entry is held.
+   *
+   * This flag is the master switch for the whole band. Per-certificate control
+   * is the `published` field on each entry in `certifications` — see
+   * lib/content.ts. Turning this off hides the row entirely, which is the right
+   * move if the client wants nothing shown until both are confirmed.
+   */
+  certifications: true,
 } as const;
 
 export type NavItem = {
@@ -204,9 +223,9 @@ export const navItems: NavItem[] = [
       { name: "About ADAS Globus Pro", href: "/about", blurb: "How the firm is built, and why" },
       { name: "Our Team", href: "/team", blurb: "Leadership, bench depth and review layers" },
       {
-        name: "Technology & Security",
+        name: "Security & Technology",
         href: "/technology-and-security",
-        blurb: "AI-augmented delivery, ISO 27001-aligned controls",
+        blurb: "Secure remote desktop, restricted access, 24/7 monitoring",
       },
     ],
   },
@@ -235,31 +254,23 @@ export const navItems: NavItem[] = [
         blurb: "Working papers, substantive testing, SOX and SOC support",
       },
       {
-        name: "Professional Hiring",
-        href: "/services/professional-hiring",
-        blurb: "Dedicated offshore professionals and structured team builds",
+        name: "Dedicated Offshore Professionals",
+        href: "/services/dedicated-offshore-professionals",
+        blurb: "Trained accountants as an extension of your team, not a recruitment fee",
       },
     ],
   },
-  {
-    name: "Industries We Serve",
-    href: "/industries",
-    dropdown: [
-      { name: "Manufacturing", href: "/industries/manufacturing", blurb: "Small & mid-scale units" },
-      {
-        name: "IT / Software / Tech Services",
-        href: "/industries/it-software-tech-services",
-        blurb: "SaaS and technology",
-      },
-      { name: "Hospitality", href: "/industries/hospitality", blurb: "Hotels, cafes, service apartments" },
-      {
-        name: "QSR / Restaurants / Food Chains",
-        href: "/industries/qsr-restaurants-food-chains",
-        blurb: "Multi-location food service",
-      },
-      { name: "E-Commerce & D2C Brands", href: "/industries/e-commerce", blurb: "Multi-channel digital commerce" },
-    ],
-  },
+  /*
+    Industries left the top nav on the 24 August brief — the client's outreach
+    and LinkedIn job posts are role-shaped, so "Accounting Roles" is the heading
+    a visitor arrives expecting.
+
+    The industry pages themselves are untouched and still reachable, from the
+    footer and from /industries. They carry real search intent ("outsourced
+    accounting for restaurants") that would be thrown away by deleting them, and
+    the client asked to reduce the emphasis rather than remove the content.
+  */
+  { name: "Accounting Roles", href: "/accounting-roles" },
   { name: "FAQs", href: "/faqs" },
   ...(features.insights ? [{ name: "Insights", href: "/blog" }] : []),
 ];
@@ -273,7 +284,7 @@ export const footerNav = [
       { name: "Elite Accounting Solutions", href: "/services/elite-accounting-solutions" },
       { name: "Spectrum of Taxes", href: "/services/spectrum-of-taxes" },
       { name: "Audit Excellence", href: "/services/audit-excellence" },
-      { name: "Professional Hiring", href: "/services/professional-hiring" },
+      { name: "Dedicated Offshore Professionals", href: "/services/dedicated-offshore-professionals" },
     ],
   },
   {

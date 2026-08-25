@@ -38,7 +38,7 @@ const legacyRoutes = {
   "/elite-accounting-solutions.php": "/services/elite-accounting-solutions",
   "/spectrum-of-taxes.php": "/services/spectrum-of-taxes",
   "/audit-excellence.php": "/services/audit-excellence",
-  "/professional-hiring.php": "/services/professional-hiring",
+  "/professional-hiring.php": "/services/dedicated-offshore-professionals",
   "/industries-we-serve.php": "/industries",
   "/manufacturing.php": "/industries/manufacturing",
   "/it-software-tech-services.php": "/industries/it-software-tech-services",
@@ -61,9 +61,23 @@ const nextConfig = {
       : [],
   },
   async redirects() {
-    /* See the note on legacyRoutes — intentionally empty while the old site
-       remains live at its own domain. */
-    return [];
+    /*
+      See the note on legacyRoutes — that map stays off while the old site
+      remains live at its own domain.
+
+      This one is ours, though. "Professional Hiring" was renamed to
+      "Dedicated Offshore Accounting Professionals" on the 24 August brief and
+      the slug moved with it. Anything already pointing at the old path — a
+      draft email, a bookmark, a preview URL shared with the client — keeps
+      working.
+    */
+    return [
+      {
+        source: "/services/professional-hiring",
+        destination: "/services/dedicated-offshore-professionals",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [

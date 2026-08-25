@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import AboutTeaser from "@/components/sections/AboutTeaser";
+import AccountingRoles from "@/components/sections/AccountingRoles";
 import BusySeason from "@/components/sections/BusySeason";
 import CTA from "@/components/sections/CTA";
+import CostAdvantage from "@/components/sections/CostAdvantage";
 import Coverage from "@/components/sections/Coverage";
-import EngagementModels from "@/components/sections/EngagementModels";
+import FreeTrial from "@/components/sections/FreeTrial";
 import Hero from "@/components/sections/Hero";
-import IndustriesGrid from "@/components/sections/IndustriesGrid";
-import PricingTeaser from "@/components/sections/PricingTeaser";
-import ServicesGrid from "@/components/sections/ServicesGrid";
 import Software from "@/components/sections/Software";
 import Testimonials from "@/components/sections/Testimonials";
-import Usps from "@/components/sections/Usps";
+import TrustCompliance from "@/components/sections/TrustCompliance";
 import WhyUs from "@/components/sections/WhyUs";
 import Workflow from "@/components/sections/Workflow";
 import { homeCta } from "@/lib/content";
@@ -24,29 +22,42 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+/*
+  Recomposed on the 24 August brief, which asked to cut the homepage length and
+  the repetitive corporate language. Fourteen bands became twelve, and the ones
+  that remain answer the questions in the order a firm asks them: I cannot
+  staff April → here are the roles → here is what it costs → here is who is
+  handling my clients' data → here is how it starts, free.
+
+  Removed: AboutTeaser and Usps (both restated WhyUs in different words),
+  ServicesGrid (still in the top nav and the footer), IndustriesGrid (footer
+  only now — the brief asked to reduce the emphasis, not delete the pages, and
+  they carry real search intent), and the standalone EngagementModels band,
+  which is now a strip inside AccountingRoles where the question actually
+  arises.
+
+  The dark/light alternation is deliberate. CostAdvantage and WhyUs are both
+  navy, so TrustCompliance sits between them rather than where its subject
+  matter would otherwise put it.
+*/
 export default async function HomePage() {
   const settings = await getSettings();
 
   return (
     <>
       <Hero clients={figure(settings.clients)} accuracy={figure(settings.accuracy)} />
-      <AboutTeaser
-        professionals={figure(settings.employees)}
-        engagements={figure(settings.projects)}
-      />
-      <ServicesGrid heading="Five Service Lines," accent="One Delivery Standard" />
       <BusySeason />
+      <AccountingRoles />
+      <CostAdvantage />
+      <TrustCompliance />
       <WhyUs />
-      <EngagementModels />
       <Workflow />
-      <IndustriesGrid compact />
       <Coverage
         clients={splitFigure(settings.clients)}
         transactions={splitFigure(settings.transactions)}
       />
       <Software />
-      <Usps />
-      <PricingTeaser />
+      <FreeTrial />
       <Testimonials />
       <CTA
         heading={homeCta.heading}
@@ -79,11 +90,11 @@ export default async function HomePage() {
             })),
             areaServed: { "@type": "Country", name: "United States" },
             knowsAbout: [
+              "Outsourced bookkeeping for CPA firms",
+              "Offshore tax preparation staffing",
               "US GAAP",
               "IRS tax preparation",
-              "PCAOB audit standards",
-              "State and local tax compliance",
-              "Offshore accounting outsourcing",
+              "Seasonal accounting capacity",
             ],
           },
           {

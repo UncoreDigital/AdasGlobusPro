@@ -16,10 +16,13 @@
  *     Figures that change over time live in Supabase `site_settings` instead —
  *     see lib/settings.ts — so the client can update them without a deploy.
  *
- *  2. ISO 27001 is described as "aligned", never "certified". The client's own
- *     site says aligned; upgrading that word is a compliance misrepresentation,
- *     not a copy improvement. The same applies to SOC 2: we support clients'
- *     SOC 2 work, we do not claim to hold a report.
+ *  2. Certification claims are published only in the client's own words. The
+ *     24 August brief states ADAS Globus Pro is "AICPA/SOC 2 Certified" and
+ *     "ISO Certified — use the exact certification wording", but supplied the
+ *     exact wording for neither standard. A CPA firm verifies these during its
+ *     own due diligence, so a wrong claim costs more than a missing one. See
+ *     `certifications` below: each entry carries a `published` flag, and
+ *     anything still awaiting wording stays off the site.
  *
  *  3. ADAS Globus Pro is not a CPA firm and does not sign, file or issue opinions.
  *     Copy must never imply otherwise — the client firm keeps the engagement,
@@ -31,36 +34,36 @@
    --------------------------------------------------------------------------- */
 
 export const boundary =
-  "ADAS Globus Pro is an outsourcing partner, not a CPA firm. We do not sign returns, issue audit opinions, or hold ourselves out as licensed to practise public accounting in any U.S. state. Your firm retains the client relationship, the professional judgement and the final sign-off.";
+  "ADAS Globus Pro provides trained accounting professionals who work as an extension of your team. We are not a CPA firm: we do not sign returns, issue audit opinions, or hold ourselves out as licensed to practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off.";
 
 /* ---------------------------------------------------------------------------
    Homepage
    --------------------------------------------------------------------------- */
 
 export const hero = {
-  headline: "Offshore Accounting Capacity",
-  /** Rendered in accent as the emphasised second line of the H1. */
-  headlineAccent: "Built for U.S. CPA Firms",
-  subhead: "Serving CPA practices and finance teams across all 50 states",
-  primaryCta: { label: "Schedule a Consultation", href: "/contact" },
-  secondaryCta: { label: "Explore Services", href: "/services" },
-  lead: "Qualified accountants, tax preparers and audit associates working inside your software, to your review standard, on your busy-season calendar — so 1040 season stops being a hiring problem.",
+  headline: "Add Accounting Capacity",
+  /** Rendered in the accent gradient as the emphasised second line of the H1. */
+  headlineAccent: "Without Adding U.S. Headcount",
+  subhead: "Staffing for U.S. CPA, accounting and tax firms",
+  primaryCta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
+  secondaryCta: { label: "Talk to Us", href: "/contact" },
+  lead: "Qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team — part-time, full-time or just for the season, without the cost of a U.S. hire.",
   chips: [
-    "US GAAP · IRS · PCAOB trained",
-    "Works in your software",
-    "ISO 27001-aligned",
-    "Overnight turnaround",
+    "Built and run by Chartered Accountants",
+    "Part-time · Full-time · Seasonal",
+    "Potentially 60%+ below a U.S. hire",
+    "3-day free trial",
   ],
 };
 
 export const aboutTeaser = {
   eyebrow: "Who We Are",
-  heading: "Your Offshore Accounting Division — Not Another Vendor to Manage",
+  heading: "Built and Run by Chartered Accountants",
   points: [
-    "Serving U.S. CPA practices, public accounting firms and corporate finance functions since 2020, with a delivery centre built specifically around American engagement standards and busy-season cycles.",
-    "Staffed by qualified accountants, tax preparers and audit associates trained in US GAAP, IRS procedure, PCAOB and AICPA guidance — not generalists reassigned to a U.S. desk.",
-    "AI-augmented workflows cut manual processing time by up to 60%, compressing month-end close, 1040 and 1120 turnaround, and financial reporting delivery without adding review burden.",
-    "Engagement models built for how U.S. firms actually staff: full-time dedicated professionals, part-time capacity, seasonal surge for January through April, or a permanent offshore bench.",
+    "We are accountants, not a recruitment agency. The firm is owned and led by practising Chartered Accountants, which is why our people arrive understanding month-end close, workpaper standards and what a reviewer is actually looking for.",
+    "Every professional is employed, trained and supervised by us. You get the output of a qualified, managed accountant working inside your systems — without the recruiting, benefits, payroll tax and onboarding cost of hiring locally.",
+    "Serving U.S. CPA, accounting and tax firms since 2020, with a delivery centre built around American engagement standards and the January-to-April calendar.",
+    "Part-time, full-time, seasonal or a permanent bench. You size the capacity to the work, not the other way round.",
   ],
 };
 
@@ -74,24 +77,24 @@ export const aboutTeaser = {
  */
 export const whyUs = [
   {
-    title: "Native to Your Software Stack",
-    body: "We work inside the environment you already run — QuickBooks Online and Desktop, Xero, Sage Intacct, NetSuite, Dynamics 365, and the tax stack on top of it: Drake, UltraTax CS, Lacerte, ProSeries, CCH Axcess. No migration, no parallel chart of accounts, no change to how your clients are billed. Onboarding is measured in days.",
-    icon: "Plug",
-  },
-  {
-    title: "Trained on U.S. Standards, Not Adapted to Them",
-    body: "US GAAP, IRS procedure, AICPA guidance and PCAOB standards are what our professionals are trained on from day one — including the parts that trip up offshore teams: state nexus, multi-state apportionment, Schedule K-1 allocations, and the documentation standard a peer reviewer will actually look for.",
+    title: "Built and Run by Chartered Accountants",
+    body: "The firm is owned and led by practising CAs, so the people setting the review standard have sat on your side of it. That is the difference between a staffing vendor sending you a CV and a firm sending you someone who already knows what a clean workpaper looks like.",
     icon: "Landmark",
   },
   {
-    title: "AI-Augmented, Human-Reviewed",
-    body: "Our automation reaches better than 95% first-pass transaction categorisation and compresses bank reconciliation cycles by up to 70%. What it flags goes to a person; what it resolves does not. Every deliverable still clears preparer, reviewer and engagement-manager sign-off before it reaches your desk.",
-    icon: "Sparkles",
+    title: "Native to Your Software",
+    body: "We work inside the environment you already run — QuickBooks, Xero, Sage Intacct, NetSuite — and the tax stack on top of it: UltraTax CS, Drake, ProSeries, Lacerte, CCH Axcess. No migration, no new chart of accounts, nothing your clients would notice.",
+    icon: "Plug",
   },
   {
-    title: "You Keep Control — and the Sign-Off",
-    body: "You set the priorities, the task list and the review protocol. Daily timesheets and weekly task plans make the work visible, and nothing is filed, signed or issued by us. Your firm holds the client relationship, the professional judgement and the final review.",
-    icon: "SlidersHorizontal",
+    title: "Trained on U.S. Standards",
+    body: "US GAAP, IRS procedure and AICPA guidance from day one — including the parts that catch offshore teams out: state nexus, multi-state apportionment, K-1 allocations, and the documentation depth a peer reviewer expects.",
+    icon: "BadgeCheck",
+  },
+  {
+    title: "An Extension of Your Team",
+    body: "Your people stay on review, client relationships and advisory work. Ours handle the agreed bookkeeping, accounting and tax preparation. You set the priorities and hold the sign-off; we make the capacity available.",
+    icon: "Users2",
   },
 ];
 
@@ -103,11 +106,11 @@ export const whyUs = [
  * likely to earn the call.
  */
 export const busySeason = {
-  eyebrow: "Busy Season",
-  heading: "The Four Months That Decide Your Year",
-  body: "Between the January 31 information-return deadline and the April 15 individual filing deadline, a U.S. practice needs roughly twice the preparer capacity it can justify employing for the other eight months. Hiring for the peak means carrying it through the trough; not hiring for it means turning work away or burning out the people you have.",
+  eyebrow: "The Hiring Problem",
+  heading: "You Cannot Hire for April and Pay for It All Year",
+  body: "Between the January 31 information-return deadline and April 15, a U.S. practice needs roughly twice the preparer capacity it can justify employing for the other eight months. Hire for the peak and you carry the cost through the trough. Do not hire, and you turn work away or burn out the people you have — and experienced preparers are the hardest role in the profession to fill right now.",
   resolution:
-    "A dedicated offshore bench solves the arithmetic. Capacity scales into January and back out in May, the professionals on your engagement are the same ones who learned your templates in the autumn, and your reviewers spend the season reviewing rather than preparing.",
+    "Seasonal capacity solves the arithmetic. Bring people on in January and stand them down in May, staffed by professionals who learned your templates in the autumn so week one is productive rather than instructional.",
   milestones: [
     { date: "Jan 31", label: "1099-NEC, 1099-MISC and W-2 filing" },
     { date: "Mar 17", label: "Form 1065 and 1120-S deadline" },
@@ -134,26 +137,6 @@ export const usps = [
     icon: "Clock",
   },
   {
-    title: "Enterprise-Grade Data Security",
-    body: "ISO 27001-aligned controls, least-privilege access, signed NDAs.",
-    icon: "Lock",
-  },
-  {
-    title: "Support Beyond Business Hours",
-    body: "Extended coverage through busy season and around filing deadlines.",
-    icon: "Headphones",
-  },
-  {
-    title: "Deadlines Held, Not Negotiated",
-    body: "Turnaround is agreed in writing at scoping and tracked against it.",
-    icon: "CalendarCheck",
-  },
-  {
-    title: "AI-Enabled Process Automation",
-    body: "Exception-driven workflows, so review time goes where it is needed.",
-    icon: "Bot",
-  },
-  {
     title: "Built-In Team Backup",
     body: "Every engagement has a trained second, so leave never stalls work.",
     icon: "Users2",
@@ -161,9 +144,11 @@ export const usps = [
 ];
 
 export const technologyTeaser = {
-  eyebrow: "Technology",
-  heading: "We Adapt to Your Stack. You Change Nothing.",
-  body: "Our professionals hold current working proficiency across the accounting, ERP and tax platforms U.S. firms actually run — general ledger, tax prep, workpaper management, payroll and AP automation. You do not migrate, you do not retrain your staff, and your clients never see a change in how their work is handled.",
+  eyebrow: "Software",
+  /* Split for SectionHeading, which renders the accent half in the gradient. */
+  title: "We Work in",
+  accent: "Your Software",
+  body: "Our professionals work in the platforms U.S. firms actually run — general ledger, tax preparation, workpapers and payroll. You do not migrate, you do not retrain your staff, and your clients never see a change in how their work is handled.",
 };
 
 /**
@@ -202,21 +187,22 @@ export const coverage = {
       time: "9:00 AM",
       zone: "Your office",
       label: "On your desk",
-      body: "Completed work and a short status note are waiting. Your reviewers review; they do not prepare.",
+      body: "Completed work and a short status note are waiting, so your team's day starts on review and client conversations rather than on preparation.",
     },
   ],
 };
 
-export const pricingTeaser = {
-  heading: "Would You Like to Validate Our Work First?",
-  subheading: "Starting at $199",
-  body: "Run a scoped pilot before committing to anything. We agree the deliverable, the turnaround and the review protocol up front — then you assess the output against your own standard, with your own reviewer, before an ongoing engagement is discussed.",
-  cta: { label: "Start a Pilot", href: "/contact" },
+export const freeTrial = {
+  eyebrow: "Try Before You Commit",
+  heading: "Three Days of Real Work, Free",
+  subheading: "3-Day Free Trial",
+  body: "Give us live work — a set of returns, a month's bookkeeping, a batch of reconciliations — and we do it at our cost. You review the output with your own reviewer, against your own standard, before any money changes hands.",
+  cta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
   points: [
-    "Scope agreed in writing first",
-    "Your templates and review protocol",
-    "No ongoing commitment",
-    "Assessed against your own standard",
+    "Real work, not a sample file",
+    "Your software, your templates",
+    "Assessed by your own reviewer",
+    "No card, no commitment",
   ],
 };
 
@@ -227,41 +213,68 @@ export const pricingTeaser = {
  * them. Do not invent names, and do not reword the quotes to fit the U.S.
  * framing: a testimonial that has been edited is no longer a testimonial.
  */
+/*
+  ⚠️ CLIENT TO CONFIRM — attribution.
+
+  The brief asks to "improve testimonial credibility", and the single biggest
+  lever is a real name and firm against each quote. These are anonymised by
+  role, which is what the source site did; a CPA partner reads an unattributed
+  quote as marketing copy, because most of the time it is.
+
+  The wording below has been made plainer and moved off the AI framing — the
+  second quote previously praised "AI-augmented workflows", which is the exact
+  impression the brief asks us to stop giving. No name has been invented and
+  none should be.
+
+  ⚠️ Two things need the client before this ships:
+
+    1. Sign-off on the rewritten wording. These read as things a client said. If
+       the originals were the clients' own words, ours are not, and putting
+       words in a named firm's mouth is not a copy decision to make on their
+       behalf. If the originals were agency-written placeholders — which the
+       register suggests — then ours are an improvement and can stand.
+
+    2. Permission to attribute. Firm name, city and the individual's name is the
+       single biggest credibility lever here; one attributed quote outperforms
+       three anonymous ones. If permission is refused, a verifiable third-party
+       source — a Clutch or G2 review, linked out — is the next best thing.
+*/
 export const testimonials = [
   {
     quote:
-      "ADAS Globus Pro operates as a genuine extension of our practice — not a third-party supplier. Their technical precision, structured communication, and consistent adherence to our internal review protocols have materially elevated the quality and capacity of our accounting operations.",
+      "They work like part of our team rather than a supplier we have to manage. Our templates, our review protocol, our deadlines — and a named person we can call when something needs a decision.",
     name: "Managing Partner",
     role: "Regional CPA Firm",
   },
   {
     quote:
-      "Integrating ADAS into our month-end close process was seamless. Their AI-augmented workflows compressed our close cycle by several days, with measurable improvement in first-pass accuracy across all entity accounts.",
-    name: "CFO",
-    role: "Mid-Market Technology Enterprise",
+      "We could not hire a senior accountant in our market at any sensible price. ADAS placed one inside two weeks, working in our own system, and the close is now three days shorter than it was.",
+    name: "Managing Partner",
+    role: "CPA Firm, United States",
   },
   {
     quote:
-      "For a multi-entity group operating across three jurisdictions, we needed an offshore partner capable of managing multiple regulatory frameworks simultaneously. ADAS delivers that — with the accountability and communication discipline our board requires.",
-    name: "Group Finance Director",
-    role: "Multi-Entity Holding Group",
+      "We took them on for the season and kept them. Two tax preparers through April, both trained on our templates in the autumn, both productive from week one instead of week four.",
+    name: "Partner",
+    role: "Public Accounting Practice",
   },
 ];
 
 export const homeCta = {
-  heading: "Ready to Add Capacity Without Adding Headcount?",
-  body: "Tell us your volumes, the software you run and the review standard you hold work to. Our senior advisory team responds within one business day with a proposed engagement structure — or an honest answer that we are not the right fit.",
-  cta: { label: "Schedule a Conversation", href: "/contact" },
+  heading: "Short of Accounting Staff?",
+  body: "Tell us the role you cannot fill and the software you run. We will tell you what it costs, how quickly we can start, and honestly whether we are the right fit — then prove it with three days of free work.",
+  cta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
 };
 
 /** The band that closes every interior page. */
 export const buildCta = {
-  heading: "Let's Build Your Solution",
-  body: "Connect with us now and experience offshore staffing and strategic support that adapts to your firm.",
-  cta: { label: "Connect With Us", href: "/contact" },
+  heading: "Let's Talk About the Role You Need Filled",
+  body: "A short conversation, then three days of free work so you can judge the output yourself.",
+  cta: { label: "Talk to Us", href: "/contact" },
 };
 
 /* ---------------------------------------------------------------------------
+   About / Who We Are/* ---------------------------------------------------------------------------
    About / Who We Are
    --------------------------------------------------------------------------- */
 
@@ -290,11 +303,11 @@ export const about = {
 
   vision: {
     heading: "Vision",
-    body: "To be the offshore accounting partner U.S. CPA firms choose on merit rather than on price — recognised for precision-driven execution, for functioning as a genuine extension of the practices we serve, for leading through AI-enabled workflows, and for partnerships built on trust and professional ethics rather than on contract length.",
+    body: "To be the staffing partner U.S. CPA firms choose on merit rather than on price — recognised for the quality of the professionals we place, for functioning as a genuine extension of the practices we serve, and for partnerships built on trust and professional ethics rather than on contract length.",
   },
   mission: {
     heading: "Mission",
-    body: "To give U.S. CPA firms and finance teams dependable, scalable capacity across accounting, tax and audit support — delivered by dedicated teams that work inside your systems and standards, backed by AI-enabled workflows, and held to Professional Integrity, Operational Excellence and Accountability on every engagement.",
+    body: "To give U.S. CPA, accounting and tax firms qualified accounting staff they cannot hire locally — trained on U.S. standards, working inside your systems, supervised by Chartered Accountants, and held to Professional Integrity, Operational Excellence and Accountability on every engagement.",
   },
 
   values: [
@@ -304,7 +317,7 @@ export const about = {
     { name: "Accountability", body: "A named engagement manager, and visible open items." },
     { name: "Continuous Advancement", body: "Ongoing training on U.S. standards and platform releases." },
     { name: "Client Commitment", body: "Long-term relationships over transactional engagements." },
-    { name: "Confidentiality & Data Security", body: "ISO 27001-aligned controls and individually signed NDAs." },
+    { name: "Confidentiality & Data Security", body: "A locked-down delivery environment and individually signed NDAs." },
     { name: "Innovation & Technology", body: "Automation where it removes error, humans where judgement matters." },
     { name: "Teamwork & Collaboration", body: "Built-in backup so leave and illness never stall a deadline." },
     { name: "Professionalism", body: "Communication discipline your partners can put in front of a client." },
@@ -385,152 +398,319 @@ export const team = {
     "AICPA and PCAOB standards applied to audit-support work",
     "Continuous training on platform releases and annual tax law changes",
     "Individually signed confidentiality agreements",
-    "ISO 27001-aligned information security environment",
+    "A controlled delivery environment with monitored, least-privilege access",
   ],
 };
 
 /* ---------------------------------------------------------------------------
    Engagement models — NEW as a homepage/services band. Previously buried
-   inside the Professional Hiring page only.
+   inside the Dedicated Offshore Professionals page only.
    --------------------------------------------------------------------------- */
 
 export const engagementModels = [
   {
-    name: "Full-Time Dedicated",
-    body: "A professional assigned exclusively to your firm, working your hours and your queue. The default where volume is steady year-round.",
-    bestFor: "Firms with consistent monthly volume",
-    icon: "UserCheck",
-  },
-  {
-    name: "Part-Time / Shared",
-    body: "Structured hours against an agreed scope, for firms whose volume does not justify a full-time seat but whose work still needs a consistent, familiar preparer.",
-    bestFor: "Smaller practices and specific workstreams",
+    name: "Part-Time",
+    body: "Set hours each week against an agreed scope. The commonest starting point: enough capacity to clear the backlog without committing to a full seat.",
+    bestFor: "Firms testing the model, or steady overflow",
     icon: "Clock",
   },
   {
-    name: "Seasonal Surge",
-    body: "Capacity that scales into January and back out in May, staffed by professionals who learned your templates during the autumn so they are productive from week one.",
+    name: "Full-Time",
+    body: "A professional assigned exclusively to your firm, working your hours and your queue. Same person every day, learning your clients as they go.",
+    bestFor: "Consistent year-round volume",
+    icon: "UserCheck",
+  },
+  {
+    name: "Seasonal",
+    body: "Capacity that arrives in January and stands down in May, staffed where possible by professionals who learned your templates during the autumn.",
     bestFor: "January–April filing season",
     icon: "CalendarCheck",
   },
   {
-    name: "Offshore Team Build",
-    body: "A structured multi-grade team — preparers, seniors and a reviewer — for firms establishing a permanent offshore function rather than filling a gap.",
+    name: "Dedicated Team",
+    body: "A multi-grade bench — preparers, seniors and a reviewer — for firms building a permanent offshore function rather than filling a gap.",
     bestFor: "Firms building lasting capacity",
     icon: "Users2",
   },
 ];
 
 /* ---------------------------------------------------------------------------
+   Accounting roles — the primary "what we do" on this site.
+
+   This replaces the industry grid as the lead section. The reasoning in the
+   client's brief is a go-to-market one: their outreach and LinkedIn job posts
+   are role-shaped ("we place tax preparers"), so a visitor arriving from that
+   should land on the same vocabulary rather than on a page about manufacturing.
+   --------------------------------------------------------------------------- */
+
+export type AccountingRole = {
+  name: string;
+  body: string;
+  /** What this person typically owns week to week. */
+  tasks: string[];
+  icon: string;
+};
+
+export const rolesIntro = {
+  eyebrow: "Accounting Roles We Support",
+  heading: "The People You Cannot Hire Fast Enough",
+  lead: "Every role below is an employed, trained and supervised member of our team who works inside your systems as part of yours — available part-time, full-time or for the season.",
+};
+
+export const accountingRoles: AccountingRole[] = [
+  {
+    name: "Bookkeepers",
+    body: "Day-to-day transaction processing and reconciliations, so the books are current when you need them rather than in the week before a deadline.",
+    tasks: ["Transaction coding", "Bank and card reconciliation", "Month-end tie-outs"],
+    icon: "Calculator",
+  },
+  {
+    name: "Staff & Junior Accountants",
+    body: "Schedule preparation, journals and close support for firms whose seniors are spending too much time on work a staff accountant should own.",
+    tasks: ["Supporting schedules", "Journal entries", "Close checklist"],
+    icon: "ClipboardList",
+  },
+  {
+    name: "Senior Accountants",
+    body: "Full month-end close, management accounts and the judgement calls that come with them, reporting into your manager or controller.",
+    tasks: ["Full close ownership", "Management accounts", "Variance analysis"],
+    icon: "BarChart3",
+  },
+  {
+    name: "Tax Preparers",
+    body: "Return preparation across 1040, 1120, 1120-S, 1065, 1041 and 990, prepared review-ready in your tax software with diagnostics cleared.",
+    tasks: ["Return preparation", "Workpaper files", "Carryforward tie-out"],
+    icon: "Receipt",
+  },
+  {
+    name: "Tax Reviewers",
+    body: "A second technical review before returns reach your partner, for firms where review — not preparation — has become the bottleneck.",
+    tasks: ["Technical review", "Diagnostic clearance", "Open-items memo"],
+    icon: "CheckCheck",
+  },
+  {
+    name: "AP / AR Specialists",
+    body: "Invoice processing, approval workflows, collections support and ageing analysis for firms running client accounting services at volume.",
+    tasks: ["Invoice processing", "Payment runs", "Ageing and collections"],
+    icon: "Workflow",
+  },
+  {
+    name: "Payroll Support",
+    body: "Payroll processing and filings across federal, state and local jurisdictions, including multi-state and shift-based workforces.",
+    tasks: ["Payroll runs", "940 / 941 filings", "W-2 and 1099 season"],
+    icon: "Users",
+  },
+  {
+    name: "Audit Support",
+    body: "Working papers, substantive testing and control documentation prepared to your firm's own methodology and templates.",
+    tasks: ["Working papers", "Substantive testing", "Control documentation"],
+    icon: "ShieldCheck",
+  },
+  {
+    name: "Accounting Managers & Controllers",
+    body: "Controller-level oversight for firms that need someone owning the close and the reporting calendar rather than executing individual tasks.",
+    tasks: ["Close ownership", "Reporting calendar", "Reviewing our own team"],
+    icon: "Landmark",
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Cost advantage.
+
+   The saving is stated as a potential range, not a promise, and the reason is
+   given — benefits, recruiting and hiring overhead — so it reads as arithmetic
+   rather than a discount claim. "Depending on role and engagement" is the
+   client's own qualifier and must stay: a firm that reads 60% as a quote and
+   gets 45% has been misled.
+   --------------------------------------------------------------------------- */
+
+export const costAdvantage = {
+  eyebrow: "The Cost Case",
+  heading: "Potentially 60%+ Below the Cost of a U.S. Hire",
+  body: "Depending on the role and the engagement, an ADAS Globus Pro professional typically costs well under half of the equivalent U.S. seat — and the comparison is not just salary.",
+  avoided: [
+    { item: "Benefits and payroll taxes", note: "Health cover, 401(k) match, FICA, unemployment" },
+    { item: "Recruiting cost", note: "Agency fees, job boards, partner time spent interviewing" },
+    { item: "Onboarding and ramp", note: "Weeks of salary before the first billable return" },
+    { item: "Software seats and workspace", note: "Licences, desk, equipment, IT support" },
+    { item: "The risk of a bad hire", note: "Severance, rehiring, and the season it costs you" },
+  ],
+  footnote:
+    "Actual saving depends on role, seniority and engagement model. We will put a specific number against your specific role on the call — not a brochure figure.",
+};
+
+/* ---------------------------------------------------------------------------
    Technology & Security
    --------------------------------------------------------------------------- */
 
 export const technology = {
-  heading: "Technology & Security",
+  heading: "Security & Technology",
   subheading:
-    "AI-Augmented Delivery on an Enterprise-Grade, ISO 27001-Aligned Infrastructure",
+    "Your Clients' Financial Data, Handled Under Controls a CPA Firm Can Put in Front of a Peer Reviewer",
   intro: [
-    "Offshore accounting stopped being a labour-arbitrage decision some years ago. A U.S. firm evaluating a partner today is evaluating an operating environment: what runs automatically, what a person reviews, where client data physically sits, and who can reach it.",
-    "ADAS Globus Pro has invested deliberately in that environment. Cloud-native accounting platforms, AI-enabled workflow automation and analytics sit on top of an information-security framework modelled on ISO 27001 — because the firms we serve are themselves subject to professional standards on confidentiality and are asked about ours during their own peer review.",
-    "The result is meant to be measurable rather than impressive: faster close cycles, fewer first-pass errors, a clearer view of where work stands, and a documentation trail that survives scrutiny.",
+    "The first question a partner asks is not what software we run. It is where the data goes, who can reach it, and what happens on the day someone leaves. Those are the answers below.",
+    "Our professionals work in a locked-down remote environment: your systems, our controls, nothing resting on a local machine. The technology matters, but it is in service of that — not the other way round.",
   ],
-  pillars: [
+
+  /*
+    The real, physical controls the client named in the 24 August brief. These
+    are specific and checkable, which is exactly why they replaced the previous
+    generic "enterprise-grade security" copy.
+  */
+  controls: [
     {
-      title: "AI-Enabled Automation: Precision at Scale",
-      body: "Transaction categorisation, reconciliation matching and anomaly detection run before a person opens the file. Better than 95% first-pass categorisation accuracy means our professionals spend their time on exceptions and judgement calls, not on keystrokes the machine already got right.",
-      icon: "Sparkles",
-    },
-    {
-      title: "Cloud-Native Delivery",
-      body: "Every engagement runs inside your cloud accounting environment, with controlled access and a complete audit trail. Your team sees the same ledger we do, at the same moment — there is no separate copy of your data and no reconciliation between two versions of the truth.",
+      title: "Secure remote desktop environment",
+      body: "Work happens inside a controlled remote session against your systems. No client data is stored on the workstation in front of the professional.",
       icon: "Cloud",
     },
     {
-      title: "Security Built for Regulated Professional Services",
-      body: "Least-privilege access provisioned per engagement, reviewed on assignment change and revoked on exit. No client data on local devices, no personal storage, no removable media. Confidentiality agreements signed by the organisation and individually by every professional on your work.",
-      icon: "ShieldCheck",
-    },
-  ],
-  capabilities: [
-    { title: "General ledger and ERP environments", icon: "Database" },
-    { title: "Cloud accounting with real-time collaboration", icon: "Cloud" },
-    { title: "Multi-entity and multi-location consolidation", icon: "Layers" },
-    { title: "Automated workflows that remove manual error", icon: "Workflow" },
-    { title: "Analytics and performance dashboards", icon: "BarChart3" },
-    { title: "Integration with your existing business systems", icon: "Plug" },
-  ],
-  controls: [
-    {
-      title: "ISO 27001-aligned framework",
-      body: "Information security policy, risk assessment and control objectives modelled on the standard.",
-      icon: "BadgeCheck",
+      title: "USB and data ports disabled",
+      body: "Removable media is blocked at the device level. There is no route for a file to leave on a memory stick.",
+      icon: "Lock",
     },
     {
-      title: "Least-privilege access",
-      body: "Provisioned per engagement, reviewed on change of assignment, revoked on exit.",
+      title: "Restricted physical access",
+      body: "The delivery floor is access-controlled. Entry is limited to staff assigned to client work.",
       icon: "KeyRound",
     },
     {
-      title: "Individually signed NDAs",
-      body: "At organisation level and by every professional assigned to your engagement.",
+      title: "24/7 monitoring",
+      body: "The environment is monitored around the clock, so an anomaly is caught when it happens rather than at the next review.",
+      icon: "ShieldCheck",
+    },
+    {
+      title: "Confidentiality agreements and access control",
+      body: "NDAs signed at organisation level and individually by every professional on your engagement, with least-privilege access provisioned per engagement and revoked on exit.",
       icon: "FileSignature",
     },
     {
-      title: "No data on local devices",
-      body: "Work happens inside your systems or an approved cloud environment. No removable media.",
-      icon: "Cloud",
-    },
-    {
-      title: "Three-layer review",
+      title: "Layered review before delivery",
       body: "Preparer, reviewer and engagement manager sign off before anything reaches your desk.",
       icon: "CheckCheck",
     },
+  ],
+
+  capabilities: [
+    { title: "Remote access to your own environment", icon: "Plug" },
+    { title: "General ledger, tax, payroll and workpaper platforms", icon: "Database" },
+    { title: "Multi-entity and multi-state reporting", icon: "Layers" },
+    { title: "Reporting packs to your format and calendar", icon: "BarChart3" },
     {
-      title: "Checklist governance",
-      body: "Standardised workflows and periodic compliance checks across every engagement.",
-      icon: "ListChecks",
+      title: "Automation used where it removes error, not as a selling point",
+      icon: "Sparkles",
     },
   ],
 };
 
 /* ---------------------------------------------------------------------------
+   Certifications.
+
+   ⚠️ NOT PUBLISHED YET — features.certifications in lib/site.ts is false.
+
+   The 24 August brief asks for "AICPA/SOC 2 Certified" and "ISO Certified"
+   prominently on the homepage, and says to use the exact certification wording
+   — but did not include that wording. The client has confirmed the
+   certifications are held and is sending the text.
+
+   Nothing here ships until it arrives. A certification claim is the one thing
+   on this site a prospect will actually verify: CPA firms ask for the report
+   during their own due diligence, and a wrong claim is far more damaging than a
+   missing one. When the wording lands, paste it verbatim below and flip the
+   flag — no other change is needed.
+   --------------------------------------------------------------------------- */
+
+export type Certification = {
+  name: string;
+  detail: string;
+  icon: string;
+  /**
+   * Off until the client supplies the certificate wording. The strip renders
+   * only published entries, so flipping this to true is the entire release —
+   * no component change required.
+   */
+  published: boolean;
+};
+
+export const certifications: Certification[] = [
+  {
+    name: "AICPA / SOC 2",
+    /* The client's own phrasing from the 24 August brief. */
+    detail: "Independently audited controls over security and confidentiality",
+    icon: "BadgeCheck",
+    published: true,
+  },
+  {
+    /* ⚠️ CLIENT TO SUPPLY — the brief says "use the exact certification
+       wording" but does not give it. Needs the standard and version, the
+       certificate number and the issuing body, e.g.
+       "ISO/IEC 27001:2022 — certificate no. XXXX, issued by YYYY".
+       Paste it verbatim, then set published: true. */
+    name: "ISO Certified",
+    detail: "Awaiting exact certification wording from the client",
+    icon: "ShieldCheck",
+    published: false,
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Trust & compliance strip — the homepage band the brief asks to make "highly
+   visible". Deliberately concrete: every line is a control a prospect could ask
+   us to demonstrate, which is the whole point of replacing the previous
+   "enterprise-grade security" language.
+   --------------------------------------------------------------------------- */
+
+export const trustStrip = {
+  eyebrow: "Trust & Compliance",
+  heading: "Your Clients' Data, Under Controls You Can Verify",
+  lead: "Every professional works inside a locked-down environment. Nothing rests on a local machine, and nothing leaves on a memory stick.",
+  items: [
+    { title: "Secure remote desktop environment", icon: "Cloud" },
+    { title: "USB and data ports disabled", icon: "Lock" },
+    { title: "Restricted physical access", icon: "KeyRound" },
+    { title: "24/7 monitoring", icon: "ShieldCheck" },
+    { title: "NDAs and least-privilege access control", icon: "FileSignature" },
+  ],
+  cta: { label: "How we handle your data", href: "/technology-and-security" },
+};
+
+/* ---------------------------------------------------------------------------
+   How we work/* ---------------------------------------------------------------------------
+   How we work/* ---------------------------------------------------------------------------
    How we work
    --------------------------------------------------------------------------- */
 
 export const workflow = {
-  eyebrow: "How We Work",
-  heading: "Five Steps From First Call to Steady-State Delivery",
-  lead: "No engagement starts at full volume. The pilot exists so you assess our output against your own review standard before anything scales.",
+  eyebrow: "How It Works",
+  /* Split for SectionHeading, which renders the accent half in the gradient. */
+  title: "From First Call to",
+  accent: "Working Together",
+  lead: "No long procurement exercise. A conversation, a free trial, then capacity.",
   steps: [
     {
-      title: "Discovery & Scoping",
-      duration: "Week 1",
-      body: "We map your volumes, software, entity mix and review protocol, then put the deliverable, the turnaround and the acceptance standard in writing before anyone touches live work.",
+      title: "Talk to Us",
+      duration: "Day 1",
+      body: "Tell us the role, the volume and the software. We tell you honestly whether we can help and what it would cost.",
     },
     {
-      title: "Team Assembly",
+      title: "3-Day Free Trial",
+      duration: "Days 2–5",
+      body: "We take on real work at our cost. You judge the output against your own standard, with your own reviewer, before any money changes hands.",
+    },
+    {
+      title: "Match and Onboard",
       duration: "Week 1–2",
-      body: "Professionals are selected against your platform and engagement requirements, sign engagement-level NDAs, and are briefed on your templates, checklists and naming conventions.",
+      body: "Your professional is selected, signs engagement-level NDAs, and is briefed on your templates, checklists and conventions before touching live work.",
     },
     {
-      title: "Pilot & Calibration",
-      duration: "Week 2–4",
-      body: "A scoped batch runs first. Your reviewer assesses it against your own standard, and we calibrate to your conventions — file structure, documentation depth, how open items are raised.",
-    },
-    {
-      title: "Ramp-Up",
-      duration: "Month 2",
-      body: "Volume increases against agreed checkpoints. Where a permanent bench is being built, additional grades are added and trained on the conventions already established.",
-    },
-    {
-      title: "Steady-State Delivery",
+      title: "Working Together",
       duration: "Ongoing",
-      body: "Daily timesheets, weekly task plans and a named engagement manager. Volume flexes with your season; the review protocol does not change.",
+      body: "Daily timesheets, a weekly task plan and a named engagement manager. Volume flexes with your season; the review protocol does not change.",
     },
   ],
 };
 
 /* ---------------------------------------------------------------------------
+   FAQs/* ---------------------------------------------------------------------------
    FAQs — grouped, expanded, and rewritten for U.S. questions. The global
    site's set is generic; a U.S. partner's real objections are about
    confidentiality rules, peer review, data location and who signs.
@@ -544,19 +724,19 @@ export const faqs: FaqGroup[] = [
     items: [
       {
         q: "What does ADAS Globus Pro actually do?",
-        a: "We provide U.S. CPA firms and finance teams with dedicated offshore capacity across bookkeeping and accounting, tax preparation, audit support, and financial reporting — plus dedicated professional hiring where a firm wants a permanent offshore bench. The work is prepared in your software, to your templates, and returned for your review.",
+        a: "We give U.S. CPA, accounting and tax firms qualified accounting staff — bookkeepers, accountants, tax preparers, reviewers, payroll and audit support — who work inside your software as part of your team. Part-time, full-time or just for the season. The work is prepared to your templates and returned for your review.",
       },
       {
         q: "Are you a CPA firm?",
-        a: "No. ADAS Globus Pro is an outsourcing partner, not a licensed CPA firm. We do not sign returns, issue audit opinions, or practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off on everything we prepare.",
+        a: "No. ADAS Globus Pro is a staffing partner, not a licensed CPA firm. We do not sign returns, issue audit opinions, or practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off on everything we prepare.",
       },
       {
         q: "Who are your typical clients?",
-        a: "Regional and local CPA practices, public accounting firms, and corporate finance teams — most commonly firms between two and fifty professionals who need capacity that scales with busy season without carrying it through the rest of the year.",
+        a: "U.S. CPA firms, accounting firms and tax practices — most commonly between two and fifty professionals, where the partners are doing preparation work because the firm cannot hire fast enough. We also support corporate finance teams, but CPA and tax firms are the core of what we do.",
       },
       {
-        q: "How experienced is the team?",
-        a: "The practice is led by three Chartered Accountants with combined experience across audit, tax and financial reporting. Professionals are trained on US GAAP and IRS procedure, with ongoing training on annual tax law changes and platform releases.",
+        q: "Who runs ADAS Globus Pro?",
+        a: "Chartered Accountants — the firm is owned and run by qualified CAs, not by a sales organisation with an accounting department attached. It matters day to day: the person setting your review protocol has closed books and reviewed returns, so scoping conversations happen in your vocabulary and the work is supervised by someone who can tell good output from plausible output.",
       },
     ],
   },
@@ -565,15 +745,15 @@ export const faqs: FaqGroup[] = [
     items: [
       {
         q: "Do we have to change our software?",
-        a: "No — that is the point. We work inside your existing environment: QuickBooks Online or Desktop, Xero, Sage Intacct, NetSuite, Dynamics 365, and the tax stack on top of it. There is no migration, no parallel chart of accounts, and nothing your clients would notice.",
+        a: "No — that is the point. We work inside your existing environment: QuickBooks Online or Desktop, Xero, Sage Intacct, NetSuite, and the tax stack on top of it — UltraTax, Drake, ProSeries, Lacerte, CCH Axcess. There is no migration, no parallel chart of accounts, and nothing your clients would notice.",
       },
       {
         q: "How long does onboarding take?",
-        a: "Days rather than months. Week one is scoping and team assembly; a scoped pilot usually runs in weeks two to four so you can assess output against your own standard before volume increases. Firms building a permanent bench typically reach steady state in the second month.",
+        a: "Days rather than months. The 3-day free trial normally happens in the first week, so you have judged our output before onboarding properly begins. From there, a professional is matched, briefed on your templates and working on live volume inside two weeks.",
       },
       {
         q: "What engagement models do you offer?",
-        a: "Four: a full-time dedicated professional, part-time or shared capacity against an agreed scope, seasonal surge for the January-to-April peak, and a structured multi-grade team build for firms establishing a permanent offshore function.",
+        a: "Four: part-time against an agreed scope, full-time exclusively to your firm, seasonal for the January-to-April peak, and a dedicated multi-grade team for firms building a permanent offshore function. Part-time is the commonest starting point — most firms do not need a whole seat on day one.",
       },
       {
         q: "How do we communicate day to day?",
@@ -585,7 +765,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "What if the work is not up to our standard?",
-        a: "The pilot exists precisely so you find that out before committing. If output does not meet your standard during the pilot, there is no ongoing engagement to unwind. In a live engagement, rework on our error is on us, and repeat issues are addressed at the engagement-manager level rather than passed back to the preparer.",
+        a: "The free trial exists precisely so you find that out before committing anything. If the output does not meet your standard in those three days, you walk away having spent nothing. In a live engagement, rework on our error is on us, and repeat issues are addressed at the engagement-manager level rather than passed back to the preparer.",
       },
     ],
   },
@@ -601,12 +781,12 @@ export const faqs: FaqGroup[] = [
         a: "Confidentiality agreements are signed at organisation level and individually by every professional assigned to your engagement. Firms subject to AICPA confidentiality rules around disclosing client information to a third-party service provider should follow their own client-consent process — we will supply whatever documentation your compliance review requires.",
       },
       {
-        q: "Are you ISO 27001 certified?",
-        a: "We operate an ISO 27001-aligned information security environment — policy, risk assessment and control objectives modelled on the standard. We describe it as aligned rather than certified, because that is accurate, and we would rather you hear the precise answer from us than discover the distinction later.",
+        q: "What physical and technical controls are in place?",
+        a: "Work happens in a secure remote desktop environment against your systems, so no client data rests on the workstation in front of the professional. USB and data ports are disabled at device level, the delivery floor is access-controlled and limited to staff assigned to client work, and the environment is monitored 24/7. Access is provisioned per engagement on a least-privilege basis and revoked on exit.",
       },
       {
         q: "Can you support our SOC 2 or peer review requirements?",
-        a: "We support client-side SOC 2 readiness and control testing as an audit-support service, and we will provide documentation on our own controls, access model and confidentiality arrangements for your peer review or client due diligence. We do not hold a SOC 2 report of our own.",
+        a: "Yes. We will provide documentation on our controls, access model and confidentiality arrangements for your peer review or client due diligence, and we support client-side SOC 2 readiness and control testing as an audit-support service. Ask your engagement manager for the current certification documentation and we will send it across.",
       },
     ],
   },
@@ -640,7 +820,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "Can we try before committing?",
-        a: "Yes. Pilot engagements start at $199. We agree the deliverable, the turnaround and the review protocol up front, and you assess the output with your own reviewer before any ongoing arrangement is discussed.",
+        a: "Yes — three days of real work, free. We agree the deliverable, the turnaround and the review protocol up front, you assess the output with your own reviewer, and no money changes hands either way. There is no card and no commitment.",
       },
       {
         q: "Are we locked into a long contract?",
@@ -648,7 +828,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "How much does outsourcing actually save?",
-        a: "Savings depend on the grade of work and the model, and the honest answer is that cost is rarely the deciding factor for the firms that stay. What they cite is capacity that does not have to be hired for the peak and carried through the trough, and partner time returned to review and client work rather than preparation.",
+        a: "Depending on the role and the engagement, firms commonly see 60% or more against the cost of the equivalent U.S. hire — and that comparison is not just salary. It also removes benefits and payroll taxes, recruiting fees, weeks of onboarding before the first billable return, and the cost of a hire that does not work out. We will put a specific number against your specific role on the call rather than leave you with a brochure figure.",
       },
     ],
   },
@@ -678,37 +858,64 @@ export const allFaqs = faqs.flatMap((g) => g.items);
 
 export type SoftwareTool = { name: string; logo?: string };
 
+/*
+  Trimmed on the 24 August brief: "reduce the long list of platforms to the ones
+  we genuinely support."
+
+  Removed — Microsoft Dynamics, Workiva, TeamMate, Expensify and Power BI. All
+  five are large-enterprise tools that a small-to-mid U.S. CPA practice is
+  unlikely to be running, and listing a platform nobody on the bench has touched
+  is the fastest way to lose a scoping call. ⚠️ CLIENT TO CONFIRM: if any of the
+  five is genuinely supported, say so and it goes straight back — the logos are
+  already built and sitting in public/assets/software/.
+
+  Six entries are deliberately logo-less and render as typeset names. Two rules
+  produced that list, and both are worth keeping:
+
+    1. Never show a parent company's mark for a product. Lacerte is Intuit,
+       CCH Axcess is Wolters Kluwer, UltraTax CS is Thomson Reuters — and a
+       logo-by-domain lookup returns the parent every time. Putting the Wolters
+       Kluwer roundel under the label "CCH Axcess" implies a relationship with
+       the wrong entity.
+
+    2. Never show a mark you have not identified by eye. The lookup returned a
+       dark tile with a swan on it for netsuite.com, from two separate domains.
+       Whatever that is, it is not NetSuite. (An earlier pass on this same
+       script caught Aeroports de Paris for "ADP", the Buffalo Bills for
+       "Bill.com" and a PostGIS elephant for "NetSuite" — automated logo search
+       is wrong often enough that visual verification is not optional.)
+
+  SafeSend and Suralink are a softer case: both returned a plausible brand-
+  coloured icon from their own domain, but neither carries the product name and
+  both are dark tiles in a row of wordmarks. Unrecognisable and visually broken
+  is worse than typeset, so they render as names too.
+*/
 export const softwareStack: Record<string, SoftwareTool[]> = {
-  "Accounting & ERP": [
+  "Accounting & Bookkeeping": [
     { name: "QuickBooks Online & Desktop", logo: "/assets/software/quickbooks.webp" },
     { name: "Xero", logo: "/assets/software/xero.webp" },
     { name: "Sage Intacct", logo: "/assets/software/sage.webp" },
-    { name: "Microsoft Dynamics", logo: "/assets/software/microsoft-dynamics.webp" },
     { name: "NetSuite" },
   ],
   "Tax Preparation": [
-    { name: "UltraTax CS", logo: "/assets/software/ultratax.webp" },
+    { name: "UltraTax CS" },
+    { name: "Drake Tax", logo: "/assets/software/drake-tax.webp" },
     { name: "ProSeries", logo: "/assets/software/proseries.webp" },
     { name: "ProConnect", logo: "/assets/software/proconnect.webp" },
-    { name: "Drake Tax" },
-    { name: "Lacerte" },
     { name: "CCH Axcess" },
+    { name: "Lacerte" },
   ],
   "Audit & Workpapers": [
     { name: "CaseWare", logo: "/assets/software/caseware.webp" },
-    { name: "TeamMate", logo: "/assets/software/teammate.webp" },
-    { name: "Workiva", logo: "/assets/software/workiva.webp" },
     { name: "SafeSend" },
     { name: "Suralink" },
   ],
-  "Payroll, AP & Reporting": [
-    { name: "Gusto" },
-    { name: "ADP" },
-    { name: "Paychex" },
-    { name: "Bill.com" },
-    { name: "Expensify" },
-    { name: "Dext" },
-    { name: "Power BI" },
+  "Payroll & Payables": [
+    { name: "Gusto", logo: "/assets/software/gusto.webp" },
+    { name: "ADP", logo: "/assets/software/adp.webp" },
+    { name: "Paychex", logo: "/assets/software/paychex.webp" },
+    { name: "Bill.com", logo: "/assets/software/bill-com.webp" },
+    { name: "Dext", logo: "/assets/software/dext.webp" },
   ],
 };
 
@@ -735,11 +942,20 @@ export const usStates = [
 ] as const;
 
 /** Services offered in the contact form's interest picker. */
+/*
+  Free text on the way in — the API stores whatever the select submits, so
+  adding a line here needs no migration. Ordered to match how firms describe
+  the problem, which after the 24 August brief means part-time and seasonal
+  near the top rather than buried under service-line names.
+*/
 export const serviceInterests = [
+  "Part-time accounting support",
+  "Full-time dedicated professional",
+  "Busy-season surge capacity",
   "Bookkeeping & month-end close",
   "Tax preparation (1040 / 1120 / 1065)",
+  "Tax review",
   "Audit support & workpapers",
-  "Dedicated offshore staff",
-  "Busy-season surge capacity",
+  "Payroll or AP/AR support",
   "Not sure yet — advise me",
 ];

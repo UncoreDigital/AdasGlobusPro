@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 /**
@@ -11,9 +11,23 @@ import { useInView } from "framer-motion";
  * lib/settings.ts. A counter that animates a non-number to zero is worse than
  * no counter.
  *
- * Uses rAF rather than a framer-motion spring because the value has to land on
- * the exact figure: a spring settles asymptotically and can read "1,149" for a
- * frame, which on a client-count claim is not acceptable.
+ * ── Why the initial state is the final value ────────────────────────────────
+ * This used to start at 0, which meant the server-rendered HTML literally
+ * contained "0+". Anyone who loaded the page saw "0+ clients served" until the
+ * figure scrolled into view, and anyone without JavaScript saw it permanently.
+ * That is precisely the failure lib/settings.ts guards against on the data side,
+ * reintroduced by the animation.
+ *
+ * So it renders the real figure from the first paint. The wind-back to zero
+ * happens in a layout effect, before the browser paints, and *only* when the
+ * element is off-screen — so the reset is never visible. A counter already in
+ * the viewport on load simply shows its value and never animates, which is the
+ * right trade: a number the reader is already looking at should not jump to
+ * zero to put on a show.
+ *
+ * Uses rAF rather than a spring because the value has to land exactly: a spring
+ * settles asymptotically and can read "1,149" for a frame, which on a client
+ * count is not acceptable.
  */
 export default function CountUp({
   value,
@@ -28,18 +42,26 @@ export default function CountUp({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.5 });
-  const [display, setDisplay] = useState(0);
+
+  const [display, setDisplay] = useState(value);
+  /* Whether we were able to hide the starting frame. If not, we never animate. */
+  const [armed, setArmed] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const box = el.getBoundingClientRect();
+    const offScreen = box.top > window.innerHeight || box.bottom < 0;
+    if (!offScreen) return;
+
+    setDisplay(0);
+    setArmed(true);
+  }, []);
 
   useEffect(() => {
-    if (!inView) return;
-
-    if (typeof window !== "undefined") {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduced) {
-        setDisplay(value);
-        return;
-      }
-    }
+    if (!inView || !armed) return;
 
     let raf = 0;
     const start = performance.now();
@@ -54,7 +76,7 @@ export default function CountUp({
 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value, duration]);
+  }, [inView, armed, value, duration]);
 
   return (
     <span ref={ref} className={className}>

@@ -136,11 +136,11 @@ export const services: Service[] = [
     intro: [
       "Our core accounting service is built for U.S. CPA firms and finance teams that need financial records maintained to audit-ready standards: consistently, at volume, and inside the reporting deadlines they have already promised their own clients.",
       "Audit-ready is a specific claim, and it is worth being precise about it. It means the trial balance ties, the reconciliations are complete and documented, supporting schedules exist for every material balance, and the file can be handed to a reviewer — or to next year's auditor — without a remediation exercise first.",
-      "Getting there at volume takes both halves of the process. AI-assisted categorisation and automated reconciliation matching handle the repetitive work at better than 95% first-pass accuracy. Qualified accountants handle the judgement calls, the exceptions and the review — three layers of it before anything reaches you.",
+      "Getting there at volume takes both halves of the process. Automated categorisation and reconciliation matching handle the repetitive work at better than 95% first-pass accuracy. Qualified accountants handle the judgement calls, the exceptions and the review — three layers of it before anything reaches you.",
     ],
     scopeHeading: "Service scope",
     scope: [
-      "AI-assisted transaction processing, categorisation and GL coding",
+      "Automated transaction processing, categorisation and GL coding",
       "Automated bank and credit card reconciliation with exception review",
       "Accounts payable — invoice processing, approval workflow, payment scheduling",
       "Accounts receivable — invoicing, collections support, aging analysis",
@@ -192,7 +192,7 @@ export const services: Service[] = [
     meta: {
       title: "Elite Accounting Solutions — Audit-Ready Offshore Bookkeeping",
       description:
-        "AI-assisted transaction processing, automated reconciliation, AP/AR management and month-end close maintained to audit-ready standards for U.S. firms.",
+        "Transaction processing, automated reconciliation, AP/AR management and month-end close maintained to audit-ready standards for U.S. firms.",
     },
   },
 
@@ -337,15 +337,16 @@ export const services: Service[] = [
   },
 
   {
-    slug: "professional-hiring",
-    name: "Professional Hiring",
-    heading: "Professional Hiring",
+    slug: "dedicated-offshore-professionals",
+    name: "Dedicated Offshore Accounting Professionals",
+    heading: "Dedicated Offshore Accounting Professionals",
     summary:
-      "A dedicated offshore accountant — or a structured team — employed, managed and quality-controlled by us, working as part of yours.",
+      "A qualified accountant — or a whole team — employed, trained and supervised by us, working inside your systems as part of your team.",
     intro: [
-      "For firms scaling practice capacity and finance teams managing structural or seasonal volume, Professional Hiring places a dedicated accounting professional — or a structured multi-grade team — who operates as an integrated member of your organisation.",
-      "This is not a staffing agency arrangement, and the distinction matters commercially. Every professional placed under this model is employed, managed, quality-controlled and professionally developed by ADAS Globus Pro. You receive the output of a supervised professional working inside your systems, without the payroll, benefits, recruitment, training, workspace or employment-risk overhead of an additional hire.",
+      "When you cannot hire locally at the grade you need, or cannot justify a full seat for the volume you have, this is the alternative: a trained accounting professional assigned to your firm, working your hours in your software, supervised by us.",
+      "We are not a recruitment agency, and the distinction matters commercially. Every professional here is our employee — hired, trained, reviewed and developed by ADAS Globus Pro. You get the output of a supervised professional without the payroll, benefits, recruiting, onboarding, workspace or bad-hire risk that comes with adding to your own headcount.",
       "It also solves the problem an agency cannot: continuity. The person on your engagement is the person who learned your templates, sat through your onboarding and closed your books last month — and there is a trained second who can step in when they take leave.",
+      "Available part-time, full-time or for the season. Most firms start part-time, because most firms do not need a whole seat on day one.",
     ],
     scopeHeading: "What every placement includes",
     scope: [
@@ -362,25 +363,25 @@ export const services: Service[] = [
       {
         name: "Engagement Models",
         items: [
-          "Full-time dedicated professional, exclusively assigned to your firm",
-          "Part-time or shared capacity, structured around an agreed scope",
-          "Seasonal surge for January through April, or year-end close",
-          "Structured multi-grade team build for a permanent offshore function",
+          "Part-time — set hours each week against an agreed scope, the commonest starting point",
+          "Full-time — a professional assigned exclusively to your firm",
+          "Seasonal — capacity that arrives in January and stands down in May",
+          "Dedicated team — a multi-grade bench for a permanent offshore function",
         ],
       },
       {
-        name: "Profiles Available",
+        name: "Roles We Place",
         items: [
-          "Staff Accountant and Senior Accountant",
-          "Tax Associate, Tax Senior and Tax Reviewer",
-          "Payroll Specialist and Compliance Associate",
-          "Audit Associate and Audit Senior",
-          "Financial Analyst and Reporting Specialist",
-          "Controller-level advisory and Virtual CFO",
+          "Bookkeepers",
+          "Staff, Junior and Senior Accountants",
+          "Tax Preparers and Tax Reviewers",
+          "AP / AR Specialists and Payroll Support",
+          "Audit Support",
+          "Accounting Managers and Controllers",
         ],
       },
     ],
-    outcomes: ["Employed and supervised by us", "Four engagement models", "Trained backup included"],
+    outcomes: ["Employed and supervised by us", "Part-time, full-time or seasonal", "Potentially 60%+ below a U.S. hire"],
     whoItsFor: [
       "Firms that have tried and failed to hire locally at this grade",
       "Practices wanting a permanent offshore bench rather than project help",
@@ -393,11 +394,13 @@ export const services: Service[] = [
       { item: "Engagement-manager review before delivery", cadence: "Every deliverable" },
     ],
     imageHd: "/assets/services/professional-hiring-hd.webp",
+    /* Image filename intentionally unchanged — the artwork is the same, and
+       renaming it would break the client's own asset library. */
     icon: "Users",
     meta: {
-      title: "Hire Dedicated Offshore Accountants — Professional Hiring",
+      title: "Dedicated Offshore Accounting Professionals for U.S. CPA Firms",
       description:
-        "Full-time, part-time, seasonal or team-build offshore accounting professionals for U.S. firms — employed, managed and quality-controlled by ADAS Globus Pro.",
+        "Bookkeepers, accountants, tax preparers and reviewers employed and supervised by ADAS Globus Pro, working inside your software. Part-time, full-time or seasonal, with a 3-day free trial.",
     },
   },
 ];
@@ -416,7 +419,7 @@ export const servicesIntro = {
   body: "Five service lines, each built to function as a scalable, accountable extension of a U.S. practice or finance function — staffed by qualified professionals, run through three layers of review, and delivered inside the software you already use.",
   pillars: [
     "Trained on U.S. standards, not adapted to them",
-    "AI-augmented delivery, human-reviewed",
+    "Automation where it removes error, people where judgement matters",
     "Your software, your templates, your sign-off",
   ],
   advantages: [

@@ -158,15 +158,15 @@ export default function Hero({
           >
             <div className="rounded-2xl border border-white/15 bg-white/[0.07] p-6 backdrop-blur-md sm:p-8">
               <div className="grid grid-cols-2 gap-6">
-                <Figure value={clients} label="Businesses & CPA firms served globally" />
+                <Figure value={clients} label="CPA, accounting and tax firms served" />
                 <Figure value={accuracy} label="Accuracy & on-time reporting commitment" />
               </div>
 
               <div className="mt-7 space-y-3 border-t border-white/10 pt-7">
                 {[
-                  "Dedicated project manager on every engagement",
-                  "Daily timesheets and weekly task planning",
-                  "ISO 27001-aligned information security",
+                  "Part-time, full-time or seasonal",
+                  "Working inside your own software",
+                  "Secure remote desktop environment",
                 ].map((line) => (
                   <p key={line} className="flex items-start gap-2.5 text-[13.5px] text-white/70">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-mint" aria-hidden="true" />
@@ -176,11 +176,11 @@ export default function Hero({
               </div>
             </div>
 
-            {/* Pricing tab, tucked flush under the card. -mt-3 left it straddling
+            {/* Trial tab, tucked flush under the card. -mt-3 left it straddling
                 the card border; -mt-px lets the two edges meet. */}
             <div className="mx-auto -mt-px w-fit rounded-b-xl border border-t-0 border-accent/40 bg-navy-deep px-5 py-2.5">
               <p className="text-[12.5px] font-semibold text-accent-light">
-                Pilot engagements from $199
+                3-day free trial — no card, no commitment
               </p>
             </div>
           </motion.div>
