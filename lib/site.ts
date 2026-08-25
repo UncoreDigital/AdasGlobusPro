@@ -280,6 +280,8 @@ export const footerNav = [
   {
     heading: "Our Expertise",
     links: [
+      /* First, because it is what the top nav points at. */
+      { name: "Accounting Roles", href: "/accounting-roles" },
       { name: "Dynamic Solutions Suite", href: "/services/dynamic-solutions-suite" },
       { name: "Elite Accounting Solutions", href: "/services/elite-accounting-solutions" },
       { name: "Spectrum of Taxes", href: "/services/spectrum-of-taxes" },
@@ -302,10 +304,10 @@ export const footerNav = [
     links: [
       { name: "Who We Are", href: "/about" },
       { name: "Our Team", href: "/team" },
-      { name: "Technology & Security", href: "/technology-and-security" },
+      { name: "Security & Technology", href: "/technology-and-security" },
       { name: "FAQs", href: "/faqs" },
       ...(features.insights ? [{ name: "Insights", href: "/blog" }] : []),
-      { name: "Schedule a Call", href: "/contact" },
+      { name: "Talk to Us", href: "/contact" },
     ],
   },
 ];

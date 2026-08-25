@@ -8,7 +8,7 @@ import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Schedule a Call — Talk to ADAS Globus Pro",
+  title: "Talk to Us — Staffing for U.S. CPA and Accounting Firms",
   description:
     "Tell us your volumes, your software and your review protocol. A senior member of the advisory team responds within one business day with a proposed engagement structure.",
   alternates: { canonical: "/contact" },
@@ -18,10 +18,10 @@ export default function ContactPage() {
   return (
     <>
       <PageBanner
-        eyebrow="Schedule a Call"
-        title="Let's Talk About What Your Firm Actually Needs"
-        lead="Not a sales script. Tell us the volumes, the software and the review standard you work to, and we will come back with a concrete engagement structure — or tell you honestly if we are not the right fit."
-        breadcrumbs={[{ name: "Schedule a Call" }]}
+        eyebrow="Talk to Us"
+        title="Tell Us the Role You Cannot Fill"
+        lead="Not a sales script. Tell us the role, the volumes, the software and the review standard you work to, and we will come back with a cost and a start date — or tell you honestly if we are not the right fit. Then prove it with three days of free work."
+        breadcrumbs={[{ name: "Talk to Us" }]}
       />
 
       <section className="section bg-white">

@@ -197,7 +197,7 @@ export default function Header() {
               {site.phone}
             </a>
             <Button href="/contact" size="md" className="hidden sm:inline-flex">
-              Schedule a Call
+              Talk to Us
             </Button>
             <button
               type="button"
@@ -329,7 +329,7 @@ function MobileDrawer({
 
             <div className="shrink-0 space-y-3 border-t border-border p-5">
               <Button href="/contact" size="lg" className="w-full">
-                Schedule a Call
+                Talk to Us
               </Button>
               <a
                 href={site.phoneHref}

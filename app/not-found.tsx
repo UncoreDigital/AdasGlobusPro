@@ -44,7 +44,7 @@ export default function NotFound() {
             Back to home
           </Button>
           <Button href="/contact" size="lg" variant="onDark">
-            Schedule a call
+            Talk to us
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Button>
         </div>

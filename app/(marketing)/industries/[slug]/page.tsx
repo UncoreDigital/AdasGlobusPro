@@ -147,7 +147,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
                   className="mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-lg text-[14.5px] font-semibold text-navy-deep transition-all hover:-translate-y-0.5"
                   style={{ backgroundImage: "var(--gradient-accent-x)" }}
                 >
-                  Schedule a call
+                  Talk to us
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </Reveal>
