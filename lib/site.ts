@@ -181,18 +181,18 @@ export const features = {
    * Named leadership profiles — headshots, names, roles and bios on /team and
    * /about.
    *
-   * Off at the client's request. The sections stay, because "who leads each
-   * practice area" is a real answer a prospect wants; what is withheld is the
-   * identification. Each card renders the practice area and the credential
-   * instead of a person.
+   * ON. It was off at the client's original request, which withheld the
+   * identification while keeping the structural claim: each practice area
+   * owned by a qualified accountant. That reversed when they supplied
+   * headshots and written bios for the leadership team — a photograph and a
+   * bio are an instruction to publish them.
    *
-   * Nothing is deleted: `team.leadership` in lib/content.ts keeps the names,
-   * bios and photo paths, and the headshots stay in public/assets/team/. This
-   * also governs the Person entries in the structured data on both pages —
-   * publishing names in JSON-LD while hiding them on the page would leak
-   * exactly what the flag exists to withhold.
+   * Turning this off again returns both pages to practice-area cards without
+   * names or faces, and drops the Person entries from the structured data on
+   * each — publishing names in JSON-LD while hiding them on the page would
+   * leak exactly what the flag exists to withhold.
    */
-  leadershipProfiles: false,
+  leadershipProfiles: true,
 
   /**
    * The certification badges on the homepage and the security page.

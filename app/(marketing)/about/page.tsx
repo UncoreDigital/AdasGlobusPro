@@ -12,7 +12,7 @@ import EngagementModels from "@/components/sections/EngagementModels";
 import Workflow from "@/components/sections/Workflow";
 import { about, boundary, team } from "@/lib/content";
 import { figure, getSettings } from "@/lib/settings";
-import { offices, site } from "@/lib/site";
+import { features, offices, site } from "@/lib/site";
 import { fadeLeft, fadeRight } from "@/lib/motion";
 
 export const metadata: Metadata = {
@@ -189,29 +189,54 @@ export default async function AboutPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Leadership"
-            title="Three Practice Areas,"
-            accent="Three Managing Directors"
+            title={features.leadershipProfiles ? "The People Who" : "Practice Areas,"}
+            accent={
+              features.leadershipProfiles ? "Run the Firm" : "Managing Directors"
+            }
             align="center"
           />
-          {/* Practice areas, not people — see features.leadershipProfiles. */}
-          <RevealGroup className="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-3">
+          {/*
+            A teaser, so it stays a row of faces and names — the bios are on
+            /team and repeating them here would make two pages say the same
+            thing. Falls back to practice-area cards when
+            features.leadershipProfiles is off; see the note on /team.
+
+            Column count tracks the roster: a grid that does not divide the
+            list leaves an orphan card on its own row.
+          */}
+          <RevealGroup className="mx-auto mt-12 grid max-w-4xl gap-5 grid-cols-2 sm:grid-cols-4">
             {team.leadership.map((leader) => (
-              <RevealItem key={leader.focus}>
+              <RevealItem key={leader.name}>
                 <Link
                   href="/team"
-                  className="card-edge group flex h-full flex-col items-center p-7 text-center transition-transform hover:-translate-y-1"
+                  className="card-edge group flex h-full flex-col items-center overflow-hidden text-center transition-transform hover:-translate-y-1"
                 >
-                  <span
-                    className="flex h-14 w-14 items-center justify-center rounded-xl text-white"
-                    style={{ backgroundImage: "var(--gradient-brand)" }}
-                    aria-hidden="true"
-                  >
-                    <UserRound className="h-6 w-6" />
-                  </span>
-                  <h3 className="mt-5 text-[15px] font-bold leading-snug text-navy-deep transition-colors group-hover:text-brand">
-                    {leader.focus}
-                  </h3>
-                  <p className="mt-1.5 text-[12.5px] text-ink-muted">{leader.role}</p>
+                  {features.leadershipProfiles ? (
+                    <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-100">
+                      <Image
+                        src={leader.photo}
+                        alt={`${leader.name}, ${leader.role} at ${site.name}`}
+                        fill
+                        sizes="(min-width: 1024px) 12rem, (min-width: 640px) 30vw, 45vw"
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                  ) : (
+                    <span
+                      className="mt-7 flex h-14 w-14 items-center justify-center rounded-xl text-white"
+                      style={{ backgroundImage: "var(--gradient-brand)" }}
+                      aria-hidden="true"
+                    >
+                      <UserRound className="h-6 w-6" />
+                    </span>
+                  )}
+
+                  <div className="p-5">
+                    <h3 className="text-[14px] font-bold leading-snug text-navy-deep transition-colors group-hover:text-brand">
+                      {features.leadershipProfiles ? leader.name : leader.focus}
+                    </h3>
+                    <p className="mt-1 text-[12px] text-ink-muted">{leader.role}</p>
+                  </div>
                 </Link>
               </RevealItem>
             ))}
@@ -292,7 +317,17 @@ export default async function AboutPage() {
             "@type": "Organization",
             name: site.name,
             foundingDate: String(site.founded),
-            /* No Person entries while features.leadershipProfiles is off. */
+            /* Mirrors /team — see the note there. */
+            ...(features.leadershipProfiles
+              ? {
+                  employee: team.leadership.map((leader) => ({
+                    "@type": "Person",
+                    name: leader.name,
+                    jobTitle: leader.role,
+                    image: `${site.url}${leader.photo}`,
+                  })),
+                }
+              : {}),
             knowsAbout: team.leadership.map((leader) => leader.focus),
           },
         }}

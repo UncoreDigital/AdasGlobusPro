@@ -373,27 +373,65 @@ export const team = {
     lead: "People buy people. Here is who leads the firm, how the team is structured, and how many pairs of eyes a deliverable passes before it reaches yours.",
   },
 
+  /*
+    Headshots are built by scripts/build-team-photos.js from the sources in
+    assets-src/team/ — see that file for why each subject carries its own crop.
+
+    The Chartered Accountants come first because CA-led ownership is the
+    positioning the 24 August brief asked us to lead on; the two Directors run
+    delivery and client relationships and follow.
+
+    Bios for Pratik and Ritesh are the client's own words from
+    docs/leader/Bio for website.docx, condensed for a card. The CA bios are
+    ours, written from the practice areas the client published, and remain open
+    to correction.
+
+    Each entry carries its own `icon`, used only when features.leadershipProfiles
+    is off. It used to be a positional array on the team page, which meant
+    removing anyone from the middle of this list handed their icon to the next
+    person along — which is exactly what happened when Arpit Shah came out.
+  */
   leadership: [
     {
       name: "CA Smit Shah",
       role: "Managing Director",
       photo: "/assets/team/smit-shah.webp",
       focus: "Accounting & Client Advisory",
+      icon: "Calculator",
+      chartered: true,
       bio: "Leads the accounting and advisory practice, including month-end close delivery, management reporting and the client-onboarding process that maps a firm's templates and conventions before live work begins.",
-    },
-    {
-      name: "CA Arpit Shah",
-      role: "Managing Director",
-      photo: "/assets/team/arpit-shah.webp",
-      focus: "Taxation & Compliance",
-      bio: "Leads the tax practice across individual, corporate, partnership and non-profit returns, and owns the technical review standard applied to every return before it leaves the delivery centre.",
     },
     {
       name: "CA Devarshi Shah",
       role: "Managing Director",
       photo: "/assets/team/devarshi-shah.webp",
       focus: "Audit Support & Assurance",
+      icon: "ShieldCheck",
+      chartered: true,
       bio: "Leads audit support and assurance delivery, including working-paper standards, substantive testing procedures and the documentation quality that a peer reviewer will hold the file to.",
+    },
+    {
+      name: "Pratik Shah",
+      role: "Director",
+      photo: "/assets/team/pratik-shah.webp",
+      focus: "Operations & Client Relationships",
+      icon: "Users2",
+      chartered: false,
+      bio: "Background in accounting and business administration, with hands-on experience supporting UK and U.S. businesses across operations, client management and team development. Builds the teams and the processes that keep delivery consistent as a client's volume grows.",
+    },
+    {
+      name: "Ritesh Prajapati",
+      role: "Director",
+      /* ⚠️ NAME TO CONFIRM — the supplied bio document says "Ritesh
+         Prajapati" and the supplied photo file is named "Ritesh Shah.jpeg".
+         The bio wins here because it is the written document, but this needs
+         checking before launch: a misspelled director on an About page is the
+         kind of error a prospect notices. */
+      photo: "/assets/team/ritesh-prajapati.webp",
+      focus: "Delivery & Team Building",
+      icon: "ClipboardList",
+      chartered: false,
+      bio: "Background in accounting and business administration, with years spent working with businesses in the UK and U.S. across operations, client management and team building. Focused on practical solutions that hold up in the real world, and on relationships that outlast a single engagement.",
     },
   ],
 
