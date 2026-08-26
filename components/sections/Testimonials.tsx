@@ -2,20 +2,30 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, Quote } from "lucide-react";
+import Link from "next/link";
 import SectionHeading from "@/components/SectionHeading";
-import { testimonials } from "@/lib/content";
+import { testimonials, testimonialsNote } from "@/lib/content";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /**
  * Testimonial carousel.
  *
- * The quotes are attributed by role and firm type, not by name — that is how
- * the client published them, and inventing names to make them look stronger
- * would be fabricating a reference. The card leans on the quote itself and
- * treats the attribution as a caption rather than dressing it up with a stock
- * headshot, which is the usual way this gap gets papered over.
+ * The quotes carry no names, because the client has not yet asked those firms
+ * for permission — and inventing a name to make a quote look stronger is
+ * fabricating a reference, not writing copy.
+ *
+ * So the card does the opposite of papering over it. No stock headshot, no
+ * monogram derived from the firm descriptor, and a note underneath saying
+ * plainly why there are no names and offering a reference call instead. A
+ * partner reading anonymous testimonials is already asking the question;
+ * answering it is worth more than a fourth quote.
+ *
+ * Set `attribution` on any entry in lib/content.ts and that card upgrades
+ * itself — real monogram, named cite, firm and location — and the note hides
+ * once every quote is attributed. See the provenance comment there for what
+ * still needs the client's sign-off.
  *
  * Autoplay stops permanently on the first manual interaction: a carousel that
  * resumes and slides away from what the reader just chose is worse than one
@@ -46,14 +56,15 @@ export default function Testimonials() {
   };
 
   const active = testimonials[index];
+  const anyAnonymous = testimonials.some((t) => !t.attribution);
 
   return (
     <section className="section bg-slate-50">
       <div className="container">
         <SectionHeading
           eyebrow="Client Voices"
-          title="What Partners and Finance Leaders"
-          accent="Say About Working With Us"
+          title="What CPA Firm Partners Say"
+          accent="About Working With Us"
           align="center"
         />
 
@@ -78,23 +89,47 @@ export default function Testimonials() {
                   “{active.quote}”
                 </p>
                 <footer className="mt-7 flex items-center gap-4 border-t border-border pt-6">
-                  <span
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-display text-sm font-extrabold text-white"
-                    style={{ backgroundImage: "var(--gradient-brand)" }}
-                    aria-hidden="true"
-                  >
-                    {active.role
-                      .split(/[\s,]+/)
-                      .filter(Boolean)
-                      .slice(0, 2)
-                      .map((w) => w[0])
-                      .join("")}
-                  </span>
+                  {/*
+                    A monogram only where there is a person to monogram. This
+                    used to take initials from the role string, so an anonymous
+                    "CPA Firm, United States" rendered as a "CF" avatar that
+                    reads as somebody's initials — an attributed quote's costume
+                    worn by an unattributed quote, which is exactly what makes a
+                    partner discount the whole section.
+                  */}
+                  {active.attribution ? (
+                    <span
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-display text-sm font-extrabold text-white"
+                      style={{ backgroundImage: "var(--gradient-brand)" }}
+                      aria-hidden="true"
+                    >
+                      {active.attribution.person
+                        .split(" ")
+                        .filter(Boolean)
+                        .slice(0, 2)
+                        .map((w) => w[0])
+                        .join("")}
+                    </span>
+                  ) : (
+                    <span
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand"
+                      aria-hidden="true"
+                    >
+                      <Building2 className="h-5 w-5" />
+                    </span>
+                  )}
+
                   <div>
                     <cite className="block text-[14.5px] font-bold not-italic text-navy-deep">
-                      {active.name}
+                      {active.attribution?.person ?? active.name}
                     </cite>
-                    <span className="text-[13px] text-ink-muted">{active.role}</span>
+                    <span className="text-[13px] text-ink-muted">
+                      {active.attribution
+                        ? [active.name, active.attribution.firm, active.attribution.location]
+                            .filter(Boolean)
+                            .join(", ")
+                        : active.role}
+                    </span>
                   </div>
                 </footer>
               </motion.blockquote>
@@ -137,6 +172,32 @@ export default function Testimonials() {
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
+
+          {/*
+            Shown while any quote is unattributed, and it does more work than an
+            extra quote would. A partner reading anonymous testimonials is
+            already asking why there are no names; answering that directly —
+            and offering the reference call that actually closes — converts the
+            weakness into the discretion a CPA firm wants from an offshore
+            partner. Disappears on its own once every entry is attributed.
+          */}
+          {anyAnonymous && (
+            <div className="mt-8 rounded-xl border border-border bg-white/70 p-5 text-center sm:p-6">
+              <p className="text-[13.5px] leading-relaxed text-ink-muted">
+                {testimonialsNote.body}
+              </p>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-navy-deep">
+                {testimonialsNote.offer}
+              </p>
+              <Link
+                href={testimonialsNote.cta.href}
+                className="mt-4 inline-flex items-center gap-2 text-[13.5px] font-bold text-brand transition-colors hover:text-accent-dark"
+              >
+                {testimonialsNote.cta.label}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

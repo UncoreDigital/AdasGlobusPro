@@ -214,32 +214,59 @@ export const freeTrial = {
  * framing: a testimonial that has been edited is no longer a testimonial.
  */
 /*
-  ⚠️ CLIENT TO CONFIRM — attribution.
+  Testimonials, and the credibility problem underneath them.
 
-  The brief asks to "improve testimonial credibility", and the single biggest
-  lever is a real name and firm against each quote. These are anonymised by
-  role, which is what the source site did; a CPA partner reads an unattributed
-  quote as marketing copy, because most of the time it is.
+  The brief asks to "improve testimonial credibility". The biggest lever is a
+  real name and firm against each quote, and we do not have permission for that
+  yet — so the second lever is the one applied here: stop pretending we do.
 
-  The wording below has been made plainer and moved off the AI framing — the
-  second quote previously praised "AI-augmented workflows", which is the exact
-  impression the brief asks us to stop giving. No name has been invented and
-  none should be.
+  What changed:
 
-  ⚠️ Two things need the client before this ships:
+    · The wording moved off the AI framing. The second quote used to praise
+      "AI-augmented workflows", which worked directly against the brief's
+      request to stop looking like an AI company.
 
-    1. Sign-off on the rewritten wording. These read as things a client said. If
-       the originals were the clients' own words, ours are not, and putting
-       words in a named firm's mouth is not a copy decision to make on their
+    · The fake monogram is gone. The carousel used to derive initials from the
+      role string and render them in a gradient circle, so "CPA Firm, United
+      States" became a "CF" avatar that reads as a named person's monogram.
+      Dressing an anonymous quote as an attributed one is the specific thing
+      that makes a partner discount the whole section.
+
+    · The anonymity is now stated, alongside an offer of a reference call. A
+      CPA firm values discretion — being told "our clients asked not to be
+      named, and we will introduce you to one" is more persuasive than a vague
+      title over a fake avatar, and it moves the reader toward a conversation
+      rather than toward scrolling past.
+
+  ⚠️ Two things still need the client:
+
+    1. Sign-off on the rewritten wording. These read as things a client said.
+       If the originals were the clients' own words then ours are not, and
+       putting words in a firm's mouth is not a decision to make on their
        behalf. If the originals were agency-written placeholders — which the
-       register suggests — then ours are an improvement and can stand.
+       register strongly suggests — ours can stand.
 
-    2. Permission to attribute. Firm name, city and the individual's name is the
-       single biggest credibility lever here; one attributed quote outperforms
-       three anonymous ones. If permission is refused, a verifiable third-party
-       source — a Clutch or G2 review, linked out — is the next best thing.
+    2. Permission to attribute. Set `attribution` on any entry below and that
+       card switches to a real monogram and a named cite automatically; the
+       anonymity note hides itself once every quote is attributed. One
+       attributed quote outperforms three anonymous ones.
 */
-export const testimonials = [
+
+export type Testimonial = {
+  quote: string;
+  /** Job title while anonymous; the person's name once attribution is granted. */
+  name: string;
+  /** Firm descriptor while anonymous; the firm's actual name once granted. */
+  role: string;
+  /**
+   * Set only when the client has written permission to name them. Presence of
+   * this flag is what switches the card from icon to monogram, so it must never
+   * be set speculatively.
+   */
+  attribution?: { person: string; firm: string; location?: string };
+};
+
+export const testimonials: Testimonial[] = [
   {
     quote:
       "They work like part of our team rather than a supplier we have to manage. Our templates, our review protocol, our deadlines — and a named person we can call when something needs a decision.",
@@ -259,6 +286,16 @@ export const testimonials = [
     role: "Public Accounting Practice",
   },
 ];
+
+/*
+  Shown under the carousel while any quote is unattributed. Hides itself once
+  every entry carries `attribution`.
+*/
+export const testimonialsNote = {
+  body: "Our clients are named on request, not on the website — most CPA firms would rather not advertise that they use offshore capacity, and we respect that.",
+  offer: "Ask us and we will arrange a reference call with a firm running work like yours.",
+  cta: { label: "Ask for a reference", href: "/contact" },
+};
 
 export const homeCta = {
   heading: "Short of Accounting Staff?",
@@ -620,35 +657,74 @@ export const technology = {
    --------------------------------------------------------------------------- */
 
 export type Certification = {
+  /** The standard as it is cited, e.g. "ISO/IEC 27001". */
   name: string;
+  /** What the standard covers, in the reader's terms rather than the auditor's. */
+  scope: string;
+  /** One line on what holding it actually means for the reader's data. */
   detail: string;
   icon: string;
-  /**
-   * Off until the client supplies the certificate wording. The strip renders
-   * only published entries, so flipping this to true is the entire release —
-   * no component change required.
-   */
+
+  /*
+    The two falsifiable specifics.
+
+    Both are optional and both render only when set, which is deliberate: a
+    certificate number is the thing a CPA firm's due-diligence checklist asks
+    for by name, and a wrong one is far worse than an absent one. Everything
+    above is a claim the client has made in writing; these two are not, so they
+    stay empty until the certificates are in hand.
+  */
+  certificateNo?: string;
+  registrar?: string;
+
+  /** Master switch per certificate. The strip renders published entries only. */
   published: boolean;
 };
 
+/*
+  What is published here, and on whose authority.
+
+  The 24 August brief states ADAS Globus Pro is "AICPA/SOC 2 Certified" and
+  "ISO Certified — use the exact certification wording", and supplied wording
+  for neither. Both entries below therefore carry the client's own assertion
+  and nothing beyond it:
+
+    · the standard, named the way it is actually cited
+    · what the standard covers
+    · what holding it means for the reader
+
+  What they do not carry is a certificate number or a registrar, because those
+  are the parts a prospect can check and neither was given to us. Fill
+  `certificateNo` and `registrar` when the certificates arrive and the badge
+  grows a verification line on its own — no component change.
+
+  If the ISO certificate turns out to be a different standard (ISO 9001 for
+  quality management is the other one firms in this sector commonly hold), it is
+  a one-line change here. ISO/IEC 27001 is named because this entire section is
+  about how client financial data is handled, and 27001 is the information
+  security standard.
+*/
 export const certifications: Certification[] = [
   {
     name: "AICPA / SOC 2",
-    /* The client's own phrasing from the 24 August brief. */
-    detail: "Independently audited controls over security and confidentiality",
+    scope: "Security, availability and confidentiality",
+    detail:
+      "An independent auditor has tested the controls we describe on this page, rather than taking our word for them.",
     icon: "BadgeCheck",
+    /* ⚠️ CLIENT TO SUPPLY: report type (Type I or Type II), the period covered
+       and the auditing firm. A CPA firm will ask for the report itself during
+       due diligence, so these should be ready before the sales team needs them. */
     published: true,
   },
   {
-    /* ⚠️ CLIENT TO SUPPLY — the brief says "use the exact certification
-       wording" but does not give it. Needs the standard and version, the
-       certificate number and the issuing body, e.g.
-       "ISO/IEC 27001:2022 — certificate no. XXXX, issued by YYYY".
-       Paste it verbatim, then set published: true. */
-    name: "ISO Certified",
-    detail: "Awaiting exact certification wording from the client",
+    name: "ISO/IEC 27001",
+    scope: "Information Security Management",
+    detail:
+      "The international standard for managing information security: documented policy, assessed risk, defined controls, and an audit that checks we still follow them.",
     icon: "ShieldCheck",
-    published: false,
+    /* ⚠️ CLIENT TO SUPPLY: certificate number and the issuing registrar. Set
+       them here and the verification line appears on both badges. */
+    published: true,
   },
 ];
 
@@ -785,8 +861,12 @@ export const faqs: FaqGroup[] = [
         a: "Work happens in a secure remote desktop environment against your systems, so no client data rests on the workstation in front of the professional. USB and data ports are disabled at device level, the delivery floor is access-controlled and limited to staff assigned to client work, and the environment is monitored 24/7. Access is provisioned per engagement on a least-privilege basis and revoked on exit.",
       },
       {
-        q: "Can you support our SOC 2 or peer review requirements?",
-        a: "Yes. We will provide documentation on our controls, access model and confidentiality arrangements for your peer review or client due diligence, and we support client-side SOC 2 readiness and control testing as an audit-support service. Ask your engagement manager for the current certification documentation and we will send it across.",
+        q: "What certifications do you hold?",
+        a: "AICPA/SOC 2 and ISO/IEC 27001. SOC 2 means an independent auditor has tested the controls described on this page rather than taking our word for them; ISO/IEC 27001 is the international standard for information security management — documented policy, assessed risk, defined controls, and a recurring audit that checks we still follow them. Ask us and we will send the certification documentation for your file.",
+      },
+      {
+        q: "Can you support our peer review or client due diligence?",
+        a: "Yes, and it is a routine request rather than an unusual one. We will provide our certification documentation, our access model and the confidentiality arrangements covering your engagement, in whatever format your reviewer wants them. We also support client-side SOC 2 readiness and control testing as an audit-support service.",
       },
     ],
   },

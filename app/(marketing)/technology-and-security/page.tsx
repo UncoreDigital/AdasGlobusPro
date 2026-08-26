@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
@@ -51,32 +52,76 @@ export default function TechnologyPage() {
           </div>
 
           {published.length > 0 && (
-            <Reveal className="mt-12">
-              <ul className="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
+            <div className="mx-auto mt-14 max-w-4xl">
+              <Reveal>
+                <h2 className="text-center text-[12px] font-bold uppercase tracking-[0.16em] text-brand">
+                  Independently audited
+                </h2>
+              </Reveal>
+
+              <RevealGroup className="mt-6 grid gap-4 sm:grid-cols-2">
                 {published.map((cert) => {
                   const Icon = getIcon(cert.icon);
                   return (
-                    <li
+                    <RevealItem
                       key={cert.name}
-                      className="flex items-center gap-3.5 rounded-xl border border-emerald-mint/40 bg-emerald-mint/[0.07] px-5 py-4"
+                      className="flex gap-4 rounded-2xl border border-emerald-mint/40 bg-emerald-mint/[0.06] p-6 sm:p-7"
                     >
-                      <Icon
-                        className="h-5 w-5 shrink-0 text-emerald"
-                        aria-hidden="true"
-                      />
-                      <span>
-                        <span className="block text-[14px] font-bold text-navy-deep">
-                          {cert.name} Certified
-                        </span>
-                        <span className="block text-[12.5px] text-ink-muted">
-                          {cert.detail}
-                        </span>
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-emerald shadow-card">
+                        <Icon className="h-6 w-6" aria-hidden="true" />
                       </span>
-                    </li>
+
+                      <div className="min-w-0">
+                        <p className="text-[16px] font-extrabold leading-tight text-navy-deep">
+                          {cert.name}
+                          <span className="ml-2 align-middle text-[11px] font-bold uppercase tracking-[0.1em] text-emerald">
+                            Certified
+                          </span>
+                        </p>
+                        <p className="mt-1 text-[13px] font-semibold text-accent-dark">
+                          {cert.scope}
+                        </p>
+                        <p className="mt-2.5 text-[13.5px] leading-[1.65] text-ink-muted">
+                          {cert.detail}
+                        </p>
+
+                        {(cert.certificateNo || cert.registrar) && (
+                          <p className="mt-3 border-t border-emerald-mint/40 pt-3 text-[12px] text-slate-500">
+                            {cert.certificateNo && (
+                              <span className="font-medium">
+                                Certificate {cert.certificateNo}
+                              </span>
+                            )}
+                            {cert.certificateNo && cert.registrar && " · "}
+                            {cert.registrar && <span>Issued by {cert.registrar}</span>}
+                          </p>
+                        )}
+                      </div>
+                    </RevealItem>
                   );
                 })}
-              </ul>
-            </Reveal>
+              </RevealGroup>
+
+              {/*
+                The practical follow-up. A prospect who reads two certificate
+                badges wants to know whether they can see the paperwork, and
+                saying so plainly is worth more than a third badge.
+              */}
+              <Reveal className="mt-5">
+                <p className="rounded-xl border border-border bg-slate-50 p-5 text-center text-[13.5px] leading-relaxed text-ink-muted">
+                  Doing due diligence, or answering a client&rsquo;s questions about who handles
+                  their data?{" "}
+                  <Link
+                    href="/contact"
+                    className="font-semibold text-brand underline-offset-4 hover:underline"
+                  >
+                    Ask us
+                  </Link>{" "}
+                  and we will send the certification documentation, our access model and the
+                  confidentiality arrangements for your file.
+                </p>
+              </Reveal>
+            </div>
           )}
         </div>
       </section>

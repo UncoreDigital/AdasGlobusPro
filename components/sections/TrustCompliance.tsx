@@ -10,11 +10,14 @@ import { features } from "@/lib/site";
  * Trust & compliance — the band the client asked to make "highly visible on the
  * homepage".
  *
- * Certifications and controls sit together because a prospect reads them as one
- * answer to one question. The certification row renders only entries flagged
- * `published` in lib/content.ts, so an unverified claim cannot reach the page by
- * accident: the ISO entry is waiting on the client's exact certificate wording
- * and stays dark until it arrives.
+ * Two tiers, because a prospect reads them differently. The certificates are an
+ * outside party's word and get the weight; the controls are ours and sit
+ * underneath as the detail. Running them as one flat row of seven made the
+ * audited claims look like the same kind of statement as "USB ports disabled",
+ * which undersells the two that a due-diligence checklist actually asks about.
+ *
+ * Certificate numbers render only when set — see the note on `certifications`
+ * in lib/content.ts. Nothing here invents a specific a prospect could check.
  */
 export default function TrustCompliance() {
   const published = features.certifications
@@ -22,7 +25,7 @@ export default function TrustCompliance() {
     : [];
 
   return (
-    <section className="section-tight bg-slate-50">
+    <section className="section bg-slate-50">
       <div className="container">
         <SectionHeading
           eyebrow={trustStrip.eyebrow}
@@ -33,32 +36,57 @@ export default function TrustCompliance() {
         />
 
         {published.length > 0 && (
-          <Reveal className="mt-10">
-            <ul className="flex flex-wrap justify-center gap-4">
-              {published.map((cert) => {
-                const Icon = getIcon(cert.icon);
-                return (
-                  <li
-                    key={cert.name}
-                    className="flex items-center gap-3.5 rounded-xl border border-emerald-mint/40 bg-white px-5 py-4 shadow-card"
-                  >
-                    <Icon className="h-6 w-6 shrink-0 text-emerald" aria-hidden="true" />
-                    <span>
-                      <span className="block text-[14.5px] font-extrabold text-navy-deep">
-                        {cert.name} Certified
+          <RevealGroup className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+            {published.map((cert) => {
+              const Icon = getIcon(cert.icon);
+              return (
+                <RevealItem
+                  key={cert.name}
+                  className="flex gap-4 rounded-2xl border border-emerald-mint/40 bg-white p-6 shadow-card sm:p-7"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald/10 text-emerald">
+                    <Icon className="h-6 w-6" aria-hidden="true" />
+                  </span>
+
+                  <div className="min-w-0">
+                    <p className="text-[16px] font-extrabold leading-tight text-navy-deep">
+                      {cert.name}
+                      <span className="ml-2 align-middle text-[11px] font-bold uppercase tracking-[0.1em] text-emerald">
+                        Certified
                       </span>
-                      <span className="block text-[12.5px] text-ink-muted">
-                        {cert.detail}
-                      </span>
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
+                    </p>
+                    <p className="mt-1 text-[13px] font-semibold text-accent-dark">
+                      {cert.scope}
+                    </p>
+                    <p className="mt-2.5 text-[13.5px] leading-[1.65] text-ink-muted">
+                      {cert.detail}
+                    </p>
+
+                    {(cert.certificateNo || cert.registrar) && (
+                      <p className="mt-3 border-t border-border pt-3 text-[12px] text-slate-500">
+                        {cert.certificateNo && (
+                          <span className="font-medium">
+                            Certificate {cert.certificateNo}
+                          </span>
+                        )}
+                        {cert.certificateNo && cert.registrar && " · "}
+                        {cert.registrar && <span>Issued by {cert.registrar}</span>}
+                      </p>
+                    )}
+                  </div>
+                </RevealItem>
+              );
+            })}
+          </RevealGroup>
         )}
 
-        <RevealGroup className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <Reveal className="mt-10">
+          <p className="text-center text-[12px] font-bold uppercase tracking-[0.16em] text-brand">
+            And the controls those audits cover
+          </p>
+        </Reveal>
+
+        <RevealGroup className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {trustStrip.items.map((item) => {
             const Icon = getIcon(item.icon);
             return (
