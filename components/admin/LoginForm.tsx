@@ -130,8 +130,16 @@ export default function LoginForm() {
       </Button>
 
       <p className="text-center text-[12.5px] leading-relaxed text-slate-400">
-        There is no public sign-up. Admin accounts are created in the Supabase dashboard
-        under Authentication → Users.
+        Powered by{" "}
+        <a
+          href="https://uncoredigital.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand underline transition-colors hover:text-brand-dark"
+        >
+          Uncore Digital
+        </a>
+        .
       </p>
     </form>
   );
