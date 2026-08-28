@@ -413,7 +413,7 @@ export const team = {
     {
       name: "Pratik Shah",
       role: "Director",
-      photo: "/assets/team/pratik-shah.webp",
+      photo: "/assets/team/pratik-shah.png",
       focus: "Operations & Client Relationships",
       icon: "Users2",
       chartered: false,
@@ -427,7 +427,7 @@ export const team = {
          The bio wins here because it is the written document, but this needs
          checking before launch: a misspelled director on an About page is the
          kind of error a prospect notices. */
-      photo: "/assets/team/ritesh-prajapati.webp",
+      photo: "/assets/team/ritesh-prajapati.png",
       focus: "Delivery & Team Building",
       icon: "ClipboardList",
       chartered: false,

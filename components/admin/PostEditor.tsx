@@ -34,6 +34,27 @@ const CATEGORIES = [
 const BUCKET = "post-media";
 
 /**
+ * Tell the public site to re-render.
+ *
+ * The editor writes directly to Supabase, so nothing else would. Failure is
+ * deliberately non-fatal: the post is already saved, and the five-minute ISR
+ * window still catches up. Surfacing "save failed" over a cache miss would be
+ * a lie about what happened to the content.
+ */
+async function revalidatePublicPages(slug?: string) {
+  try {
+    const res = await fetch("/api/revalidate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scope: "post", slug }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Post create/edit screen.
  *
  * The slug auto-follows the title only until the post has been published once.
@@ -62,6 +83,8 @@ export default function PostEditor({ post }: { post: Post | null }) {
 
   const [slugTouched, setSlugTouched] = useState(!isNew);
   const [state, setState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  /** Saved to the database, but the public page could not be re-rendered. */
+  const [stale, setStale] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
 
@@ -177,7 +200,14 @@ export default function PostEditor({ post }: { post: Post | null }) {
       return;
     }
 
+    /*
+      Await this rather than firing and forgetting: the author's next move is to
+      open the live page and check, and losing that race is the whole complaint
+      this was written to fix.
+    */
+    const fresh = await revalidatePublicPages(payload.slug);
     setState("saved");
+    setStale(!fresh);
     set("status", nextStatus);
     router.refresh();
 
@@ -197,6 +227,7 @@ export default function PostEditor({ post }: { post: Post | null }) {
       setError(deleteError.message);
       return;
     }
+    await revalidatePublicPages(post.slug);
     router.replace("/admin/posts");
     router.refresh();
   }
@@ -337,10 +368,22 @@ export default function PostEditor({ post }: { post: Post | null }) {
               </Button>
             </div>
 
-            {state === "saved" && (
+            {/*
+              "Saved" used to mean "written to the database", which is not what
+              an author is asking. They want to know the live page has changed —
+              so the message says which of the two happened.
+            */}
+            {state === "saved" && !stale && (
               <p className="mt-4 flex items-center gap-2 text-[13px] font-semibold text-emerald">
                 <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                Saved
+                Saved and live
+              </p>
+            )}
+            {state === "saved" && stale && (
+              <p className="mt-4 flex items-start gap-2 text-[12.5px] font-medium text-amber-700">
+                <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                Saved. The live page could not be refreshed just now — it will
+                update itself within five minutes.
               </p>
             )}
             {error && (

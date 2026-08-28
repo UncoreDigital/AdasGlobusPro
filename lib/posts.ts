@@ -12,11 +12,30 @@ import type { Post } from "@/lib/supabase/types";
 
 const PUBLISHED = "status.eq.published";
 
+/**
+ * "Now", rounded down to the minute.
+ *
+ * This cut-off ends up in the PostgREST query string, which is the URL Next.js
+ * keys its Data Cache on. At millisecond precision every single render produced
+ * a URL nothing had ever requested before, so the cache could never hit and one
+ * build left 454 entries behind — a cache that only ever grows and never
+ * answers. Rounding gives a key that repeats.
+ *
+ * The cost is that a post scheduled for 10:00:30 goes live at 10:01 instead.
+ * That is the right trade for scheduled publishing, which nobody here uses to
+ * the second.
+ */
+function publishedBefore() {
+  const now = new Date();
+  now.setSeconds(0, 0);
+  return now.toISOString();
+}
+
 function publishedFilter<T extends { eq: Function; not: Function; lte: Function }>(query: T) {
   return (query as any)
     .eq("status", "published")
     .not("published_at", "is", null)
-    .lte("published_at", new Date().toISOString());
+    .lte("published_at", publishedBefore());
 }
 
 export async function getPosts(limit?: number): Promise<Post[]> {

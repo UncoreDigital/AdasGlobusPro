@@ -5,6 +5,7 @@ import CountryCode from "@/components/CountryCode";
 import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
+import { getSettings } from "@/lib/settings";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,7 +15,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  /* The admin can override the published number; lib/site.ts is the fallback. */
+  const settings = await getSettings();
+  const phone = settings.phone ?? site.phone;
+
   return (
     <>
       <PageBanner
@@ -56,13 +61,13 @@ export default function ContactPage() {
                   </li>
                   <li>
                     <a
-                      href={site.phoneHref}
+                      href={`tel:${phone.replace(/[^d+]/g, "")}`}
                       className="group flex items-center gap-3.5 text-[14.5px] font-medium text-navy-deep transition-colors hover:text-brand"
                     >
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand shadow-soft">
                         <Phone className="h-4 w-4" aria-hidden="true" />
                       </span>
-                      {site.phone}
+                      {phone}
                     </a>
                   </li>
                   <li>
