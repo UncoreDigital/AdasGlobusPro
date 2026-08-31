@@ -48,7 +48,7 @@ export default function Logo({
     flattened: the artwork's transparent counters would otherwise let the navy
     behind it show through the letterforms and undo the point of the plate.
   */
-  const src = tone === "dark" ? "/assets/logo.png" : "/assets/logo-alpha.png";
+  const src = tone === "dark" ? "/assets/logo-compact-alpha.png" : "/assets/logo-compact-alpha.png";
 
   const image = (
     <Image

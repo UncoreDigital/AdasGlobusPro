@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DOMPurify from "isomorphic-dompurify";
-import { ArrowLeft, CalendarDays, Clock, User } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Clock, User } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import CTA from "@/components/sections/CTA";
@@ -153,11 +153,22 @@ export default async function PostPage({ params }: { params: { slug: string } })
                   <h3 className="mt-2.5 flex-1 text-[15.5px] font-bold leading-snug text-navy-deep transition-colors group-hover:text-brand">
                     {item.title}
                   </h3>
-                  {item.published_at && (
-                    <span className="mt-4 text-[12.5px] text-ink-muted">
-                      {formatDate(item.published_at)}
+                  <span className="mt-4 flex items-center justify-between gap-3">
+                    {item.published_at ? (
+                      <span className="text-[12.5px] text-ink-muted">
+                        {formatDate(item.published_at)}
+                      </span>
+                    ) : (
+                      <span aria-hidden="true" />
+                    )}
+                    <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
+                      Read the piece
+                      <ArrowRight
+                        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
                     </span>
-                  )}
+                  </span>
                 </Link>
               ))}
             </div>
