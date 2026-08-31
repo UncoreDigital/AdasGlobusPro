@@ -61,7 +61,7 @@ export default async function ContactPage() {
                   </li>
                   <li>
                     <a
-                      href={`tel:${phone.replace(/[^d+]/g, "")}`}
+                      href={`tel:${phone.replace(/[^\d+]/g, "")}`}
                       className="group flex items-center gap-3.5 text-[14.5px] font-medium text-navy-deep transition-colors hover:text-brand"
                     >
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand shadow-soft">

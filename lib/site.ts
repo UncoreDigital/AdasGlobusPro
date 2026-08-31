@@ -86,10 +86,10 @@ export const site = {
   emailHref: "mailto:info@adasglobus.com",
 
   /** The U.S. line is the primary on this site. */
-  phone: "+1 (972) 694-9811",
-  phoneHref: "tel:+19726949811",
+  phone: "+1 (307) 533-0018",
+  phoneHref: "tel:+13075330018",
 
-  whatsapp: "https://wa.me/919429461564",
+  whatsapp: "https://wa.me/13075330018",
 
   founded: 2020,
 
@@ -128,8 +128,8 @@ export const offices = [
     role: "U.S. Office",
     city: "Austin, Texas",
     address: "5900 Balcones Drive STE 100, Austin, Texas 78371",
-    phone: "+1 (972) 694-9811",
-    phoneHref: "tel:+19726949811",
+    phone: "+1 (307) 533-0018",
+    phoneHref: "tel:+13075330018",
     timezone: "America/Chicago",
     tzLabel: "CT",
     primary: true,

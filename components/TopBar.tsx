@@ -29,7 +29,7 @@ export default async function TopBar() {
       <div className="container flex items-center justify-between gap-6">
         <div className="flex items-center gap-6">
           <a
-            href={`tel:${phone.replace(/[^d+]/g, "")}`}
+            href={`tel:${phone.replace(/[^\d+]/g, "")}`}
             className="flex items-center gap-2 text-[12.5px] text-white/75 transition-colors hover:text-accent-light"
           >
             <Phone className="h-3.5 w-3.5" aria-hidden="true" />

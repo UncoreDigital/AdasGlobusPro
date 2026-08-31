@@ -201,12 +201,16 @@ export default async function AboutPage() {
             thing. Falls back to practice-area cards when
             features.leadershipProfiles is off; see the note on /team.
 
-            Column count tracks the roster: a grid that does not divide the
-            list leaves an orphan card on its own row.
+            Wrapped flex, matching /team — a grid pins a short final row to the
+            left-hand columns and leaves a hole beside it. justify-center keeps
+            the last row centred whoever is on it.
           */}
-          <RevealGroup className="mx-auto mt-12 grid max-w-4xl gap-5 grid-cols-2 sm:grid-cols-4">
+          <RevealGroup className="mx-auto mt-12 flex max-w-5xl flex-wrap justify-center gap-5">
             {team.leadership.map((leader) => (
-              <RevealItem key={leader.name}>
+              <RevealItem
+                key={leader.name}
+                className="w-[calc(50%-0.625rem)] sm:w-[calc(33.333%-0.834rem)] lg:w-[calc(20%-1rem)]"
+              >
                 <Link
                   href="/team"
                   className="card-edge group flex h-full flex-col items-center overflow-hidden text-center transition-transform hover:-translate-y-1"

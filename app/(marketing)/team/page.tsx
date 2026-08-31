@@ -60,13 +60,28 @@ export default async function TeamPage() {
             card. That was true of three people and stopped being true when two
             Directors joined the list, so it now reads from `leader.chartered`.
           */}
-          <RevealGroup className="mx-auto mt-14 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/*
+            Three across, so five people land as 3 + 2 rather than 4 + 1 with an
+            orphan. The row order is the array order in lib/content.ts — the two
+            Directors first, then the three Chartered Accountants.
+
+            Wrapped flex rather than a grid, because a grid pins the last row to
+            the left-hand columns: five cards in three columns left Devarshi and
+            Arpit hard against the left with a card-sized hole beside them.
+            justify-center pushes any short final row to the middle, and it keeps
+            doing so if somebody joins or leaves — which a grid's explicit
+            column-start offsets would not.
+
+            The widths subtract their share of the 1.5rem gap so the rows still
+            break at two and three across.
+          */}
+          <RevealGroup className="mx-auto mt-14 flex max-w-5xl flex-wrap justify-center gap-6">
             {team.leadership.map((leader) => {
               const AreaIcon = getIcon(leader.icon);
               return (
                 <RevealItem
                   key={leader.name}
-                  className="card-edge group flex h-full flex-col overflow-hidden text-center transition-transform hover:-translate-y-1.5 hover:shadow-lift"
+                  className="card-edge group flex w-full flex-col overflow-hidden text-center transition-transform hover:-translate-y-1.5 hover:shadow-lift sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
                 >
                   {features.leadershipProfiles ? (
                     <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-100">

@@ -393,6 +393,29 @@ export const team = {
   */
   leadership: [
     {
+      name: "Pratik Shah",
+      role: "Director",
+      photo: "/assets/team/pratik-shah.webp",
+      focus: "Operations & Client Relationships",
+      icon: "Users2",
+      chartered: false,
+      bio: "Background in accounting and business administration, with hands-on experience supporting UK and U.S. businesses across operations, client management and team development. Builds the teams and the processes that keep delivery consistent as a client's volume grows.",
+    },
+    {
+      name: "Ritesh Prajapati",
+      role: "Director",
+      /* ⚠️ NAME TO CONFIRM — the supplied bio document says "Ritesh
+         Prajapati" and the supplied photo file is named "Ritesh Shah.jpeg".
+         The bio wins here because it is the written document, but this needs
+         checking before launch: a misspelled director on an About page is the
+         kind of error a prospect notices. */
+      photo: "/assets/team/ritesh-prajapati.webp",
+      focus: "Delivery & Team Building",
+      icon: "ClipboardList",
+      chartered: false,
+      bio: "Background in accounting and business administration, with years spent working with businesses in the UK and U.S. across operations, client management and team building. Focused on practical solutions that hold up in the real world, and on relationships that outlast a single engagement.",
+    },
+    {
       name: "CA Smit Shah",
       role: "Managing Director",
       photo: "/assets/team/smit-shah.webp",
@@ -411,27 +434,13 @@ export const team = {
       bio: "Leads audit support and assurance delivery, including working-paper standards, substantive testing procedures and the documentation quality that a peer reviewer will hold the file to.",
     },
     {
-      name: "Pratik Shah",
-      role: "Director",
-      photo: "/assets/team/pratik-shah.png",
-      focus: "Operations & Client Relationships",
-      icon: "Users2",
-      chartered: false,
-      bio: "Background in accounting and business administration, with hands-on experience supporting UK and U.S. businesses across operations, client management and team development. Builds the teams and the processes that keep delivery consistent as a client's volume grows.",
-    },
-    {
-      name: "Ritesh Prajapati",
-      role: "Director",
-      /* ⚠️ NAME TO CONFIRM — the supplied bio document says "Ritesh
-         Prajapati" and the supplied photo file is named "Ritesh Shah.jpeg".
-         The bio wins here because it is the written document, but this needs
-         checking before launch: a misspelled director on an About page is the
-         kind of error a prospect notices. */
-      photo: "/assets/team/ritesh-prajapati.png",
-      focus: "Delivery & Team Building",
-      icon: "ClipboardList",
-      chartered: false,
-      bio: "Background in accounting and business administration, with years spent working with businesses in the UK and U.S. across operations, client management and team building. Focused on practical solutions that hold up in the real world, and on relationships that outlast a single engagement.",
+      name: "CA Arpit Shah",
+      role: "Managing Director",
+      photo: "/assets/team/arpit-shah.webp",
+      focus: "Taxation & Compliance",
+      icon: "Receipt",
+      chartered: true,
+      bio: "Leads the tax practice across individual, corporate, partnership and non-profit returns, and owns the technical review standard applied to every return before it leaves the delivery centre.",
     },
   ],
 
