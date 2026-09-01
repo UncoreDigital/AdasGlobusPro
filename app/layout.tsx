@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { site } from "@/lib/site";
@@ -65,7 +66,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Vercel Web Analytics. Renders nothing; it injects the collection
+            script and reports a page view on each App Router navigation. Only
+            active on Vercel deployments, so local and CI builds stay silent. */}
+        <Analytics />
+      </body>
     </html>
   );
 }

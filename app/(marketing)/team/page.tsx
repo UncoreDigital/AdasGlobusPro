@@ -62,15 +62,15 @@ export default async function TeamPage() {
           */}
           {/*
             Three across, so five people land as 3 + 2 rather than 4 + 1 with an
-            orphan. The row order is the array order in lib/content.ts — the two
-            Directors first, then the three Chartered Accountants.
+            orphan. The row order is the array order in lib/content.ts — the
+            three Chartered Accountants first, then the two Directors.
 
             Wrapped flex rather than a grid, because a grid pins the last row to
-            the left-hand columns: five cards in three columns left Devarshi and
-            Arpit hard against the left with a card-sized hole beside them.
+            the left-hand columns: five cards in three columns left the trailing
+            pair hard against the left with a card-sized hole beside them.
             justify-center pushes any short final row to the middle, and it keeps
-            doing so if somebody joins or leaves — which a grid's explicit
-            column-start offsets would not.
+            doing so if somebody joins, leaves or is reordered — which a grid's
+            explicit column-start offsets would not.
 
             The widths subtract their share of the 1.5rem gap so the rows still
             break at two and three across.
