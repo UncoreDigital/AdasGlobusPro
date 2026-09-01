@@ -95,7 +95,7 @@ export default async function ContactPage() {
               <RevealGroup className="space-y-4">
                 {offices.map((office) => (
                   <RevealItem
-                    key={office.country}
+                    key={office.id}
                     className="rounded-2xl border border-border bg-white p-6"
                   >
                     <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent-dark">

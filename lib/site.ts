@@ -82,8 +82,8 @@ export const site = {
   logoAlpha: "/assets/logo-alpha.png",
   ogImage: "/assets/og.jpg",
 
-  email: "info@adasglobus.com",
-  emailHref: "mailto:info@adasglobus.com",
+  email: "Info@adasglobuspro.com ",
+  emailHref: "mailto:Info@adasglobuspro.com ",
 
   /** The U.S. line is the primary on this site. */
   phone: "+1 (307) 533-0018",
@@ -108,9 +108,15 @@ export const site = {
 /**
  * Locations shown on the U.S. site.
  *
- * Two, not three. The Dubai office is real and stays on the global site, but to
- * a U.S. CPA firm evaluating an offshore partner it reads as off-topic, and a
- * third address dilutes the one that matters — the Texas one.
+ * The Dubai office is real and stays on the global site, but to a U.S. CPA firm
+ * evaluating an offshore partner it reads as off-topic, and a sales address
+ * dilutes the one that matters — the Texas one.
+ *
+ * The two Indian entries are both delivery centres in Ahmedabad, so the city
+ * line carries the locality — "Paldi, Ahmedabad" and "Bodakdev, Ahmedabad" —
+ * rather than repeating "Ahmedabad, Gujarat" twice under identical headings.
+ * `locality` is the bare city, kept separate because schema.org's
+ * addressLocality wants "Ahmedabad", not the display string.
  *
  * India is named openly as the delivery centre rather than buried. Hiding where
  * the work happens is the fastest way to lose this audience: it is the first
@@ -123,10 +129,12 @@ export const site = {
  */
 export const offices = [
   {
+    id: "us-austin",
     country: "United States",
     code: "US",
     role: "U.S. Office",
     city: "Austin, Texas",
+    locality: "Austin",
     address: "5900 Balcones Drive STE 100, Austin, Texas 78371",
     phone: "+1 (307) 533-0018",
     phoneHref: "tel:+13075330018",
@@ -135,11 +143,27 @@ export const offices = [
     primary: true,
   },
   {
+    id: "in-paldi",
     country: "India",
     code: "IN",
     role: "Delivery Centre",
-    city: "Ahmedabad, Gujarat",
+    city: "Paldi, Ahmedabad",
+    locality: "Ahmedabad",
     address: "304-305, Silver Oaks Complex, Paldi, Ahmedabad, Gujarat 380007",
+    phone: "+91 94294 61564",
+    phoneHref: "tel:+919429461564",
+    timezone: "Asia/Kolkata",
+    tzLabel: "IST",
+    primary: false,
+  },
+  {
+    id: "in-bodakdev",
+    country: "India",
+    code: "IN",
+    role: "Delivery Centre",
+    city: "Bodakdev, Ahmedabad",
+    locality: "Ahmedabad",
+    address: "Shilp Epitome, 1301/1302, Rajpath Rangoli Rd, Bodakdev, Ahmedabad, Gujarat 380059",
     phone: "+91 94294 61564",
     phoneHref: "tel:+919429461564",
     timezone: "Asia/Kolkata",

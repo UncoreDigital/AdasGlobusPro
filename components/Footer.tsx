@@ -94,9 +94,9 @@ export default async function Footer() {
         </div>
 
         {/* Offices */}
-        <div className="grid gap-8 border-t border-white/10 py-12 sm:grid-cols-2">
+        <div className="grid gap-8 border-t border-white/10 py-12 sm:grid-cols-2 lg:grid-cols-3">
           {offices.map((office) => (
-            <div key={office.country}>
+            <div key={office.id}>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent-light">
                 {office.role}
               </p>

@@ -270,14 +270,14 @@ export default async function AboutPage() {
           <SectionHeading
             eyebrow="Where We Are"
             title="A U.S. Office and"
-            accent="a Dedicated Delivery Centre"
+            accent="Two Delivery Centres"
             lead="We name where the work happens rather than leaving you to ask. It is the first question on almost every discovery call."
             align="center"
           />
-          <RevealGroup className="mx-auto mt-12 grid max-w-3xl gap-5 sm:grid-cols-2">
+          <RevealGroup className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {offices.map((office) => (
               <RevealItem
-                key={office.country}
+                key={office.id}
                 className="rounded-xl border border-border bg-white p-7"
               >
                 <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent-dark">

@@ -85,7 +85,7 @@ export default async function HomePage() {
             address: offices.map((office) => ({
               "@type": "PostalAddress",
               addressCountry: office.code,
-              addressLocality: office.city,
+              addressLocality: office.locality,
               streetAddress: office.address,
             })),
             areaServed: { "@type": "Country", name: "United States" },
