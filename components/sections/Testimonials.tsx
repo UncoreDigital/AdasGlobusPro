@@ -146,7 +146,16 @@ export default function Testimonials() {
               <ArrowLeft className="h-4 w-4" />
             </button>
 
-            <div className="flex items-center gap-2" role="tablist" aria-label="Testimonials">
+            {/*
+              The hit area is the button; the dot is the span inside it.
+              Drawn as one element the inactive dots were 6x6 CSS px with an
+              8px gap — 14px apart centre to centre, which is a coin-flip to
+              hit with a thumb and under the 24px touch-target minimum. Padding
+              the button to 24px square and dropping the wrapper gap to zero
+              buys a real target without resizing the dot, so the control still
+              reads as a row of dots rather than a row of buttons.
+            */}
+            <div className="flex items-center" role="tablist" aria-label="Testimonials">
               {testimonials.map((t, i) => (
                 <button
                   key={t.role}
@@ -155,11 +164,15 @@ export default function Testimonials() {
                   aria-selected={i === index}
                   aria-label={`Testimonial ${i + 1}: ${t.role}`}
                   onClick={() => interact(() => go(i, i > index ? 1 : -1))}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    i === index ? "w-8 bg-accent" : "w-1.5 bg-slate-200 hover:bg-slate-400"
-                  )}
-                />
+                  className="group flex h-6 items-center justify-center px-[10px]"
+                >
+                  <span
+                    className={cn(
+                      "h-1.5 rounded-full transition-all duration-300",
+                      i === index ? "w-8 bg-accent" : "w-1.5 bg-slate-200 group-hover:bg-slate-400"
+                    )}
+                  />
+                </button>
               ))}
             </div>
 

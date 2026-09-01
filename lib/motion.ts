@@ -72,14 +72,24 @@ export const staggerFast: Variants = {
  * Standard viewport config for scroll-triggered reveals.
  *
  * `once` matters: re-animating on every scroll-back turns a long marketing page
- * into a flicker reel. `amount: 0.2` fires when a fifth of the element is in
- * view, which for a tall card means it starts moving as it enters rather than
- * after it has already been read.
+ * into a flicker reel.
+ *
+ * The trigger is a root margin rather than an `amount` fraction, because
+ * `amount` is a share of the *element's own area* and so becomes unreachable
+ * once the element grows taller than the viewport. That is not hypothetical:
+ * the team page's leadership group stacks five 3:4 portrait cards on mobile,
+ * which makes the container roughly 3,700px against a ~700px viewport — a peak
+ * intersection ratio of about 0.19, permanently short of a 0.2 threshold. The
+ * group never left `hidden`, and the cards rendered as page-height blank space.
+ *
+ * A negative bottom margin measures the viewport instead: the reveal fires when
+ * the element's top edge crosses 12% above the fold, which behaves the same for
+ * a short card and cannot be starved by a tall one.
  */
-export const viewport = { once: true, amount: 0.2 } as const;
+export const viewport = { once: true, margin: "0px 0px -12% 0px" } as const;
 
-/** Looser trigger for tall sections that would otherwise never reach 20%. */
-export const viewportTall = { once: true, amount: 0.08 } as const;
+/** Earlier trigger, for sections that should be settled before they are read. */
+export const viewportTall = { once: true, margin: "0px 0px -4% 0px" } as const;
 
 /** Card hover lift, shared by service, industry and post cards. */
 export const hoverLift = {
