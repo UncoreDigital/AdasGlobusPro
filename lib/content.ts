@@ -394,7 +394,7 @@ export const team = {
   leadership: [
     {
       name: "CA Smit Shah",
-      role: "Managing Director & Client Relations",
+      role: "Managing Director",
       photo: "/assets/team/smit-shah.webp",
       focus: "Accounting & Client Advisory",
       icon: "Calculator",
@@ -403,7 +403,7 @@ export const team = {
     },
     {
       name: "CA Devarshi Shah",
-      role: "Managing Director & Client Relations",
+      role: "Managing Director",
       photo: "/assets/team/devarshi-shah.webp",
       focus: "Audit Support & Assurance",
       icon: "ShieldCheck",
@@ -412,7 +412,7 @@ export const team = {
     },
     {
       name: "CA Arpit Shah",
-      role: "Managing Director & Client Relations",
+      role: "Managing Director",
       photo: "/assets/team/arpit-shah.webp",
       focus: "Taxation & Compliance",
       icon: "Receipt",
@@ -421,7 +421,7 @@ export const team = {
     },
     {
       name: "Ritesh Prajapati",
-      role: "Director & Delivery Head",
+      role: "Director",
       /* ⚠️ NAME TO CONFIRM — the supplied bio document says "Ritesh
          Prajapati" and the supplied photo file is named "Ritesh Shah.jpeg".
          The bio wins here because it is the written document, but this needs
@@ -435,7 +435,7 @@ export const team = {
     },
     {
       name: "Pratik Shah",
-      role: "Director & Operational Head",
+      role: "Director",
       photo: "/assets/team/pratik-shah.webp",
       focus: "Operations & Client Relationships",
       icon: "Users2",
