@@ -47,8 +47,33 @@ export const site = {
   */
   proposition: "Add Accounting Capacity Without Adding U.S. Headcount",
 
+  /*
+    Item 2 of the client's 2 September change list, supplied as the wording they
+    want against the site in Google, and used verbatim at their instruction.
+
+    READ THIS BEFORE "FIXING" IT. The sentence describes advanced driver-
+    assistance and automotive technology. Nothing else on this site does: the
+    pages, the JSON-LD, the keywords below in app/layout.tsx and every service
+    and industry page describe offshore accounting, tax and audit support for
+    U.S. CPA firms. That gap is deliberate and client-directed, not a paste
+    error, so do not quietly reconcile it — if it needs changing, it changes
+    with the client.
+
+    Reach: this is the default description for the whole site. It fills
+    <meta name="description">, og:description and twitter:description on the
+    homepage and on any page that does not export its own `description`. Pages
+    that do export one — /contact, the service and industry routes — are
+    unaffected and still read as accounting copy.
+
+    The previous value, if it is wanted back:
+      "ADAS Globus Pro gives U.S. CPA, accounting and tax firms qualified
+       bookkeepers, accountants, tax preparers and reviewers who work inside
+       your software as part of your team — part-time, full-time or seasonal,
+       potentially 60%+ below the cost of a U.S. hire. Built and run by
+       Chartered Accountants. 3-day free trial."
+  */
   description:
-    "ADAS Globus Pro gives U.S. CPA, accounting and tax firms qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team — part-time, full-time or seasonal, potentially 60%+ below the cost of a U.S. hire. Built and run by Chartered Accountants. 3-day free trial.",
+    "ADAS Globus Pro provides advanced ADAS services and automotive services, ensuring safety through cutting-edge ADAS technology. Subscribe for updates!",
 
   /**
    * Canonical origin.
