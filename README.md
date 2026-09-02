@@ -67,7 +67,11 @@ The site runs without Supabase — the contact form returns a "not configured" m
    The second seeds four blog posts **as drafts** — read them, adjust anything
    that does not sound like the firm, and publish from `/admin/posts`.
    [`0003_lead_notification.sql`](supabase/migrations/0003_lead_notification.sql)
-   is last, and has its own prerequisites — see **Lead notifications** below.
+   comes next, and has its own prerequisites — see **Lead notifications** below.
+   [`0004_calendly_setting.sql`](supabase/migrations/0004_calendly_setting.sql)
+   is last: it adds the booking-link row, which ships empty, so the "Book a
+   call" card on `/contact` stays hidden until someone sets it in
+   **Admin → Site Settings → Contact**.
 4. Create the admin user under **Authentication → Users → Add user** (email + password).
    There is no public sign-up — that screen is the only way to get an admin account.
 5. Sign in at `/admin/login`.
@@ -124,6 +128,8 @@ middleware.ts                  session refresh + /admin guard
 supabase/migrations/
   0001_init.sql              schema, RLS, storage
   0002_seed_insights.sql     four launch-ready posts, seeded as DRAFT
+  0003_lead_notification.sql trigger + pg_net call that emails each new lead
+  0004_calendly_setting.sql  booking-link settings row, shipped empty
 docs/IMAGE-BRIEF.md          what images exist, what is missing, prompts to generate them
 ```
 
@@ -394,6 +400,15 @@ select id, status_code, created from net._http_response order by created desc li
 | `401` | the Vault secret and `WEBHOOK_SECRET` do not match |
 | `5xx` | the function ran and threw — read the Edge Function logs |
 | no row | the trigger did not fire, or `pg_net` is not installed |
+
+When the function shows **no invocation at all**, the request never reached it,
+so the fault is on the database side — usually 0003 never having been run, or a
+missing Vault secret making the trigger bail out at its first `if`. Paste
+the numbered files in [`supabase/checks/`](supabase/checks/) through the SQL
+Editor, one file per run - they report which link is broken, sync the secret,
+and test the chain end to end. Run them separately: the editor treats a paste
+as one transaction, and pg_net only dispatches requests that have committed, so
+a combined run reports a delivery failure whether or not one occurred.
 
 ⚠️ No credential belongs in these files. SMTP passwords and the webhook secret
 live in `supabase secrets` and Vault; this repo is public.

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { CalendarDays, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import CountryCode from "@/components/CountryCode";
 import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
-import { getSettings } from "@/lib/settings";
+import { Button } from "@/components/ui/Button";
+import { bookingUrl, getSettings } from "@/lib/settings";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -19,6 +20,14 @@ export default async function ContactPage() {
   /* The admin can override the published number; lib/site.ts is the fallback. */
   const settings = await getSettings();
   const phone = settings.phone ?? site.phone;
+
+  /*
+    Booking link, from Admin > Site Settings > Contact. Null while the row is
+    unset or holds anything that is not an absolute https URL, in which case the
+    card below does not render and the enquiry form remains the only path —
+    which is what this page did before the client's 2 September request.
+  */
+  const booking = bookingUrl(settings.calendly);
 
   return (
     <>
@@ -43,6 +52,29 @@ export default async function ContactPage() {
             </Reveal>
 
             <aside className="space-y-5">
+              {/*
+                Booking, above the direct lines because someone who wants a slot
+                in the diary should not have to read past three phone numbers to
+                find one. `brand` rather than `accent`: the form's submit button
+                is the accent CTA on this page, and Button's contract is that
+                there is never a second one competing with it in a viewport.
+              */}
+              {booking ? (
+                <Reveal className="rounded-2xl border border-border bg-white p-7 shadow-soft">
+                  <h2 className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">
+                    Book a call
+                  </h2>
+                  <p className="mt-3 text-[13.5px] leading-relaxed text-ink-muted">
+                    Prefer to talk it through? Pick a time that suits you and a senior
+                    member of the advisory team will be on the call.
+                  </p>
+                  <Button href={booking} variant="brand" className="mt-5 w-full">
+                    <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                    Schedule a meeting
+                  </Button>
+                </Reveal>
+              ) : null}
+
               <Reveal className="rounded-2xl border border-border bg-slate-50 p-7">
                 <h2 className="text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">
                   Direct lines

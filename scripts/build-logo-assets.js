@@ -7,10 +7,12 @@
  * new artwork. Source of truth: public/assets/logo-master.jpeg
  */
 const sharp = require("sharp");
+const fs = require("fs");
 const path = require("path");
 
 const SRC = path.join(__dirname, "..", "public", "assets", "logo-master.jpeg");
-const OUT = path.join(__dirname, "..", "public", "assets");
+const PUBLIC = path.join(__dirname, "..", "public");
+const OUT = path.join(PUBLIC, "assets");
 
 const CROPS = [
   { name: "logo", top: 0.18, bottom: 0.83, note: "full lockup incl. ruled tagline" },
@@ -102,11 +104,24 @@ async function knockout(buf) {
     );
   }
 
-  // Favicon + apple touch icon: monogram on the brand navy, so the white globe
-  // highlights hold up against a dark browser chrome.
+  /*
+    Favicon set + apple touch icon: the monogram on the brand navy, so the mark
+    holds up against a dark browser chrome rather than dissolving into it.
+
+    WHY SO MANY SIZES — the client reported (2 September) that a Google result
+    for "AGP" shows no small image. Google's favicon crawler wants a square
+    whose edge is a MULTIPLE OF 48px, and it looks for /favicon.ico at the
+    origin root as well as at the <link rel="icon"> tags. This build used to
+    emit only 180 and 512: 512 is not a multiple of 48 (512 / 48 = 10.67), and
+    nothing answered /favicon.ico at all, so there was nothing for Google to
+    take. 48/96/144/192 below are the multiples; the .ico carries 16/32/48 for
+    the browser tab and for that root-path fetch.
+  */
   const markAlpha = path.join(OUT, "logo-mark-alpha.png");
-  for (const [size, name] of [[180, "apple-touch-icon.png"], [512, "icon-512.png"]]) {
-    await sharp({
+
+  /** One navy plate with the monogram centred on it, as a PNG buffer. */
+  const plate = async (size) =>
+    sharp({
       create: { width: size, height: size, channels: 4, background: { r: 4, g: 36, b: 84, alpha: 1 } },
     })
       .composite([
@@ -117,10 +132,65 @@ async function knockout(buf) {
           gravity: "center",
         },
       ])
-      .png()
-      .toFile(path.join(OUT, name));
+      .png({ compressionLevel: 9 })
+      .toBuffer();
+
+  const PNG_ICONS = [
+    [48, "icon-48.png"],
+    [96, "icon-96.png"],
+    [144, "icon-144.png"],
+    [192, "icon-192.png"],
+    [180, "apple-touch-icon.png"],
+    [512, "icon-512.png"],
+  ];
+  for (const [size, name] of PNG_ICONS) {
+    fs.writeFileSync(path.join(OUT, name), await plate(size));
   }
-  console.log("apple-touch-icon.png 180x180, icon-512.png 512x512 (navy plate)");
+
+  /*
+    favicon.ico, written by hand because sharp has no ICO encoder.
+
+    These are PNG-in-ICO: the container is allowed to hold a PNG payload rather
+    than a BMP, which every browser since IE/Vista and Google's crawler read
+    fine, and it keeps the file a few KB instead of ~25KB of raw BMP.
+
+    Layout: a 6-byte ICONDIR, then one 16-byte ICONDIRENTRY per image, then the
+    payloads. In an entry a stored dimension of 0 means 256 — not reachable at
+    these sizes, but the & 0xff is what encodes that rule.
+  */
+  const icoSizes = [16, 32, 48];
+  const icoPngs = [];
+  for (const size of icoSizes) icoPngs.push(await plate(size));
+
+  const dir = Buffer.alloc(6 + 16 * icoPngs.length);
+  dir.writeUInt16LE(0, 0); // reserved
+  dir.writeUInt16LE(1, 2); // 1 = icon (2 would be a cursor)
+  dir.writeUInt16LE(icoPngs.length, 4);
+
+  let offset = dir.length;
+  icoPngs.forEach((png, i) => {
+    const e = 6 + 16 * i;
+    dir.writeUInt8(icoSizes[i] & 0xff, e); // width  (0 => 256)
+    dir.writeUInt8(icoSizes[i] & 0xff, e + 1); // height (0 => 256)
+    dir.writeUInt8(0, e + 2); // palette size, 0 for truecolour
+    dir.writeUInt8(0, e + 3); // reserved
+    dir.writeUInt16LE(1, e + 4); // colour planes
+    dir.writeUInt16LE(32, e + 6); // bits per pixel
+    dir.writeUInt32LE(png.length, e + 8); // payload bytes
+    dir.writeUInt32LE(offset, e + 12); // payload offset
+    offset += png.length;
+  });
+
+  /*
+    The root of /public, not /public/assets: Google and older clients fetch
+    /favicon.ico at the origin root, and only a file at the public root is
+    served from that path.
+  */
+  fs.writeFileSync(path.join(PUBLIC, "favicon.ico"), Buffer.concat([dir, ...icoPngs]));
+
+  console.log(
+    `icons ${PNG_ICONS.map(([s]) => s).join("/")} (navy plate), favicon.ico ${icoSizes.join("/")}`
+  );
 
   /*
     No Open Graph card here. build-photo-assets.js owns it: the card is the

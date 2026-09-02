@@ -82,8 +82,22 @@ export const site = {
   logoAlpha: "/assets/logo-alpha.png",
   ogImage: "/assets/og.jpg",
 
-  email: "Info@adasglobuspro.com ",
-  emailHref: "mailto:Info@adasglobuspro.com ",
+  /*
+    Incoming enquiries go to info@ — the client's 2 September change list.
+
+    Lower-case and with no trailing whitespace, both deliberate. The previous
+    value was "Info@adasglobuspro.com " with a trailing space, so the rendered
+    href was "mailto:Info@adasglobuspro.com " — some mail clients carry that
+    space into the To: field and then reject the address.
+
+    NOTE: this pair is only what the site *displays* and links to. Where a
+    contact-form submission is actually delivered is the NOTIFICATION_EMAIL
+    secret on the lead-notification edge function, set with `supabase secrets
+    set` and not held in this repo. Changing one without the other leaves the
+    site advertising an address that receives nothing.
+  */
+  email: "info@adasglobuspro.com",
+  emailHref: "mailto:info@adasglobuspro.com",
 
   /** The U.S. line is the primary on this site. */
   phone: "+1 (307) 533-0018",
@@ -94,7 +108,15 @@ export const site = {
   founded: 2020,
 
   social: {
-    linkedin: "https://www.linkedin.com/company/adas-globus/",
+    /*
+      The ADAS Globus Pro company page, per the client's 2 September list —
+      items 1 (home page) and 5 (footer) are the same value, because the header,
+      the footer and the Organization JSON-LD all read this one field.
+
+      Was linkedin.com/company/adas-globus, which is the older "ADAS Globus"
+      page rather than the Pro one.
+    */
+    linkedin: "https://www.linkedin.com/company/adas-globus-pro/",
     facebook: "https://www.facebook.com/adasglobus/",
     instagram: "https://www.instagram.com/adas_globus/",
   },

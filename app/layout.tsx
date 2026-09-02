@@ -49,8 +49,38 @@ export const metadata: Metadata = {
     description: site.description,
     images: [site.ogImage],
   },
+  /*
+    The client reported (2 September) that a Google result for "AGP" shows no
+    small image beside it. Two reasons, both fixed here and in
+    scripts/build-logo-assets.js:
+
+      1. Google's favicon crawler wants a square whose edge is a multiple of
+         48px. The only icon declared here was 512x512, and 512 / 48 = 10.67 —
+         so the one icon on offer was the wrong shape to be accepted.
+      2. It also fetches /favicon.ico at the origin root regardless of what the
+         markup says, and nothing answered that path at all.
+
+    So: the 48px multiples are declared first and largest-last, /favicon.ico
+    leads and is repeated as `shortcut`, and public/favicon.ico now exists to
+    serve the root fetch.
+
+    Two things this cannot fix on its own, both outside the codebase:
+      - Google re-crawls favicons on its own schedule, typically days to a few
+        weeks. Nothing here makes that happen sooner than the next crawl.
+      - It reads the favicon for the CANONICAL host. While site.url is still
+        the us.adasglobus.com placeholder, that is the host being described.
+        See the LAUNCH BLOCKER note in lib/site.ts.
+  */
   icons: {
-    icon: [{ url: "/assets/icon-512.png", sizes: "512x512", type: "image/png" }],
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/assets/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/assets/icon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/assets/icon-144.png", sizes: "144x144", type: "image/png" },
+      { url: "/assets/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/assets/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: [{ url: "/favicon.ico" }],
     apple: [{ url: "/assets/apple-touch-icon.png", sizes: "180x180" }],
   },
   alternates: { canonical: "/" },

@@ -32,6 +32,9 @@ const FALLBACK: Settings = {
   experience: "15+",
   phone: null,
   address: null,
+  /* Booking link for /contact. Null until the client supplies one — see
+     supabase/migrations/0004_calendly_setting.sql and `bookingUrl` below. */
+  calendly: null,
 };
 
 export async function getSettings(): Promise<Settings> {
@@ -55,6 +58,33 @@ export async function getSettings(): Promise<Settings> {
     if (row.value !== null) settings[row.key] = row.value;
   }
   return settings;
+}
+
+/**
+ * Validates the booking link before anything renders a button to it.
+ *
+ * Returns the URL only if it is a well-formed absolute https:// address, and
+ * null otherwise — which is what an unset row, an empty string, a pasted
+ * "calendly.com/..." with no scheme, or a typo all collapse to. The caller
+ * renders nothing on null, so the failure mode is a missing button rather than
+ * a prominent CTA that 404s.
+ *
+ * http:// is rejected as well as junk: this is an outbound link from a page
+ * that asks for a prospect's details, and a scheduling tool that cannot manage
+ * TLS is not one to hand them to.
+ *
+ * Deliberately not Calendly-specific despite the key name. If the client moves
+ * to Cal.com or HubSpot meetings, the row takes the new URL and nothing here
+ * has to change.
+ */
+export function bookingUrl(value: string | null | undefined) {
+  if (!value || value.trim() === "") return null;
+  try {
+    const url = new URL(value.trim());
+    return url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
 }
 
 /**

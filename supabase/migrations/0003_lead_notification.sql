@@ -83,7 +83,11 @@ begin
                  'table',  TG_TABLE_NAME,
                  'schema', TG_TABLE_SCHEMA,
                  'record', to_jsonb(NEW)
-               )
+               ),
+    -- Gmail's SMTP handshake plus an edge-function cold start routinely runs
+    -- past pg_net's 5s default, and a timeout there is recorded as a delivery
+    -- failure even though the function ran and the mail went out.
+    timeout_milliseconds := 30000
   );
 
   return NEW;
