@@ -73,6 +73,21 @@ export default async function HomePage() {
             "@type": "ProfessionalService",
             "@id": `${site.url}/#organization`,
             name: site.name,
+            legalName: site.legalName,
+            /*
+              The names people actually type. The client's own report was that
+              searching "AGP" and "adasglobuspro" surfaced the parent firm
+              rather than this one, and an acronym Google has never been told
+              about is one it cannot attach to this entity.
+
+              This is a supporting signal, not the fix — the fix was the
+              canonical origin (see lib/site.ts). It matters because the @id
+              above is derived from site.url: while that pointed at
+              adasglobus.com this entity and the parent's shared one @id and
+              were read as a single company, so the distinguishing names had
+              nothing to distinguish.
+            */
+            alternateName: ["AGP", "ADAS Globus Pro", "AdasGlobusPro"],
             description: site.description,
             url: site.url,
             logo: `${site.url}${site.logo}`,

@@ -26,7 +26,8 @@
 export function normaliseOrigin(
   value: string | undefined,
   fallback: string,
-  varName = "NEXT_PUBLIC_SITE_URL"
+  varName = "NEXT_PUBLIC_SITE_URL",
+  forbiddenHosts: readonly string[] = []
 ): string {
   const raw = value?.trim();
   if (!raw) return stripTrailingSlash(fallback);
@@ -40,6 +41,29 @@ export function normaliseOrigin(
   try {
     const url = new URL(candidate);
     if (!url.hostname) throw new Error("no hostname");
+
+    /*
+      A parseable origin can still be the wrong one, and that failure is far
+      more expensive than a typo because it is silent — the build succeeds, the
+      pages render, and every canonical tag quietly hands the site to somebody
+      else. See the note on `forbiddenHosts` at the call site in lib/site.ts.
+
+      Matched as exact host or true subdomain, never as a substring:
+      "adasglobuspro.com" contains "adasglobus.com" as text but is a different
+      registrable domain, and a substring test would blacklist the correct
+      value.
+    */
+    if (isForbidden(url.hostname, forbiddenHosts)) {
+      console.warn(
+        `[config] ${varName} is set to ${url.origin}, which is a host this site must never ` +
+          `claim as canonical — it belongs to a different property. Every canonical tag, the ` +
+          `sitemap and the Organization @id would point there, telling search engines to index ` +
+          `that site instead of this one. Falling back to ${fallback}. ` +
+          `Set ${varName} to this site's own origin.`
+      );
+      return stripTrailingSlash(fallback);
+    }
+
     return stripTrailingSlash(url.origin);
   } catch {
     console.warn(
@@ -52,4 +76,13 @@ export function normaliseOrigin(
 
 function stripTrailingSlash(value: string) {
   return value.replace(/\/+$/, "");
+}
+
+/** Exact host, or a subdomain of it. Never a substring match — see above. */
+function isForbidden(hostname: string, forbidden: readonly string[]) {
+  const host = hostname.toLowerCase();
+  return forbidden.some((entry) => {
+    const bad = entry.toLowerCase().replace(/^\.+/, "");
+    return host === bad || host.endsWith(`.${bad}`);
+  });
 }

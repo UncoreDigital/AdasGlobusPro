@@ -21,8 +21,10 @@ import { normaliseOrigin } from "@/lib/origin";
  * split `name` from `markName` because the domain said one thing and the mark
  * said another; the client has confirmed Pro, so that split is gone.
  *
- * The domain and email addresses still read adasglobus.com. Those are real
- * addresses, not brand names, and must not be "corrected".
+ * The domain and the contact address are the Pro ones too: this site is
+ * canonical at www.adasglobuspro.com and publishes info@adasglobuspro.com.
+ * adasglobus.com is the parent's, and nothing here should point at it except
+ * `globalSite` below, which cross-links it deliberately.
  */
 
 export const site = {
@@ -48,47 +50,68 @@ export const site = {
   proposition: "Add Accounting Capacity Without Adding U.S. Headcount",
 
   /*
-    Item 2 of the client's 2 September change list, supplied as the wording they
-    want against the site in Google, and used verbatim at their instruction.
-
-    READ THIS BEFORE "FIXING" IT. The sentence describes advanced driver-
-    assistance and automotive technology. Nothing else on this site does: the
-    pages, the JSON-LD, the keywords below in app/layout.tsx and every service
-    and industry page describe offshore accounting, tax and audit support for
-    U.S. CPA firms. That gap is deliberate and client-directed, not a paste
-    error, so do not quietly reconcile it — if it needs changing, it changes
-    with the client.
+    Rewritten to match the rest of the site. The previous value here described
+    advanced driver-assistance and automotive technology — client-directed
+    wording from the 2 September change list, but out of step with every other
+    page, the JSON-LD and the keywords in app/layout.tsx, all of which describe
+    offshore accounting, tax and audit support for U.S. CPA firms. Reverted to
+    on-topic copy at the client's later instruction; drawn from the mission and
+    story text in `about` (lib/content.ts) rather than the automotive line.
 
     Reach: this is the default description for the whole site. It fills
     <meta name="description">, og:description and twitter:description on the
     homepage and on any page that does not export its own `description`. Pages
-    that do export one — /contact, the service and industry routes — are
-    unaffected and still read as accounting copy.
+    that do export one — /about, /contact, the service and industry routes —
+    are unaffected.
 
-    The previous value, if it is wanted back:
-      "ADAS Globus Pro gives U.S. CPA, accounting and tax firms qualified
-       bookkeepers, accountants, tax preparers and reviewers who work inside
-       your software as part of your team — part-time, full-time or seasonal,
-       potentially 60%+ below the cost of a U.S. hire. Built and run by
-       Chartered Accountants. 3-day free trial."
+    If the automotive wording is ever wanted back, it was:
+      "ADAS Globus Pro provides advanced ADAS services and automotive
+       services, ensuring safety through cutting-edge ADAS technology.
+       Subscribe for updates!"
   */
   description:
-    "ADAS Globus Pro provides advanced ADAS services and automotive services, ensuring safety through cutting-edge ADAS technology. Subscribe for updates!",
+    "ADAS Globus Pro gives U.S. CPA firms offshore accountants, bookkeepers and tax preparers who work inside your systems as part of your team.",
 
   /**
-   * Canonical origin.
+   * Canonical origin. Settled: www.adasglobuspro.com.
    *
-   * LAUNCH BLOCKER — the production address is not decided yet. The default
-   * below is a placeholder so builds and previews work; it must be set in the
-   * deploy environment before go-live, because two sites cannot both claim
-   * adasglobus.com as canonical without one being dropped from the index in
-   * the other's favour.
+   * ── WHAT WENT WRONG HERE, SO IT DOES NOT HAPPEN AGAIN ────────────────────
+   * NEXT_PUBLIC_SITE_URL was set to https://www.adasglobus.com — the PARENT
+   * site's domain. Because this one value feeds the canonical tag, og:url, the
+   * sitemap, robots.txt's host/sitemap lines and the Organization @id, every
+   * page of this site was instructing search engines to index the parent
+   * instead of itself, and the Organization @id collided with the parent's own
+   * entity so the two firms merged rather than resolving separately.
+   *
+   * The visible symptom: searching the exact name "adasglobuspro" returned
+   * adasglobus.com and not this site. That is Google obeying the canonical
+   * directive, not a ranking problem, so no amount of copy or metadata work
+   * would have shifted it.
+   *
+   * The failure was silent — the build passes, the pages render, nothing looks
+   * wrong locally — which is why `forbiddenHosts` below now makes it loud.
+   * ─────────────────────────────────────────────────────────────────────────
    *
    * Normalised rather than used raw: app/layout.tsx passes this to
    * `new URL()` for metadataBase, which throws on a bare host and takes the
    * entire build with it. See lib/origin.ts.
+   *
+   * The fourth argument is the guard. Any adasglobus.com host — apex or
+   * subdomain — is refused and falls back to the default with a warning naming
+   * the variable. If the two properties are ever genuinely merged, that is a
+   * deliberate decision to make here, not something to arrive at by pasting a
+   * domain into a Vercel environment variable.
+   *
+   * NOTE the guard only protects against the parent. Set the variable in every
+   * deploy environment anyway: a preview build that canonicalises to production
+   * can get itself dropped from the index in production's favour.
    */
-  url: normaliseOrigin(process.env.NEXT_PUBLIC_SITE_URL, "https://us.adasglobus.com"),
+  url: normaliseOrigin(
+    process.env.NEXT_PUBLIC_SITE_URL,
+    "https://www.adasglobuspro.com",
+    "NEXT_PUBLIC_SITE_URL",
+    ["adasglobus.com"]
+  ),
 
   /** The global site, cross-linked from the footer. */
   globalSite: "https://adasglobus.com",
