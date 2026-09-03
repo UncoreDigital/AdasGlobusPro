@@ -70,7 +70,7 @@ export const site = {
        Subscribe for updates!"
   */
   description:
-    "ADAS Globus Pro gives U.S. CPA firms offshore accountants, bookkeepers and tax preparers who work inside your systems as part of your team.",
+    "ADAS Globus Pro gives U.S. CPA firms offshore accountants, bookkeepers and tax preparers who work inside your systems as part of your team. ",
 
   /**
    * Canonical origin. Settled: www.adasglobuspro.com.
