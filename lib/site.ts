@@ -78,7 +78,7 @@ export const site = {
    * ── WHAT WENT WRONG HERE, SO IT DOES NOT HAPPEN AGAIN ────────────────────
    * NEXT_PUBLIC_SITE_URL was set to https://www.adasglobus.com — the PARENT
    * site's domain. Because this one value feeds the canonical tag, og:url, the
-   * sitemap, robots.txt's host/sitemap lines and the Organization @id, every
+   * sitemap, robots.txt's Sitemap line and the Organization @id, every
    * page of this site was instructing search engines to index the parent
    * instead of itself, and the Organization @id collided with the parent's own
    * entity so the two firms merged rather than resolving separately.

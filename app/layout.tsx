@@ -64,12 +64,21 @@ export const metadata: Metadata = {
     leads and is repeated as `shortcut`, and public/favicon.ico now exists to
     serve the root fetch.
 
-    Two things this cannot fix on its own, both outside the codebase:
-      - Google re-crawls favicons on its own schedule, typically days to a few
-        weeks. Nothing here makes that happen sooner than the next crawl.
-      - It reads the favicon for the CANONICAL host. While site.url is still
-        the us.adasglobus.com placeholder, that is the host being described.
-        See the LAUNCH BLOCKER note in lib/site.ts.
+    The mark on those plates was scaled up afterwards, for a separate reason.
+    It sat at 82% of the plate WIDTH, and because the AGP monogram is a ~2.95:1
+    band, width is what binds on a square plate — the glyphs were getting only
+    28% of the height, which is roughly 4px once Google draws the icon at
+    search-result size. See the SCALE note in scripts/build-logo-assets.js.
+
+    One thing this cannot fix on its own, and it is outside the codebase:
+    Google re-crawls favicons on its own schedule, typically days to a few
+    weeks. Nothing here makes that happen sooner than the next crawl.
+
+    The other half of the original problem — that the favicon is read for the
+    CANONICAL host — is settled rather than pending now. site.url resolves to
+    www.adasglobuspro.com, this site's own domain, so the host being described
+    is the right one. It used to be a placeholder naming a different property;
+    the note on `url` in lib/site.ts records what that cost.
   */
   icons: {
     icon: [
