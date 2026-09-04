@@ -119,21 +119,38 @@ async function knockout(buf) {
   */
   const markAlpha = path.join(OUT, "logo-mark-alpha.png");
 
-  /** One navy plate with the monogram centred on it, as a PNG buffer. */
-  const plate = async (size) =>
-    sharp({
+  /**
+   * One navy plate with the monogram centred on it, as a PNG buffer.
+   *
+   * SCALE is a fraction of the plate WIDTH, not of its area. The monogram is a
+   * ~2.95:1 band, so on a square plate the width is what binds and the glyph
+   * height lands at roughly SCALE/2.95 of the plate. At the old 0.82 that was
+   * 28% — and Google renders a search-result favicon at around 16px, so the
+   * letters were getting about 4px of height and reading as a smudge. 0.92
+   * buys back what there is to buy without the mark meeting the edge; much
+   * more and the A and the P sit on the rim, which shows the moment a surface
+   * rounds or circles the icon.
+   *
+   * Placement is computed rather than left to `gravity: "center"`. Gravity
+   * floors the leftover, so an odd remainder put the spare pixel entirely on
+   * one side — visible at 48px, where the mark sat 12.5% from the left and
+   * 10.4% from the right. Forcing the composite width to share parity with the
+   * plate makes the horizontal remainder even and the centring exact.
+   */
+  const SCALE = 0.92;
+  const plate = async (size) => {
+    let w = Math.round(size * SCALE);
+    if ((size - w) % 2 !== 0) w -= 1; // even remainder => exact horizontal centring
+    const mark = await sharp(markAlpha).resize({ width: w }).toBuffer();
+    const { height: mh } = await sharp(mark).metadata();
+
+    return sharp({
       create: { width: size, height: size, channels: 4, background: { r: 4, g: 36, b: 84, alpha: 1 } },
     })
-      .composite([
-        {
-          input: await sharp(markAlpha)
-            .resize({ width: Math.round(size * 0.82), height: Math.round(size * 0.82), fit: "inside" })
-            .toBuffer(),
-          gravity: "center",
-        },
-      ])
+      .composite([{ input: mark, left: (size - w) / 2, top: Math.round((size - mh) / 2) }])
       .png({ compressionLevel: 9 })
       .toBuffer();
+  };
 
   const PNG_ICONS = [
     [48, "icon-48.png"],
