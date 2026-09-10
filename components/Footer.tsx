@@ -122,15 +122,6 @@ export default async function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-7 text-[13px] text-white/45 sm:flex-row">
           <p>
             © {new Date().getFullYear()} {site.legalName}. All rights reserved.
-            | Powered by{" "}
-            <a
-              href="https://uncoredigital.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-white/75 underline transition-colors hover:text-white"
-            >
-              Uncore Digital
-            </a>
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy-policy" className="transition-colors hover:text-white/80">
@@ -150,7 +141,7 @@ export default async function Footer() {
               rel="noreferrer"
               className="transition-colors hover:text-white/80"
             >
-              Built by {site.builtBy.name}
+              Powered by {site.builtBy.name}
             </a>
           </div>
         </div>
