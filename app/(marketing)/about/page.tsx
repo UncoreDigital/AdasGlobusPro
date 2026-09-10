@@ -329,6 +329,7 @@ export default async function AboutPage() {
                     name: leader.name,
                     jobTitle: leader.role,
                     image: `${site.url}${leader.photo}`,
+                    ...(leader.linkedin ? { sameAs: [leader.linkedin] } : {}),
                   })),
                 }
               : {}),

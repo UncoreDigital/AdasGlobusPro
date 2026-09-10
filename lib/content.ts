@@ -381,10 +381,19 @@ export const team = {
     positioning the 24 August brief asked us to lead on; the two Directors run
     delivery and client relationships and follow.
 
+    Practice areas and LinkedIn profiles are the client's supplied list. Note
+    that Smit and Arpit were previously the other way round here — Smit had
+    accounting and Arpit had tax — so the bios and icons moved with them. If
+    anything on these cards is queried, this pairing is the one to re-check.
+
     Bios for Pratik and Ritesh are the client's own words from
     docs/leader/Bio for website.docx, condensed for a card. The CA bios are
     ours, written from the practice areas the client published, and remain open
     to correction.
+
+    LinkedIn hosts are normalised to www.linkedin.com. Two of the supplied URLs
+    used in.linkedin.com, which is a locale redirect rather than a distinct
+    profile — the paths are otherwise verbatim.
 
     Each entry carries its own `icon`, used only when features.leadershipProfiles
     is off. It used to be a positional array on the team page, which meant
@@ -396,41 +405,43 @@ export const team = {
       name: "CA Smit Shah",
       role: "Managing Director",
       photo: "/assets/team/smit-shah.webp",
-      focus: "Accounting & Client Advisory",
-      icon: "Calculator",
+      focus: "Tax & Compliance",
+      icon: "Receipt",
       chartered: true,
-      bio: "Leads the accounting and advisory practice, including month-end close delivery, management reporting and the client-onboarding process that maps a firm's templates and conventions before live work begins.",
+      linkedin: "https://www.linkedin.com/in/casmitshahadas",
+      bio: "Leads the tax and compliance practice across individual, corporate, partnership and non-profit returns, and owns the technical review standard applied to every return before it leaves the delivery centre.",
     },
     {
       name: "CA Devarshi Shah",
       role: "Managing Director",
       photo: "/assets/team/devarshi-shah.webp",
-      focus: "Audit Support & Assurance",
+      focus: "Auditing & Assurance Services",
       icon: "ShieldCheck",
       chartered: true,
+      linkedin: "https://www.linkedin.com/in/ca-devarshi-shah-a72b577",
       bio: "Leads audit support and assurance delivery, including working-paper standards, substantive testing procedures and the documentation quality that a peer reviewer will hold the file to.",
     },
     {
       name: "CA Arpit Shah",
       role: "Managing Director",
       photo: "/assets/team/arpit-shah.webp",
-      focus: "Taxation & Compliance",
-      icon: "Receipt",
+      focus: "Accounting, Finance & CFO Services",
+      icon: "Calculator",
       chartered: true,
-      bio: "Leads the tax practice across individual, corporate, partnership and non-profit returns, and owns the technical review standard applied to every return before it leaves the delivery centre.",
+      linkedin: "https://www.linkedin.com/in/ca-arpit-shah-4a94813b",
+      bio: "Leads accounting, finance and CFO services — month-end close delivery, management reporting, and the outsourced-CFO work a growing client needs — along with the onboarding process that maps a firm's templates and conventions before live work begins.",
     },
     {
       name: "Ritesh Prajapati",
       role: "Director",
-      /* ⚠️ NAME TO CONFIRM — the supplied bio document says "Ritesh
-         Prajapati" and the supplied photo file is named "Ritesh Shah.jpeg".
-         The bio wins here because it is the written document, but this needs
-         checking before launch: a misspelled director on an About page is the
-         kind of error a prospect notices. */
+      /* Name confirmed: the supplied photo file was named "Ritesh Shah.jpeg",
+         but both the bio document and the client-supplied LinkedIn profile
+         below read "Ritesh Prajapati". The photo filename was the outlier. */
       photo: "/assets/team/ritesh-prajapati.webp",
       focus: "Delivery & Team Building",
       icon: "ClipboardList",
       chartered: false,
+      linkedin: "https://www.linkedin.com/in/ritesh-prajapati-914a9160/",
       bio: "Background in accounting and business administration, with years spent working with businesses in the UK and U.S. across operations, client management and team building. Focused on practical solutions that hold up in the real world, and on relationships that outlast a single engagement.",
     },
     {
@@ -440,6 +451,7 @@ export const team = {
       focus: "Operations & Client Relationships",
       icon: "Users2",
       chartered: false,
+      linkedin: "https://www.linkedin.com/in/pratik-shah-9aa760a4/",
       bio: "Background in accounting and business administration, with hands-on experience supporting UK and U.S. businesses across operations, client management and team development. Builds the teams and the processes that keep delivery consistent as a client's volume grows.",
     },
   ],

@@ -180,7 +180,7 @@ export const site = {
  *
  * The Dubai office is real and stays on the global site, but to a U.S. CPA firm
  * evaluating an offshore partner it reads as off-topic, and a sales address
- * dilutes the one that matters — the Texas one.
+ * dilutes the one that matters — the Wyoming one.
  *
  * The two Indian entries are both delivery centres in Ahmedabad, so the city
  * line carries the locality — "Paldi, Ahmedabad" and "Bodakdev, Ahmedabad" —
@@ -199,17 +199,20 @@ export const site = {
  */
 export const offices = [
   {
-    id: "us-austin",
+    id: "us-sheridan",
     country: "United States",
     code: "US",
     role: "U.S. Office",
-    city: "Austin, Texas",
-    locality: "Austin",
-    address: "5900 Balcones Drive STE 100, Austin, Texas 78371",
+    city: "Sheridan, Wyoming",
+    locality: "Sheridan",
+    address: "30 N Gould St Ste 66976, Sheridan, Wyoming 82801",
     phone: "+1 (307) 533-0018",
     phoneHref: "tel:+13075330018",
-    timezone: "America/Chicago",
-    tzLabel: "CT",
+    /* Wyoming is Mountain Time, so this is America/Denver and not the
+       America/Chicago the Austin address carried. TopBar reads `timezone` to
+       render the live U.S. clock, so a stale zone here shows the wrong hour. */
+    timezone: "America/Denver",
+    tzLabel: "MT",
     primary: true,
   },
   {

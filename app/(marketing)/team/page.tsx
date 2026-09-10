@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Check, ShieldCheck } from "lucide-react";
+import { Check, Linkedin, ShieldCheck } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
@@ -127,6 +127,28 @@ export default async function TeamPage() {
                       <p className="mt-5 text-[11.5px] font-bold uppercase tracking-[0.14em] text-accent-dark">
                         Chartered Accountant
                       </p>
+                    )}
+
+                    {/*
+                      Profile link, only when features.leadershipProfiles is on
+                      — the anonymous fallback names nobody, and a LinkedIn
+                      profile would name them. The bio above carries flex-1, so
+                      this already sits on the card floor and the links line up
+                      across a row of unequal bios.
+                    */}
+                    {features.leadershipProfiles && leader.linkedin && (
+                      <a
+                        href={leader.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-5 inline-flex items-center justify-center gap-2 self-center text-[12.5px] font-semibold text-brand transition-colors hover:text-brand-light"
+                      >
+                        <Linkedin className="h-4 w-4" aria-hidden="true" />
+                        <span>
+                          LinkedIn
+                          <span className="sr-only"> profile for {leader.name}</span>
+                        </span>
+                      </a>
                     )}
                   </div>
                 </RevealItem>
@@ -336,6 +358,7 @@ export default async function TeamPage() {
                     jobTitle: leader.role,
                     image: `${site.url}${leader.photo}`,
                     knowsAbout: leader.focus,
+                    ...(leader.linkedin ? { sameAs: [leader.linkedin] } : {}),
                   })),
                 }
               : {}),
