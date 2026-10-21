@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { AlertCircle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { serviceInterests, usStates } from "@/lib/content";
+import { caProvinces, serviceInterests, usStates } from "@/lib/content";
 import { contactSchema } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 
@@ -94,7 +94,7 @@ export default function ContactForm() {
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald/10">
           <CheckCircle2 className="h-7 w-7 text-emerald" aria-hidden="true" />
         </span>
-        <h2 className="mt-6 text-xl font-bold text-navy-deep">Thank you — we have it.</h2>
+        <h2 className="mt-6 text-xl font-bold text-navy-deep">Thank you, we have it.</h2>
         <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-ink-muted">
           A senior member of the advisory team will respond within one business day with a
           proposed engagement structure.
@@ -121,22 +121,38 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="state" className="mb-2 block text-[13px] font-semibold text-navy-deep">
-          State
+          State / Province
         </label>
+        {/* Stored as free text, so provinces needed no migration. The country
+            is prefixed on the Canadian values so a lead reads unambiguously
+            in the admin table and the notification email. */}
         <select
           id="state"
           name="state"
           defaultValue=""
           className="h-12 w-full rounded-lg border border-input bg-white px-4 text-[14.5px] text-ink transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
         >
-          <option value="">Select a state</option>
-          {usStates.map((state) => (
-            <option key={state} value={state}>
-              {state}
-            </option>
-          ))}
-          <option value="Multiple states">Multiple states</option>
-          <option value="Outside the U.S.">Outside the U.S.</option>
+          <option value="">Select a state or province</option>
+          <optgroup label="United States">
+            {usStates.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+            <option value="Multiple states">Multiple states</option>
+          </optgroup>
+          <optgroup label="Canada">
+            {caProvinces.map((province) => (
+              <option key={province} value={`${province}, Canada`}>
+                {province}
+              </option>
+            ))}
+            <option value="Multiple provinces, Canada">Multiple provinces</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="Both the U.S. and Canada">Both the U.S. and Canada</option>
+            <option value="Outside the U.S. and Canada">Outside the U.S. and Canada</option>
+          </optgroup>
         </select>
       </div>
 

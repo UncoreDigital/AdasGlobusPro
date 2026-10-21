@@ -17,7 +17,9 @@ import { figure, getSettings, splitFigure } from "@/lib/settings";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.proposition}`,
+  /* Absolute: this already leads with the brand, and the root layout's
+     "%s | ADAS Globus Pro" template would otherwise print it a second time. */
+  title: { absolute: `${site.name} | ${site.proposition}` },
   description: site.description,
   alternates: { canonical: "/" },
 };
@@ -103,12 +105,17 @@ export default async function HomePage() {
               addressLocality: office.locality,
               streetAddress: office.address,
             })),
-            areaServed: { "@type": "Country", name: "United States" },
+            areaServed: [
+              { "@type": "Country", name: "United States" },
+              { "@type": "Country", name: "Canada" },
+            ],
             knowsAbout: [
               "Outsourced bookkeeping for CPA firms",
               "Offshore tax preparation staffing",
               "US GAAP",
               "IRS tax preparation",
+              "CRA tax preparation",
+              "Canadian T1, T2 and T3 returns",
               "Seasonal accounting capacity",
             ],
           },

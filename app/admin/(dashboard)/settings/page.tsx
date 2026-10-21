@@ -24,7 +24,7 @@ export default async function SettingsPage() {
     <>
       <AdminPageHeader
         title="Site Settings"
-        description="The figures and contact details the public site reads from. Edit here and the change appears everywhere it is used — no rebuild needed."
+        description="The figures and contact details the public site reads from. Edit here and the change appears everywhere it is used, with no rebuild needed."
       />
 
       {settings.length === 0 ? (

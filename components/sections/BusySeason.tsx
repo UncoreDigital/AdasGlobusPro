@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowRight, TrendingUp } from "lucide-react";
+import CountryCode from "@/components/CountryCode";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import { Button } from "@/components/ui/Button";
 import { busySeason } from "@/lib/content";
@@ -13,9 +14,10 @@ import { fadeLeft, fadeRight } from "@/lib/motion";
  * page is a capability claim; this one is arithmetic the reader already knows
  * is true, which is why it sits immediately after the services grid.
  *
- * The filing calendar is deliberately concrete. Naming March 17 and April 15
+ * The filing calendar is deliberately concrete. Naming March 15 and April 15
  * signals that we work to the same calendar the reader does, which a generic
- * "seasonal capacity" claim never does.
+ * "seasonal capacity" claim never does. Since 17 October it carries the
+ * Canadian dates too, each row tagged with its country.
  */
 export default function BusySeason() {
   return (
@@ -70,7 +72,8 @@ export default function BusySeason() {
                         {milestone.date}
                       </span>
                     </span>
-                    <span className="pt-3.5 text-[14px] leading-snug text-ink-muted">
+                    <span className="flex items-start gap-2.5 pt-3.5 text-[14px] leading-snug text-ink-muted">
+                      <CountryCode code={milestone.country} className="mt-px" />
                       {milestone.label}
                     </span>
                   </RevealItem>

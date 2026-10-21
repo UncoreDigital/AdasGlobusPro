@@ -61,7 +61,7 @@ export default function AboutTeaser({
           <div className="order-1 lg:order-2">
             <SectionHeading
               eyebrow={aboutTeaser.eyebrow}
-              title="Your Offshore Accounting Division —"
+              title="Your Offshore Accounting Division,"
               accent="Not Another Vendor to Manage"
             />
 

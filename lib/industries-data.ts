@@ -1,6 +1,14 @@
 /**
  * The five industry verticals, rewritten for the U.S. market.
  *
+ * Still U.S.-specific after the 17 October 2026 change to "U.S. and Canada".
+ * These pages are built on U.S. rules (ASC, IRS, state nexus, FLSA), so
+ * labelling them Canadian as well would claim expertise the copy does not
+ * describe. They stay as they are until the client's Canadian technical
+ * pointers arrive. The meta titles also dropped a hand-written
+ * " — ADAS Globus Pro" suffix: the root layout's title template already adds
+ * "| ADAS Globus Pro", so the brand was printing twice in the tab.
+ *
  * Same contract as services-data.ts: this file is the source of truth for the
  * /industries index, every /industries/[slug] page, the header dropdown, the
  * footer column and the sitemap.
@@ -55,9 +63,9 @@ export const industries: Industry[] = [
     summary:
       "Cost accounting, inventory valuation and multi-plant reporting for production-driven businesses.",
     intro: [
-      "Manufacturing sits at the intersection of inventory accounting complexity, multi-plant structures and cross-border trade compliance. For a production business the difference between accurate and inaccurate cost accounting is the difference between knowing which product lines make money and guessing — a distinction basic bookkeeping competence does not resolve.",
+      "Manufacturing sits at the intersection of inventory accounting complexity, multi-plant structures and cross-border trade compliance. For a production business the difference between accurate and inaccurate cost accounting is the difference between knowing which product lines make money and guessing, a distinction basic bookkeeping competence does not resolve.",
       "The technical requirements are specific and unforgiving. Absorption costing under ASC 330 means fixed overhead has to be allocated on normal capacity, and idle capacity expensed rather than capitalised into inventory. Standard cost variances have to be analysed and disposed of correctly at period end. Section 263A uniform capitalisation pulls costs into inventory for tax that GAAP leaves in period expense, and the book-tax difference has to be tracked, not rediscovered each year.",
-      "Our manufacturing practice is staffed by professionals with applied experience in production cost environments — giving controllers and CFOs the financial visibility to defend margins, manage working capital and satisfy multi-state compliance obligations.",
+      "Our manufacturing practice is staffed by professionals with applied experience in production cost environments, giving controllers and CFOs the financial visibility to defend margins, manage working capital and satisfy multi-state compliance obligations.",
     ],
     challenges: [
       {
@@ -92,7 +100,7 @@ export const industries: Industry[] = [
     faqs: [
       {
         q: "Can you manage inventory-based accounting?",
-        a: "Yes — inventory tracking, valuation under FIFO, LIFO or weighted average, LIFO reserve maintenance, work-in-progress accounting and cost-of-goods calculations, with the supporting schedules an auditor will ask to see.",
+        a: "Yes, including inventory tracking, valuation under FIFO, LIFO or weighted average, LIFO reserve maintenance, work-in-progress accounting and cost-of-goods calculations, with the supporting schedules an auditor will ask to see.",
       },
       {
         q: "Do you handle Section 263A and book-tax differences?",
@@ -110,7 +118,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/manufacturing-hd.webp",
     icon: "Factory",
     meta: {
-      title: "Manufacturing Accounting Outsourcing — ADAS Globus Pro",
+      title: "Manufacturing Accounting Outsourcing",
       description:
         "Standard costing, ASC 330 inventory valuation, Section 263A schedules, multi-plant P&L and multi-state compliance for U.S. manufacturers.",
     },
@@ -123,9 +131,9 @@ export const industries: Industry[] = [
     summary:
       "ASC 606 revenue recognition, equity compensation and multi-entity reporting for technology businesses.",
     intro: [
-      "Technology companies — early-stage SaaS, mid-market IT services firms, or multinational software groups — operate in a financial environment defined by technically demanding revenue recognition, complex equity structures, multi-state tax exposure, and growth that consistently outpaces internal finance capacity.",
+      "Technology companies, whether early-stage SaaS, mid-market IT services firms or multinational software groups, operate in a financial environment defined by technically demanding revenue recognition, complex equity structures, multi-state tax exposure, and growth that consistently outpaces internal finance capacity.",
       "ASC 606 is where most of the difficulty concentrates. A SaaS contract bundling a subscription, an implementation service and a discounted first year has to be decomposed into performance obligations, allocated across them on standalone selling price, and recognised on a pattern that matches transfer of control. Add usage-based pricing, mid-term upgrades and multi-year prepayments and the deferred revenue waterfall becomes the single most-examined schedule in the file.",
-      "Then there is nexus. Economic nexus thresholds now capture SaaS businesses that have never had an employee or an office in the states taxing them, and around twenty states treat SaaS as taxable — with definitions that differ from each other. A company can accumulate registration and filing obligations across a dozen states without noticing.",
+      "Then there is nexus. Economic nexus thresholds now capture SaaS businesses that have never had an employee or an office in the states taxing them, and around twenty states treat SaaS as taxable, with definitions that differ from each other. A company can accumulate registration and filing obligations across a dozen states without noticing.",
       "Our technology practice brings current working knowledge of exactly these areas, giving CPA firms and finance teams the offshore capacity to manage them properly rather than approximately.",
     ],
     challenges: [
@@ -135,7 +143,7 @@ export const industries: Industry[] = [
       },
       {
         title: "Deferred revenue that will not reconcile",
-        body: "Mid-term upgrades, prorations, credits and multi-year prepayments break a waterfall that was built for simple annual terms — and it is the first schedule a diligence team asks for.",
+        body: "Mid-term upgrades, prorations, credits and multi-year prepayments break a waterfall that was built for simple annual terms, and it is the first schedule a diligence team asks for.",
       },
       {
         title: "Economic nexus creeping across states",
@@ -143,29 +151,29 @@ export const industries: Industry[] = [
       },
       {
         title: "Stock compensation under ASC 718",
-        body: "Options, RSUs and ESPPs each carry their own expense pattern, forfeiture estimation and disclosure requirements — and the cap table rarely reconciles to the accounting without work.",
+        body: "Options, RSUs and ESPPs each carry their own expense pattern, forfeiture estimation and disclosure requirements, and the cap table rarely reconciles to the accounting without work.",
       },
     ],
     scope: [
-      "Revenue recognition under ASC 606 — subscriptions, licences, professional services and bundled arrangements",
+      "Revenue recognition under ASC 606 for subscriptions, licences, professional services and bundled arrangements",
       "Deferred revenue waterfall preparation and contract asset/liability reconciliation",
       "Multi-entity consolidation with intercompany elimination and minority interest",
       "Software development cost capitalisation under ASC 350-40 and R&D expense under ASC 730",
-      "Stock-based compensation under ASC 718 — options, RSUs and ESPPs",
+      "Stock-based compensation under ASC 718: options, RSUs and ESPPs",
       "Section 174 R&D capitalisation and amortisation schedules",
       "Economic nexus analysis, state registration management and SaaS taxability determination",
       "Multi-currency reporting and functional currency determination",
-      "Board and investor reporting packages — ARR, churn, burn, runway and cohort analysis",
+      "Board and investor reporting packages: ARR, churn, burn, runway and cohort analysis",
       "Federal and state income tax compliance, including R&D credit substantiation",
     ],
     faqs: [
       {
         q: "Do you handle subscription revenue and ASC 606?",
-        a: "Yes — performance obligation identification, standalone selling price allocation, deferred revenue waterfalls, contract assets and liabilities, and the disclosures that go with them. It is the most common reason technology clients engage us.",
+        a: "Yes, including performance obligation identification, standalone selling price allocation, deferred revenue waterfalls, contract assets and liabilities, and the disclosures that go with them. It is the most common reason technology clients engage us.",
       },
       {
         q: "Can you manage multi-state sales tax for a SaaS business?",
-        a: "Yes. We run economic nexus analysis against each state's threshold, determine SaaS taxability per jurisdiction, manage registrations, and handle ongoing filings — including cleaning up periods where a threshold was crossed before anyone noticed.",
+        a: "Yes. We run economic nexus analysis against each state's threshold, determine SaaS taxability per jurisdiction, manage registrations, and handle ongoing filings, including cleaning up periods where a threshold was crossed before anyone noticed.",
       },
       {
         q: "Do you support investor and board reporting?",
@@ -179,7 +187,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/it-software-tech-services-hd.webp",
     icon: "Cpu",
     meta: {
-      title: "SaaS & Technology Accounting Outsourcing — ADAS Globus Pro",
+      title: "SaaS & Technology Accounting Outsourcing",
       description:
         "ASC 606 revenue recognition, deferred revenue waterfalls, ASC 718 stock compensation, Section 174 and SaaS nexus analysis for U.S. technology companies.",
     },
@@ -193,9 +201,9 @@ export const industries: Industry[] = [
     summary:
       "Night audit reconciliation, departmental reporting and tip compliance for service-intensive operations.",
     intro: [
-      "Hospitality generates high transaction volume across several revenue streams — rooms, food and beverage, ancillary services, events — each with its own cost structure, supplier relationships and tax treatment. Financial trouble in a hotel is rarely fraud. It is almost always inadequate cost visibility and reconciliation discipline compounding quietly over a few quarters.",
-      "The reporting convention is its own discipline. The Uniform System of Accounts for the Lodging Industry (USALI) structures results by department, so rooms, F&B and other operated departments each carry their own revenue, direct cost and profit — which is what makes benchmarking against comparable properties possible and what an owner or lender expects to see.",
-      "Payroll adds a second layer. Tipped-employee compliance under the FLSA — tip credits, tip pooling rules, overtime on the full minimum wage rather than the cash wage, and the Form 8027 large food and beverage establishment report — is one of the most frequently mishandled areas in the sector.",
+      "Hospitality generates high transaction volume across several revenue streams (rooms, food and beverage, ancillary services, events), each with its own cost structure, supplier relationships and tax treatment. Financial trouble in a hotel is rarely fraud. It is almost always inadequate cost visibility and reconciliation discipline compounding quietly over a few quarters.",
+      "The reporting convention is its own discipline. The Uniform System of Accounts for the Lodging Industry (USALI) structures results by department, so rooms, F&B and other operated departments each carry their own revenue, direct cost and profit. That is what makes benchmarking against comparable properties possible, and it is what an owner or lender expects to see.",
+      "Payroll adds a second layer. Tipped-employee compliance under the FLSA (tip credits, tip pooling rules, overtime on the full minimum wage rather than the cash wage, and the Form 8027 large food and beverage establishment report) is one of the most frequently mishandled areas in the sector.",
       "Our hospitality practice gives hotel groups, serviced apartment operators and F&B businesses the reporting and compliance infrastructure to hold margin discipline across all of it.",
     ],
     challenges: [
@@ -205,7 +213,7 @@ export const industries: Industry[] = [
       },
       {
         title: "Tip credit and overtime exposure",
-        body: "Overtime for tipped staff is calculated on the full minimum wage, not the reduced cash wage — a rule that is misapplied often enough to be a standard audit finding.",
+        body: "Overtime for tipped staff is calculated on the full minimum wage, not the reduced cash wage, a rule that is misapplied often enough to be a standard audit finding.",
       },
       {
         title: "Departmental reporting owners can use",
@@ -236,7 +244,7 @@ export const industries: Industry[] = [
       },
       {
         q: "Do you handle tipped-employee payroll compliance?",
-        a: "Yes — tip credit application, tip pooling arrangements, overtime calculated on the full minimum wage, and Form 8027 for large food and beverage establishments.",
+        a: "Yes, including tip credit application, tip pooling arrangements, overtime calculated on the full minimum wage, and Form 8027 for large food and beverage establishments.",
       },
       {
         q: "Can you produce USALI departmental reporting?",
@@ -250,7 +258,7 @@ export const industries: Industry[] = [
     imageHd: "/assets/industries/hospitality-hd.webp",
     icon: "Hotel",
     meta: {
-      title: "Hospitality Accounting Outsourcing — ADAS Globus Pro",
+      title: "Hospitality Accounting Outsourcing",
       description:
         "Night audit reconciliation, USALI departmental reporting, tipped payroll compliance and occupancy tax for U.S. hotels, F&B and serviced apartments.",
     },
@@ -263,9 +271,9 @@ export const industries: Industry[] = [
     summary:
       "Location-level P&L, prime cost reporting and franchise compliance for multi-unit operators.",
     intro: [
-      "Quick service and multi-unit restaurant operators work in a margin-compressed, operationally intensive environment where the gap between a profitable and a loss-making location usually comes down to food cost ratio, labour scheduling and waste — none of which are visible without timely, location-level reporting.",
+      "Quick service and multi-unit restaurant operators work in a margin-compressed, operationally intensive environment where the gap between a profitable and a loss-making location usually comes down to food cost ratio, labour scheduling and waste, none of which are visible without timely, location-level reporting.",
       "Prime cost is the number the sector runs on: cost of goods plus total labour, as a percentage of sales, per location, every period. Well-run operators hold it near 60% and review it weekly rather than monthly, because by month end the period that went wrong is already over.",
-      "Multi-unit structures add their own complexity. Franchise royalties and advertising fund contributions accrue on gross sales and have to reconcile to the franchisor's own statements. Where locations sit in different states, sales tax treatment of prepared food differs — and delivery platform transactions raise marketplace facilitator questions that are still settling.",
+      "Multi-unit structures add their own complexity. Franchise royalties and advertising fund contributions accrue on gross sales and have to reconcile to the franchisor's own statements. Where locations sit in different states, sales tax treatment of prepared food differs, and delivery platform transactions raise marketplace facilitator questions that are still settling.",
       "Our QSR practice delivers the location-level visibility and consolidated group reporting that operators and franchisees need to hold profitability at scale.",
     ],
     challenges: [
@@ -279,7 +287,7 @@ export const industries: Industry[] = [
       },
       {
         title: "Franchise royalty and ad fund accruals",
-        body: "Royalties and advertising contributions accrue on gross sales and must reconcile to the franchisor's statements — a reconciliation that is often not performed until a dispute forces it.",
+        body: "Royalties and advertising contributions accrue on gross sales and must reconcile to the franchisor's statements, a reconciliation that is often not performed until a dispute forces it.",
       },
       {
         title: "Multi-state prepared food tax",
@@ -288,9 +296,9 @@ export const industries: Industry[] = [
     ],
     scope: [
       "Location-level P&L preparation and consolidated group financial reporting",
-      "Weekly prime cost reporting — food cost percentage and labour cost ratio by location",
+      "Weekly prime cost reporting: food cost percentage and labour cost ratio by location",
       "Daily sales reconciliation and POS-to-accounting integration",
-      "Third-party delivery platform reconciliation — commissions, promotions, adjustments and refunds",
+      "Third-party delivery platform reconciliation: commissions, promotions, adjustments and refunds",
       "Franchise royalty and advertising fund accrual, reconciliation and area developer reporting",
       "Inventory and wastage accounting with theoretical-to-actual variance analysis",
       "Accounts payable and supplier management, centralised or location-level",
@@ -305,7 +313,7 @@ export const industries: Industry[] = [
       },
       {
         q: "How do you help control food cost and waste?",
-        a: "Weekly prime cost reporting by location, theoretical-versus-actual food cost variance, and waste tracking — so a drifting location is visible while the period is still open.",
+        a: "Weekly prime cost reporting by location, theoretical-versus-actual food cost variance, and waste tracking, so a drifting location is visible while the period is still open.",
       },
       {
         q: "Do you reconcile third-party delivery platforms?",
@@ -313,13 +321,13 @@ export const industries: Industry[] = [
       },
       {
         q: "Can you handle franchise reporting requirements?",
-        a: "Yes — royalty and advertising fund accruals, reconciliation to franchisor statements, area developer reporting and the periodic financial reporting a franchise agreement requires.",
+        a: "Yes, including royalty and advertising fund accruals, reconciliation to franchisor statements, area developer reporting and the periodic financial reporting a franchise agreement requires.",
       },
     ],
     imageHd: "/assets/industries/qsr-restaurants-food-chains-hd.webp",
     icon: "UtensilsCrossed",
     meta: {
-      title: "Restaurant & QSR Accounting Outsourcing — ADAS Globus Pro",
+      title: "Restaurant & QSR Accounting Outsourcing",
       description:
         "Location-level P&L, weekly prime cost reporting, delivery platform reconciliation, franchise royalty accounting and multi-state food tax for U.S. operators.",
     },
@@ -332,9 +340,9 @@ export const industries: Industry[] = [
     summary:
       "Multi-channel reconciliation, landed cost tracking and sales tax nexus for digital commerce.",
     intro: [
-      "E-commerce and D2C businesses operate across a financially complex ecosystem — several sales channels, multiple payment processors, marketplace platforms, third-party logistics providers, and a multi-state tax environment that has not stopped moving since Wayfair.",
-      "The reconciliation problem is structural. A Shopify payout is net of processing fees, refunds, chargebacks and reserve holds. An Amazon settlement nets referral fees, FBA fulfilment fees, storage, returns processing and advertising. Booking the deposit as revenue understates gross sales and hides every cost netted out of it — which is exactly the cost base a contribution margin analysis depends on.",
-      "Sales tax is the second structural issue. Economic nexus thresholds — commonly $100,000 in sales or 200 transactions — are crossed silently, and marketplace facilitator laws shift collection responsibility onto Amazon or Etsy for those channels while leaving the brand's own Shopify sales entirely its own responsibility. The result is a business collecting correctly on one channel and accruing exposure on another.",
+      "E-commerce and D2C businesses operate across a financially complex ecosystem: several sales channels, multiple payment processors, marketplace platforms, third-party logistics providers, and a multi-state tax environment that has not stopped moving since Wayfair.",
+      "The reconciliation problem is structural. A Shopify payout is net of processing fees, refunds, chargebacks and reserve holds. An Amazon settlement nets referral fees, FBA fulfilment fees, storage, returns processing and advertising. Booking the deposit as revenue understates gross sales and hides every cost netted out of it, which is exactly the cost base a contribution margin analysis depends on.",
+      "Sales tax is the second structural issue. Economic nexus thresholds, commonly $100,000 in sales or 200 transactions, are crossed silently, and marketplace facilitator laws shift collection responsibility onto Amazon or Etsy for those channels while leaving the brand's own Shopify sales entirely its own responsibility. The result is a business collecting correctly on one channel and accruing exposure on another.",
       "Our e-commerce practice provides the reconciliation discipline and compliance governance that fast-growing digital commerce businesses need to scale without accumulating liabilities they will have to unwind later.",
     ],
     challenges: [
@@ -356,8 +364,8 @@ export const industries: Industry[] = [
       },
     ],
     scope: [
-      "Multi-channel revenue reconciliation — Shopify, Amazon Seller Central, WooCommerce, Etsy, Walmart",
-      "Payment processor reconciliation — Stripe, PayPal, Shopify Payments, Square — gross to net",
+      "Multi-channel revenue reconciliation: Shopify, Amazon Seller Central, WooCommerce, Etsy, Walmart",
+      "Payment processor reconciliation, gross to net: Stripe, PayPal, Shopify Payments, Square",
       "Inventory accounting, COGS calculation and landed cost tracking including duty and freight",
       "Marketplace fee, referral fee, FBA and fulfilment cost accounting",
       "Returns, refunds, chargeback and reserve accounting",
@@ -370,7 +378,7 @@ export const industries: Industry[] = [
     faqs: [
       {
         q: "Can you reconcile marketplace and processor payouts?",
-        a: "Yes — gross sales down to net deposit across Shopify, Amazon, Stripe, PayPal and the rest, with fees, refunds, chargebacks and reserves broken out so revenue and cost are both stated properly.",
+        a: "Yes. We reconcile gross sales down to net deposit across Shopify, Amazon, Stripe, PayPal and the rest, with fees, refunds, chargebacks and reserves broken out so revenue and cost are both stated properly.",
       },
       {
         q: "How do you handle sales tax nexus?",
@@ -382,13 +390,13 @@ export const industries: Industry[] = [
       },
       {
         q: "Do you support investor and lender reporting?",
-        a: "Yes — contribution margin by channel and SKU, cohort analysis, CAC and LTV, inventory turns and the diligence-ready statements a raise or credit facility will require.",
+        a: "Yes, including contribution margin by channel and SKU, cohort analysis, CAC and LTV, inventory turns and the diligence-ready statements a raise or credit facility will require.",
       },
     ],
     imageHd: "/assets/industries/e-commerce-hd.webp",
     icon: "ShoppingCart",
     meta: {
-      title: "E-Commerce & D2C Accounting Outsourcing — ADAS Globus Pro",
+      title: "E-Commerce & D2C Accounting Outsourcing",
       description:
         "Multi-channel reconciliation, marketplace fee accounting, landed cost tracking, economic nexus monitoring and unit economics reporting for U.S. D2C brands.",
     },
@@ -405,5 +413,5 @@ export function getIndustry(slug: string) {
 export const industriesIntro = {
   heading: "Industries We Serve",
   subheading: "Sector Expertise, Not a Standardised Chart of Accounts",
-  body: "Applying one accounting framework across fundamentally different business models produces adequate bookkeeping and inadequate insight. A SaaS company allocating bundled contracts under ASC 606 needs different expertise than a multi-unit restaurant operator holding prime cost to 60% — and both need professionals who understand the operational context driving the numbers, not just the accounting treatment.",
+  body: "Applying one accounting framework across fundamentally different business models produces adequate bookkeeping and inadequate insight. A SaaS company allocating bundled contracts under ASC 606 needs different expertise than a multi-unit restaurant operator holding prime cost to 60%, and both need professionals who understand the operational context driving the numbers, not just the accounting treatment.",
 };

@@ -11,7 +11,7 @@ import { getIcon } from "@/lib/icons";
 import { features, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Security & Technology — How We Handle Your Clients' Data",
+  title: "Security & Technology: How We Handle Your Clients' Data",
   description: technology.subheading,
   alternates: { canonical: "/technology-and-security" },
 };
@@ -176,7 +176,7 @@ export default function TechnologyPage() {
             eyebrow="Technology"
             title="We Work in Your Systems,"
             accent="Not Ours"
-            lead="No migration, no parallel chart of accounts, and nothing your clients would notice. Automation is used where it removes error — it is not what we sell."
+            lead="No migration, no parallel chart of accounts, and nothing your clients would notice. Automation is used where it removes error. It is not what we sell."
             align="center"
           />
           <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

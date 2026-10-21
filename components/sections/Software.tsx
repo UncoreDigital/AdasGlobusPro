@@ -97,7 +97,7 @@ export default function Software({
 
           <Reveal className="mt-8">
             <p className="text-center text-[13.5px] text-ink-muted">
-              Running something not listed? Say so on the call — the list is what we are
+              Running something not listed? Say so on the call. The list is what we are
               asked for most, not the limit of what we work in.
             </p>
           </Reveal>

@@ -180,7 +180,7 @@ export default function SettingsForm({ settings }: { settings: SiteSetting[] }) 
         {state === "saved" && stale && (
           <p className="flex items-start gap-2 text-[12.5px] font-medium text-amber-700">
             <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            Saved. The live pages could not be refreshed just now — they will
+            Saved. The live pages could not be refreshed just now. They will
             update themselves within five minutes.
           </p>
         )}

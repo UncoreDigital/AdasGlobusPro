@@ -11,7 +11,7 @@ import { servicesIntro, services } from "@/lib/services-data";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Our Expertise — Accounting, Tax, Audit & Hiring Services",
+  title: "Our Expertise: Accounting, Tax, Audit & Hiring Services",
   description: servicesIntro.body,
   alternates: { canonical: "/services" },
 };

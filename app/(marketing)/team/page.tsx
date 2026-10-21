@@ -12,7 +12,7 @@ import { figure, getSettings } from "@/lib/settings";
 import { features, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Our Team — Leadership, Bench Depth and Review Layers",
+  title: "Our Team: Leadership, Bench Depth and Review Layers",
   description:
     "The Chartered Accountants and Directors who lead ADAS Globus Pro, how the delivery team is structured by grade, and the three layers of review every deliverable passes before it reaches your firm.",
   alternates: { canonical: "/team" },
@@ -252,7 +252,7 @@ export default async function TeamPage() {
             eyebrow="How Work Is Reviewed"
             title="Four Sets of Eyes."
             accent="Yours Is the Last."
-            lead="Every deliverable clears three internal layers before it reaches your firm — and your reviewer still holds the judgement and the sign-off."
+            lead="Every deliverable clears three internal layers before it reaches your firm, and your reviewer still holds the judgement and the sign-off."
             align="center"
           />
 

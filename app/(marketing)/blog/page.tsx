@@ -11,7 +11,7 @@ import { features } from "@/lib/site";
 import { formatDate, readingTime } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Insights — Writing for CPA Firms and Finance Leaders",
+  title: "Insights: Writing for CPA Firms and Finance Leaders",
   description:
     "Practical writing on offshore accounting, multi-jurisdiction compliance, close cycles and building offshore capacity inside a CPA practice.",
   alternates: { canonical: "/blog" },
@@ -28,7 +28,7 @@ export default async function BlogPage() {
       <PageBanner
         eyebrow="Insights"
         title="Writing for CPA Firms and Finance Leaders"
-        lead="Notes from inside offshore delivery — what actually changes when capacity moves, and what does not."
+        lead="Notes from inside offshore delivery: what actually changes when capacity moves, and what does not."
         breadcrumbs={[{ name: "Insights" }]}
       />
 

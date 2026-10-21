@@ -16,9 +16,9 @@ import { features, offices, site } from "@/lib/site";
 import { fadeLeft, fadeRight } from "@/lib/motion";
 
 export const metadata: Metadata = {
-  title: "Who We Are — Offshore Accounting Built for U.S. Firms",
+  title: "Who We Are: Offshore Accounting Built for U.S. and Canadian Firms",
   description:
-    "ADAS Globus Pro was founded in 2020 by three Chartered Accountants to give U.S. CPA firms offshore capacity that arrives ready to review. Our story, vision, mission and values.",
+    "ADAS Globus Pro was founded in 2020 by three Chartered Accountants to give CPA firms offshore capacity that arrives ready to review, and now serves firms across the U.S. and Canada. Our story, vision, mission and values.",
   alternates: { canonical: "/about" },
 };
 

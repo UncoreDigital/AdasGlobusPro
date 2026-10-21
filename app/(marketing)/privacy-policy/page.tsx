@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
     {
       heading: "Client data under engagement",
       body: [
-        "Personal and financial data we process on behalf of a client firm under an engagement is governed by that engagement's contract, confidentiality agreement and data protection terms — not by this website policy. Our information security environment is described on the Technology & Security page.",
+        "Personal and financial data we process on behalf of a client firm under an engagement is governed by that engagement's contract, confidentiality agreement and data protection terms, not by this website policy. Our information security environment is described on the Technology & Security page.",
       ],
     },
     {

@@ -20,7 +20,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.proposition}`,
+    default: `${site.name} | ${site.proposition}`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -29,6 +29,8 @@ export const metadata: Metadata = {
     "accounting outsourcing",
     "offshore accounting",
     "CPA firm outsourcing",
+    "Canadian CPA firm outsourcing",
+    "U.S. and Canada accounting staffing",
     "tax preparation outsourcing",
     "audit support",
     "offshore bookkeeping",
@@ -38,14 +40,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: `${site.name} — ${site.proposition}`,
+    title: `${site.name} | ${site.proposition}`,
     description: site.description,
     url: site.url,
     images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.name }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.proposition}`,
+    title: `${site.name} | ${site.proposition}`,
     description: site.description,
     images: [site.ogImage],
   },

@@ -10,9 +10,9 @@ import { accountingRoles, rolesIntro } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Accounting Roles We Support — Staffing for U.S. CPA Firms",
+  title: "Accounting Roles We Support: Staffing for U.S. and Canadian CPA Firms",
   description:
-    "Bookkeepers, accountants, tax preparers, reviewers, AP/AR, payroll and audit support — trained professionals who work inside your software. Part-time, full-time or seasonal.",
+    "Bookkeepers, accountants, tax preparers, reviewers, AP/AR, payroll and audit support: trained professionals who work inside your software. Part-time, full-time or seasonal.",
   alternates: { canonical: "/accounting-roles" },
 };
 

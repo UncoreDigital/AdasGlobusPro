@@ -53,7 +53,7 @@ export default function Logo({
   const image = (
     <Image
       src={src}
-      alt="ADAS Globus Pro — Finance, Talent, Growth"
+      alt="ADAS Globus Pro: Finance, Talent, Growth"
       width={1149}
       height={615}
       priority={priority}

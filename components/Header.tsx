@@ -5,10 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import Flag from "@/components/Flag";
+import { RegionDropdown, RegionTabs, useRegion } from "@/components/RegionSwitcher";
 import Logo from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { EASE } from "@/lib/motion";
-import { navItems, site, type NavItem } from "@/lib/site";
+import { getRegion, regions, type RegionCode } from "@/lib/regions";
+import { features, navItems, site, type NavItem } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
@@ -18,6 +21,9 @@ import { cn } from "@/lib/utils";
  * else — a hover-only menu is unreachable by keyboard, and a click-only menu
  * feels broken to mouse users on a site this navigation-heavy. Both paths drive
  * the same `open` state so they cannot disagree.
+ *
+ * The country switch (lib/regions.ts) lives here too, and its state is owned
+ * here, because the services dropdown is the thing it changes.
  */
 export default function Header() {
   const pathname = usePathname();
@@ -25,6 +31,12 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [drawer, setDrawer] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { region, setRegion, discovered, markDiscovered } = useRegion();
+  const switcher = features.regionSwitcher;
+
+  /* With the switch off, the services menu stays on the U.S. list. */
+  const linksFor = (item: NavItem) =>
+    item.regional && switcher ? getRegion(region).services : item.dropdown;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -91,8 +103,9 @@ export default function Header() {
             {navItems.map((item) => {
               const active = isActive(item);
               const open = openDropdown === item.name;
+              const links = linksFor(item);
 
-              if (!item.dropdown) {
+              if (!links) {
                 return (
                   <Link
                     key={item.name}
@@ -154,7 +167,10 @@ export default function Header() {
                       >
                         <div className="overflow-hidden rounded-xl border border-border bg-white p-2 shadow-lift">
                           <span className="absolute -top-1 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t border-border bg-white" />
-                          {item.dropdown.map((sub) => (
+                          {item.regional && switcher && (
+                            <RegionStrip region={region} onChange={setRegion} />
+                          )}
+                          {links.map((sub) => (
                             <Link
                               key={sub.href}
                               href={sub.href}
@@ -196,6 +212,33 @@ export default function Header() {
               <Phone className="h-4 w-4" aria-hidden="true" />
               {site.phone}
             </a>
+
+            {/* Country switch. Full-size from lg; beside the menu button below
+                that, compact, so a phone visitor can still see it without
+                opening the drawer. */}
+            {switcher === "tabs" && (
+              <RegionTabs region={region} onChange={setRegion} className="mr-1 hidden lg:inline-flex" />
+            )}
+            {switcher === "dropdown" && (
+              <RegionDropdown
+                region={region}
+                onChange={setRegion}
+                discovered={discovered}
+                onDiscovered={markDiscovered}
+                className="mr-1 hidden lg:block"
+              />
+            )}
+            {switcher && (
+              <RegionDropdown
+                region={region}
+                onChange={setRegion}
+                discovered={discovered}
+                onDiscovered={markDiscovered}
+                compact
+                className="lg:hidden"
+              />
+            )}
+
             <Button href="/contact" size="md" className="hidden sm:inline-flex">
               Talk to Us
             </Button>
@@ -211,8 +254,53 @@ export default function Header() {
         </div>
       </header>
 
-      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} pathname={pathname} />
+      <MobileDrawer
+        open={drawer}
+        onClose={() => setDrawer(false)}
+        pathname={pathname}
+        region={region}
+        onRegionChange={setRegion}
+        linksFor={linksFor}
+      />
     </>
+  );
+}
+
+/**
+ * Top of the services dropdown: which country's list this is, and a one-click
+ * way to the other. The second place a visitor can discover the switch, and
+ * the one they reach at the exact moment the answer matters to them.
+ */
+function RegionStrip({
+  region,
+  onChange,
+}: {
+  region: RegionCode;
+  onChange: (code: RegionCode) => void;
+}) {
+  const current = getRegion(region);
+  const others = regions.filter((r) => r.code !== region);
+
+  return (
+    <div className="mb-1 flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3.5 py-2.5">
+      <span className="flex items-center gap-2 text-[12.5px] font-semibold text-navy-deep">
+        <Flag code={current.iso} />
+        {current.tagline}
+      </span>
+      <span className="flex items-center gap-1.5">
+        {others.map((other) => (
+          <button
+            key={other.code}
+            type="button"
+            onClick={() => onChange(other.code)}
+            className="flex items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1 text-[12px] font-semibold text-brand transition-colors hover:border-accent hover:text-brand-dark"
+          >
+            <Flag code={other.iso} className="h-3" />
+            {other.short}
+          </button>
+        ))}
+      </span>
+    </div>
   );
 }
 
@@ -220,10 +308,16 @@ function MobileDrawer({
   open,
   onClose,
   pathname,
+  region,
+  onRegionChange,
+  linksFor,
 }: {
   open: boolean;
   onClose: () => void;
   pathname: string;
+  region: RegionCode;
+  onRegionChange: (code: RegionCode) => void;
+  linksFor: (item: NavItem) => NavItem["dropdown"];
 }) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -257,10 +351,20 @@ function MobileDrawer({
               </button>
             </div>
 
+            {features.regionSwitcher && (
+              <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border px-5 py-3.5">
+                <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-muted">
+                  Country
+                </span>
+                <RegionTabs region={region} onChange={onRegionChange} />
+              </div>
+            )}
+
             <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Mobile">
               {navItems.map((item) => {
                 const active = pathname.startsWith(item.href);
-                if (!item.dropdown) {
+                const links = linksFor(item);
+                if (!links) {
                   return (
                     <Link
                       key={item.name}
@@ -309,7 +413,7 @@ function MobileDrawer({
                             >
                               All {item.name.toLowerCase()}
                             </Link>
-                            {item.dropdown.map((sub) => (
+                            {links.map((sub) => (
                               <Link
                                 key={sub.href}
                                 href={sub.href}

@@ -13,7 +13,7 @@ import { fadeLeft, fadeRight } from "@/lib/motion";
  * 45% has been misled, and that is a conversation the sales team has to have
  * rather than the website.
  *
- * The list is what a U.S. hire costs *besides salary*, since that is where the
+ * The list is what a U.S. or Canadian hire costs *besides salary*, since that is where the
  * gap actually comes from and it is the part a partner under-counts when
  * comparing a rate card to a payroll line.
  */
@@ -34,7 +34,7 @@ export default function CostAdvantage() {
             <h2 className="text-[1.75rem] font-extrabold leading-[1.15] text-white sm:text-4xl">
               Potentially{" "}
               <span className="text-gradient-accent-on-dark">60%+ Below</span> the Cost of a
-              U.S. Hire
+              U.S. or Canadian Hire
             </h2>
             <p className="mt-6 text-[15.5px] leading-[1.8] text-white/70">
               {costAdvantage.body}

@@ -8,7 +8,7 @@ import { allFaqs, faqs } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "FAQs — Engagement, Security, Pricing and Support",
+  title: "FAQs: Engagement, Security, Pricing and Support",
   description:
     "Answers on what ADAS Globus Pro does, who we serve, how engagements are structured, how client data is protected, how pricing works and how we communicate.",
   alternates: { canonical: "/faqs" },
@@ -20,7 +20,7 @@ export default function FaqsPage() {
       <PageBanner
         eyebrow="FAQs"
         title="Questions Firms Ask Before They Engage Us"
-        lead="If something here is not covered, ask directly — a senior member of the advisory team will answer within one business day."
+        lead="If something here is not covered, ask directly. A senior member of the advisory team will answer within one business day."
         breadcrumbs={[{ name: "FAQs" }]}
       />
 

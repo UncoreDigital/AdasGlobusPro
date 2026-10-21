@@ -10,7 +10,7 @@ import { bookingUrl, getSettings } from "@/lib/settings";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Talk to Us — Staffing for U.S. CPA and Accounting Firms",
+  title: "Talk to Us: Staffing for U.S. and Canadian CPA and Accounting Firms",
   description:
     "Tell us your volumes, your software and your review protocol. A senior member of the advisory team responds within one business day with a proposed engagement structure.",
   alternates: { canonical: "/contact" },
@@ -34,7 +34,7 @@ export default async function ContactPage() {
       <PageBanner
         eyebrow="Talk to Us"
         title="Tell Us the Role You Cannot Fill"
-        lead="Not a sales script. Tell us the role, the volumes, the software and the review standard you work to, and we will come back with a cost and a start date — or tell you honestly if we are not the right fit. Then prove it with three days of free work."
+        lead="Not a sales script. Tell us the role, the volumes, the software and the review standard you work to, and we will come back with a cost and a start date, or tell you honestly if we are not the right fit. Then prove it with three days of free work."
         breadcrumbs={[{ name: "Talk to Us" }]}
       />
 
