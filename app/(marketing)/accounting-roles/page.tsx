@@ -10,9 +10,9 @@ import { accountingRoles, rolesIntro } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Accounting Roles We Support — Staffing for U.S. CPA Firms",
+  title: "The Roles We Support: Accounting Staffing for U.S. and Canadian CPA Firms",
   description:
-    "Bookkeepers, accountants, tax preparers, reviewers, AP/AR, payroll and audit support — trained professionals who work inside your software. Part-time, full-time or seasonal.",
+    "Bookkeepers, accountants, tax preparers, reviewers, AP/AR, payroll and audit support: trained professionals who work inside your software. Part-time, full-time or seasonal.",
   alternates: { canonical: "/accounting-roles" },
 };
 
@@ -29,8 +29,11 @@ export default function AccountingRolesPage() {
   return (
     <>
       <PageBanner
-        eyebrow={rolesIntro.eyebrow}
-        title="The Accounting Roles We Staff"
+        /* The heading took the shared eyebrow's wording on 27 October ("The
+           Roles We Support", "Accounting" removed at the client's request), so
+           this page gets its own eyebrow rather than printing it twice. */
+        eyebrow="Part-Time · Full-Time · Seasonal"
+        title="The Roles We Support"
         lead={rolesIntro.lead}
         breadcrumbs={[{ name: "Accounting Roles" }]}
       />

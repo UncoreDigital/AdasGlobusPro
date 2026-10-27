@@ -2,12 +2,18 @@
  * Page copy that is not a service or an industry: the homepage bands, about,
  * the team, technology & security, and the FAQ set.
  *
- * ── U.S. site. ──────────────────────────────────────────────────────────────
+ * ── U.S. and Canada. ────────────────────────────────────────────────────────
  * Rewritten from the global site's copy rather than lifted from it, for two
- * reasons: the audience here is a U.S. CPA firm or U.S. finance team, and two
- * live sites carrying identical paragraphs on different domains is how one of
- * them gets treated as a duplicate. Every standard, form and deadline named
- * below is American.
+ * reasons: the audience here is a North American CPA firm or finance team, and
+ * two live sites carrying identical paragraphs on different domains is how one
+ * of them gets treated as a duplicate.
+ *
+ * Until 17 October 2026 this was a U.S.-only site. The client then split the
+ * firm into U.S. and Canadian practices and asked that every "U.S." on the site
+ * read "U.S. and Canada", that em dashes be removed throughout (they read as
+ * AI-written), and "practising" become "practicing". Canadian technical detail
+ * (forms, software, deadlines) is still largely to come from the client; where
+ * a U.S. form or rule is named below, it is a U.S. fact and is left as one.
  *
  * Three rules govern edits:
  *
@@ -26,15 +32,18 @@
  *
  *  3. ADAS Globus Pro is not a CPA firm and does not sign, file or issue opinions.
  *     Copy must never imply otherwise — the client firm keeps the engagement,
- *     the judgement and the sign-off. See `boundary` below.
+ *     the judgement and the sign-off. The FAQ "Are you a CPA firm?" is the one
+ *     place that now says so outright.
  */
 
-/* ---------------------------------------------------------------------------
-   The liability boundary. Rendered on service pages and in the footer.
-   --------------------------------------------------------------------------- */
+import type { CountryIso } from "@/lib/regions";
 
-export const boundary =
-  "ADAS Globus Pro provides trained accounting professionals who work as an extension of your team. We are not a CPA firm: we do not sign returns, issue audit opinions, or hold ourselves out as licensed to practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off.";
+/* ---------------------------------------------------------------------------
+   The liability boundary used to live here as `boundary`, rendered as a
+   "Scope of practice" notice on /about and every service page. The client
+   asked for it to be removed altogether (21 October 2026). The same statement
+   remains in the FAQ "Are you a CPA firm?" below.
+   --------------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------------
    Homepage
@@ -43,15 +52,15 @@ export const boundary =
 export const hero = {
   headline: "Add Accounting Capacity",
   /** Rendered in the accent gradient as the emphasised second line of the H1. */
-  headlineAccent: "Without Adding U.S. Headcount",
-  subhead: "Staffing for U.S. CPA, accounting and tax firms",
+  headlineAccent: "Without Adding U.S. or Canadian Headcount",
+  subhead: "Accounting for U.S. and Canadian CPA and accounting firms",
   primaryCta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
   secondaryCta: { label: "Talk to Us", href: "/contact" },
-  lead: "Qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team — part-time, full-time or just for the season, without the cost of a U.S. hire.",
+  lead: "Qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team: part-time, full-time or just for the season, without the cost of a full-time hire.",
   chips: [
     "Built and run by Chartered Accountants",
     "Part-time · Full-time · Seasonal",
-    "Potentially 60%+ below a U.S. hire",
+    "Potentially 60%+ below a full-time hire",
     "3-day free trial",
   ],
 };
@@ -60,41 +69,38 @@ export const aboutTeaser = {
   eyebrow: "Who We Are",
   heading: "Built and Run by Chartered Accountants",
   points: [
-    "We are accountants, not a recruitment agency. The firm is owned and led by practising Chartered Accountants, which is why our people arrive understanding month-end close, workpaper standards and what a reviewer is actually looking for.",
-    "Every professional is employed, trained and supervised by us. You get the output of a qualified, managed accountant working inside your systems — without the recruiting, benefits, payroll tax and onboarding cost of hiring locally.",
-    "Serving U.S. CPA, accounting and tax firms since 2020, with a delivery centre built around American engagement standards and the January-to-April calendar.",
+    "We are accountants, not a recruitment agency. The firm is owned and led by practicing Chartered Accountants, which is why our people arrive understanding month-end close, workpaper standards and what a reviewer is actually looking for.",
+    "Every professional is employed, trained and supervised by us. You get the output of a qualified, managed accountant working inside your systems, without the recruiting, benefits, payroll tax and onboarding cost of hiring locally.",
+    "Serving CPA, accounting and tax firms since 2020, now across the U.S. and Canada, with a delivery centre built around U.S. and Canadian engagement standards and the busy-season calendar.",
     "Part-time, full-time, seasonal or a permanent bench. You size the capacity to the work, not the other way round.",
   ],
 };
 
 /**
- * "Why Choose ADAS Globus Pro" — four differentiators.
+ * "Why Choose ADAS Globus Pro": three differentiators. There were four until
+ * the client's 21 October document dropped "An Extension of Your Team".
  *
- * Rewritten for the U.S. reader. The global site's version claims fluency in
- * "US GAAP, IFRS, UK FRS 102, Australian AAS and UAE corporate tax", which on a
- * U.S.-only site reads as a firm spread thin rather than one with depth. Here
- * the same point is made by going narrower and more specific.
+ * Rewritten for the North American reader. The global site's version claims
+ * fluency in "US GAAP, IFRS, UK FRS 102, Australian AAS and UAE corporate tax",
+ * which reads as a firm spread thin rather than one with depth. Since 17
+ * October this site names the U.S. and Canada, and only those two.
  */
 export const whyUs = [
   {
     title: "Built and Run by Chartered Accountants",
-    body: "The firm is owned and led by practising CAs, so the people setting the review standard have sat on your side of it. That is the difference between a staffing vendor sending you a CV and a firm sending you someone who already knows what a clean workpaper looks like.",
+    body: "The firm is owned and led by practicing CAs, so the people setting the review standard have sat on your side of it. That is the difference between a staffing vendor sending you a CV and a firm sending you someone who already knows what a clean workpaper looks like.",
     icon: "Landmark",
   },
   {
     title: "Native to Your Software",
-    body: "We work inside the environment you already run — QuickBooks, Xero, Sage Intacct, NetSuite — and the tax stack on top of it: UltraTax CS, Drake, ProSeries, Lacerte, CCH Axcess. No migration, no new chart of accounts, nothing your clients would notice.",
+    body: "We work inside the environment you already run (QuickBooks, Xero, Sage Intacct, NetSuite) and the tax stack on top of it: UltraTax CS, Drake, ProSeries, Lacerte, CCH Axcess. No migration, no new chart of accounts, nothing your clients would notice.",
     icon: "Plug",
   },
   {
-    title: "Trained on U.S. Standards",
-    body: "US GAAP, IRS procedure and AICPA guidance from day one — including the parts that catch offshore teams out: state nexus, multi-state apportionment, K-1 allocations, and the documentation depth a peer reviewer expects.",
+    /* Title and body are the client's own wording, from the 17 October document. */
+    title: "Trained on U.S. & Canadian Standards",
+    body: "U.S. GAAP, IRS requirements, CRA guidance, and Canadian accounting standards from day one, including the complexities that matter: multi-state and multi-province compliance, tax reporting, cross-border considerations, and the documentation depth expected by professional reviewers.",
     icon: "BadgeCheck",
-  },
-  {
-    title: "An Extension of Your Team",
-    body: "Your people stay on review, client relationships and advisory work. Ours handle the agreed bookkeeping, accounting and tax preparation. You set the priorities and hold the sign-off; we make the capacity available.",
-    icon: "Users2",
   },
 ];
 
@@ -108,15 +114,11 @@ export const whyUs = [
 export const busySeason = {
   eyebrow: "The Hiring Problem",
   heading: "You Cannot Hire for April and Pay for It All Year",
-  body: "Between the January 31 information-return deadline and April 15, a U.S. practice needs roughly twice the preparer capacity it can justify employing for the other eight months. Hire for the peak and you carry the cost through the trough. Do not hire, and you turn work away or burn out the people you have — and experienced preparers are the hardest role in the profession to fill right now.",
+  body: "Between the January 31 information-return deadline and the April filing deadlines, a practice in the U.S. or Canada needs roughly twice the preparer capacity it can justify employing for the other eight months. Hire for the peak and you carry the cost through the trough. Do not hire, and you turn work away or burn out the people you have, and experienced preparers are the hardest role in the profession to fill right now.",
   resolution:
     "Seasonal capacity solves the arithmetic. Bring people on in January and stand them down in May, staffed by professionals who learned your templates in the autumn so week one is productive rather than instructional.",
-  milestones: [
-    { date: "Jan 31", label: "1099-NEC, 1099-MISC and W-2 filing" },
-    { date: "Mar 17", label: "Form 1065 and 1120-S deadline" },
-    { date: "Apr 15", label: "Form 1040 and 1120 deadline" },
-    { date: "Sep–Oct", label: "Extended returns and year-end planning" },
-  ],
+  /* The filing calendar that sat beside this text was removed on the client's
+     21 October document. See components/sections/BusySeason.tsx. */
 };
 
 /** "Our USPs — Operational Commitments Embedded Into Every Engagement" */
@@ -148,46 +150,59 @@ export const technologyTeaser = {
   /* Split for SectionHeading, which renders the accent half in the gradient. */
   title: "We Work in",
   accent: "Your Software",
-  body: "Our professionals work in the platforms U.S. firms actually run — general ledger, tax preparation, workpapers and payroll. You do not migrate, you do not retrain your staff, and your clients never see a change in how their work is handled.",
+  body: "Our professionals work in the platforms U.S. and Canadian firms actually run: general ledger, tax preparation, workpapers and payroll. You do not migrate, you do not retrain your staff, and your clients never see a change in how their work is handled.",
 };
 
 /**
- * "Around the Clock" band — reframed for the U.S.
+ * The overnight band: "Your Workday Ends. Your Progress Does Not."
  *
- * The global site's version is a six-country strip, which on a U.S. site is
- * noise. The claim that matters here is the overnight cycle: work handed off at
- * close of business is back before the next morning, in any U.S. time zone.
+ * Rewritten on the client's 21 October document from their recommended copy
+ * (which they said could be rephrased). Their text, and where it went:
+ *
+ *   heading     "Your Workday Ends. Your Progress Does Not."  (verbatim)
+ *   subheading  their first paragraph, with "your US office" made "your
+ *               office" because the site now serves Canada too
+ *   cycle[3]    their second paragraph, on overlapping working hours
+ *   tagline     "Less waiting. Faster turnaround. More time to focus on your
+ *               clients."  (verbatim)
+ *
+ * The four-step cycle stayed because it shows the claim rather than stating
+ * it; its steps were rewritten to tell the client's version. Their copy is
+ * also more modest than what it replaced: "much of the work is ready", not
+ * "completed work is waiting".
  */
 export const coverage = {
   eyebrow: "How the Day Works",
-  heading: "Your Evening Is Our Morning",
+  heading: "Your Workday Ends.",
+  accent: "Your Progress Does Not.",
   subheading:
-    "The time difference is the product. Work handed off at close of business is reviewed, prepared and returned before your team logs in.",
-  kicker: "Coverage across every U.S. time zone, Eastern through Pacific.",
+    "While your office is closed, your offshore team keeps working on your accounting tasks. By the time you start your next business day, much of the work is ready for your review.",
+  tagline: "Less waiting. Faster turnaround. More time to focus on your clients.",
+  kicker: "Coverage across U.S. and Canadian time zones, Atlantic through Pacific.",
   cycle: [
     {
       time: "5:00 PM",
       zone: "Your office",
       label: "Hand-off",
-      body: "You queue the day's work — returns to prepare, reconciliations to clear, workpapers to build.",
+      body: "Your workday ends. You queue the work: returns to prepare, reconciliations to clear, workpapers to build.",
     },
     {
       time: "Overnight",
-      zone: "Delivery centre",
-      label: "Prepared",
-      body: "Your dedicated team works the queue in your software, against your templates and checklists.",
-    },
-    {
-      time: "Before dawn",
-      zone: "Delivery centre",
-      label: "Reviewed",
-      body: "Preparer, reviewer and engagement-manager sign-off, with open items flagged in writing.",
+      zone: "Our team",
+      label: "Working",
+      body: "Your offshore team keeps going while your office is closed, in your software and against your checklists.",
     },
     {
       time: "9:00 AM",
       zone: "Your office",
-      label: "On your desk",
-      body: "Completed work and a short status note are waiting, so your team's day starts on review and client conversations rather than on preparation.",
+      label: "Ready",
+      body: "Much of the work is ready for your review when your next business day starts, with open items flagged in writing.",
+    },
+    {
+      time: "Overlap",
+      zone: "Shared hours",
+      label: "Connect",
+      body: "With overlapping working hours, you can discuss questions, share feedback and clarify next steps without waiting another full day.",
     },
   ],
 };
@@ -196,7 +211,7 @@ export const freeTrial = {
   eyebrow: "Try Before You Commit",
   heading: "Three Days of Real Work, Free",
   subheading: "3-Day Free Trial",
-  body: "Give us live work — a set of returns, a month's bookkeeping, a batch of reconciliations — and we do it at our cost. You review the output with your own reviewer, against your own standard, before any money changes hands.",
+  body: "Give us live work, whether a set of returns, a month's bookkeeping or a batch of reconciliations, and we do it at our cost. You review the output with your own reviewer, against your own standard, before any money changes hands.",
   cta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
   points: [
     "Real work, not a sample file",
@@ -269,7 +284,7 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "They work like part of our team rather than a supplier we have to manage. Our templates, our review protocol, our deadlines — and a named person we can call when something needs a decision.",
+      "They work like part of our team rather than a supplier we have to manage. Our templates, our review protocol, our deadlines, and a named person we can call when something needs a decision.",
     name: "Managing Partner",
     role: "Regional CPA Firm",
   },
@@ -292,14 +307,14 @@ export const testimonials: Testimonial[] = [
   every entry carries `attribution`.
 */
 export const testimonialsNote = {
-  body: "Our clients are named on request, not on the website — most CPA firms would rather not advertise that they use offshore capacity, and we respect that.",
+  body: "Our clients are named on request, not on the website. Most CPA firms would rather not advertise that they use offshore capacity, and we respect that.",
   offer: "Ask us and we will arrange a reference call with a firm running work like yours.",
   cta: { label: "Ask for a reference", href: "/contact" },
 };
 
 export const homeCta = {
   heading: "Short of Accounting Staff?",
-  body: "Tell us the role you cannot fill and the software you run. We will tell you what it costs, how quickly we can start, and honestly whether we are the right fit — then prove it with three days of free work.",
+  body: "Tell us the role you cannot fill and the software you run. We will tell you what it costs, how quickly we can start, and honestly whether we are the right fit, then prove it with three days of free work.",
   cta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
 };
 
@@ -316,8 +331,8 @@ export const buildCta = {
    --------------------------------------------------------------------------- */
 
 export const about = {
-  heading: "Built for the Way U.S. Accounting Firms Actually Work",
-  lead: "Offshore support fails when it is bolted on. It works when it is shaped around a firm's existing software, templates, review layers and deadlines — which is what we were built to do.",
+  heading: "Built for the Way U.S. and Canadian Accounting Firms Actually Work",
+  lead: "Offshore support fails when it is bolted on. It works when it is shaped around a firm's existing software, templates, review layers and deadlines, which is what we were built to do.",
 
   facts: [
     { value: "2020", label: "Founded" },
@@ -332,7 +347,7 @@ export const about = {
     eyebrow: "Our Story",
     heading: "Started by Chartered Accountants Who Had Done the Work",
     paragraphs: [
-      "ADAS Globus Pro was founded in 2020 by three practising Chartered Accountants who had spent their careers inside audit, tax and financial reporting engagements — and had seen from the inside why offshore arrangements so often disappoint.",
+      "ADAS Globus Pro was founded in 2020 by three practicing Chartered Accountants who had spent their careers inside audit, tax and financial reporting engagements, and had seen from the inside why offshore arrangements so often disappoint.",
       "The pattern was consistent. Work came back technically defensible but structurally wrong: right numbers, wrong templates; complete files, no documentation trail; capacity delivered, review burden increased. Firms ended up paying for support and then paying again in partner time to make it usable.",
       "So the firm was built the other way round. Templates, checklists, review layers and communication protocols are set up before any live work is touched, and the professionals assigned to a client learn that firm's conventions during onboarding rather than during busy season. The measure of success is simple: work that comes back ready to review, not ready to redo.",
     ],
@@ -340,11 +355,11 @@ export const about = {
 
   vision: {
     heading: "Vision",
-    body: "To be the staffing partner U.S. CPA firms choose on merit rather than on price — recognised for the quality of the professionals we place, for functioning as a genuine extension of the practices we serve, and for partnerships built on trust and professional ethics rather than on contract length.",
+    body: "To be the staffing partner U.S. and Canadian CPA firms choose on merit rather than on price: recognised for the quality of the professionals we place, for functioning as a genuine extension of the practices we serve, and for partnerships built on trust and professional ethics rather than on contract length.",
   },
   mission: {
     heading: "Mission",
-    body: "To give U.S. CPA, accounting and tax firms qualified accounting staff they cannot hire locally — trained on U.S. standards, working inside your systems, supervised by Chartered Accountants, and held to Professional Integrity, Operational Excellence and Accountability on every engagement.",
+    body: "To give U.S. and Canadian CPA, accounting and tax firms qualified accounting staff they cannot hire locally: trained on U.S. and Canadian standards, working inside your systems, supervised by Chartered Accountants, and held to Professional Integrity, Operational Excellence and Accountability on every engagement.",
   },
 
   values: [
@@ -352,7 +367,7 @@ export const about = {
     { name: "Operational Excellence", body: "Standardised workflows and checklist governance on every engagement." },
     { name: "Client-Centric Collaboration", body: "Your conventions, your templates, your review protocol." },
     { name: "Accountability", body: "A named engagement manager, and visible open items." },
-    { name: "Continuous Advancement", body: "Ongoing training on U.S. standards and platform releases." },
+    { name: "Continuous Advancement", body: "Ongoing training on U.S. and Canadian standards and platform releases." },
     { name: "Client Commitment", body: "Long-term relationships over transactional engagements." },
     { name: "Confidentiality & Data Security", body: "A locked-down delivery environment and individually signed NDAs." },
     { name: "Innovation & Technology", body: "Automation where it removes error, humans where judgement matters." },
@@ -429,7 +444,7 @@ export const team = {
       icon: "Calculator",
       chartered: true,
       linkedin: "https://www.linkedin.com/in/ca-arpit-shah-4a94813b",
-      bio: "Leads accounting, finance and CFO services — month-end close delivery, management reporting, and the outsourced-CFO work a growing client needs — along with the onboarding process that maps a firm's templates and conventions before live work begins.",
+      bio: "Leads accounting, finance and CFO services, including month-end close delivery, management reporting and the outsourced-CFO work a growing client needs, along with the onboarding process that maps a firm's templates and conventions before live work begins.",
     },
     {
       name: "Ritesh Prajapati",
@@ -476,7 +491,7 @@ export const team = {
     },
     {
       step: "Reviewer",
-      body: "Independent technical review — numbers, documentation, and the standard the file has to meet.",
+      body: "Independent technical review of the numbers, the documentation and the standard the file has to meet.",
     },
     {
       step: "Engagement Manager",
@@ -490,7 +505,7 @@ export const team = {
 
   credentials: [
     "Chartered Accountant-led practice leadership",
-    "Professionals trained on US GAAP and IRS procedure",
+    "Professionals trained on U.S. GAAP, IRS requirements, CRA guidance and Canadian accounting standards",
     "AICPA and PCAOB standards applied to audit-support work",
     "Continuous training on platform releases and annual tax law changes",
     "Individually signed confidentiality agreements",
@@ -519,12 +534,12 @@ export const engagementModels = [
   {
     name: "Seasonal",
     body: "Capacity that arrives in January and stands down in May, staffed where possible by professionals who learned your templates during the autumn.",
-    bestFor: "January–April filing season",
+    bestFor: "January to April filing season",
     icon: "CalendarCheck",
   },
   {
     name: "Dedicated Team",
-    body: "A multi-grade bench — preparers, seniors and a reviewer — for firms building a permanent offshore function rather than filling a gap.",
+    body: "A multi-grade bench of preparers, seniors and a reviewer, for firms building a permanent offshore function rather than filling a gap.",
     bestFor: "Firms building lasting capacity",
     icon: "Users2",
   },
@@ -548,9 +563,10 @@ export type AccountingRole = {
 };
 
 export const rolesIntro = {
-  eyebrow: "Accounting Roles We Support",
+  /* "Accounting" removed at the client's request (27 October). */
+  eyebrow: "The Roles We Support",
   heading: "The People You Cannot Hire Fast Enough",
-  lead: "Every role below is an employed, trained and supervised member of our team who works inside your systems as part of yours — available part-time, full-time or for the season.",
+  lead: "Every role below is an employed, trained and supervised member of our team who works inside your systems as part of yours, available part-time, full-time or for the season.",
 };
 
 export const accountingRoles: AccountingRole[] = [
@@ -573,18 +589,6 @@ export const accountingRoles: AccountingRole[] = [
     icon: "BarChart3",
   },
   {
-    name: "Tax Preparers",
-    body: "Return preparation across 1040, 1120, 1120-S, 1065, 1041 and 990, prepared review-ready in your tax software with diagnostics cleared.",
-    tasks: ["Return preparation", "Workpaper files", "Carryforward tie-out"],
-    icon: "Receipt",
-  },
-  {
-    name: "Tax Reviewers",
-    body: "A second technical review before returns reach your partner, for firms where review — not preparation — has become the bottleneck.",
-    tasks: ["Technical review", "Diagnostic clearance", "Open-items memo"],
-    icon: "CheckCheck",
-  },
-  {
     name: "AP / AR Specialists",
     body: "Invoice processing, approval workflows, collections support and ageing analysis for firms running client accounting services at volume.",
     tasks: ["Invoice processing", "Payment runs", "Ageing and collections"],
@@ -592,8 +596,8 @@ export const accountingRoles: AccountingRole[] = [
   },
   {
     name: "Payroll Support",
-    body: "Payroll processing and filings across federal, state and local jurisdictions, including multi-state and shift-based workforces.",
-    tasks: ["Payroll runs", "940 / 941 filings", "W-2 and 1099 season"],
+    body: "Payroll processing and filings across federal, state, provincial and local jurisdictions, including multi-state, multi-province and shift-based workforces.",
+    tasks: ["Payroll runs", "940 / 941 filings", "W-2, 1099 and T4 slips"],
     icon: "Users",
   },
   {
@@ -610,6 +614,47 @@ export const accountingRoles: AccountingRole[] = [
   },
 ];
 
+/**
+ * Tax preparation and review, for both countries.
+ *
+ * Replaces the separate "Tax Preparers" and "Tax Reviewers" cards, per the
+ * client's 17 October document: one card in the layout of their mockup, a U.S.
+ * column and a Canadian column, each headed "Preparation & Review" rather than
+ * the mockup's "Tax Preparers". It sits in the roles grid where the two old
+ * cards were, two columns wide. See components/sections/AccountingRoles.tsx.
+ *
+ * The heading and the "Form numbers" and "Key focus" rows are the mockup's.
+ * Its body copy is not: it said "our software is built to help you", and ADAS
+ * Globus Pro does not sell software. The professionals work in the firm's own.
+ *
+ * No task chips, unlike the other role cards. The card is already taller than
+ * the one beside it in the grid, and the chips pushed the gap past what the
+ * neighbouring card could absorb; the review step they named is in each
+ * country's copy instead.
+ */
+export const taxDesk = {
+  eyebrow: "Tax Preparers & Reviewers",
+  heading: "Trusted by Professionals in the U.S. and Canada",
+  lead: "Return preparation and a second technical review for firms in both countries, inside your own tax software.",
+  icon: "Receipt",
+  countries: [
+    {
+      code: "US" as CountryIso,
+      title: "U.S. Tax Preparation & Review",
+      body: "Returns across 1040, 1120, 1120-S, 1065, 1041 and 990, prepared review-ready with diagnostics cleared, then given a second technical review before they reach your partner.",
+      forms: "1040, 1120, 1120-S, 1065, 1041 and 990",
+      focus: "Faster workflow and IRS compliance",
+    },
+    {
+      code: "CA" as CountryIso,
+      title: "Canadian Tax Preparation & Review",
+      body: "Returns for T1, T2 and T3, covering individuals, corporations and trusts, prepared to CRA requirements, then given a second technical review before they reach your partner.",
+      forms: "T1, T2 and T3 (individuals, corporations and trusts)",
+      focus: "Accuracy and CRA compliance",
+    },
+  ],
+};
+
 /* ---------------------------------------------------------------------------
    Cost advantage.
 
@@ -622,17 +667,17 @@ export const accountingRoles: AccountingRole[] = [
 
 export const costAdvantage = {
   eyebrow: "The Cost Case",
-  heading: "Potentially 60%+ Below the Cost of a U.S. Hire",
-  body: "Depending on the role and the engagement, an ADAS Globus Pro professional typically costs well under half of the equivalent U.S. seat — and the comparison is not just salary.",
+  heading: "Potentially 60%+ Below the Cost of a Full-Time Hire",
+  body: "Depending on the role and the engagement, an ADAS Globus Pro professional typically costs well under half of an equivalent full-time hire, and the comparison is not just salary.",
   avoided: [
-    { item: "Benefits and payroll taxes", note: "Health cover, 401(k) match, FICA, unemployment" },
+    { item: "Benefits and payroll taxes", note: "Health cover, 401(k) or RRSP match, FICA, CPP and EI" },
     { item: "Recruiting cost", note: "Agency fees, job boards, partner time spent interviewing" },
     { item: "Onboarding and ramp", note: "Weeks of salary before the first billable return" },
     { item: "Software seats and workspace", note: "Licences, desk, equipment, IT support" },
     { item: "The risk of a bad hire", note: "Severance, rehiring, and the season it costs you" },
   ],
   footnote:
-    "Actual saving depends on role, seniority and engagement model. We will put a specific number against your specific role on the call — not a brochure figure.",
+    "Actual saving depends on role, seniority and engagement model. We will put a specific number against your specific role on the call, not a brochure figure.",
 };
 
 /* ---------------------------------------------------------------------------
@@ -645,7 +690,7 @@ export const technology = {
     "Your Clients' Financial Data, Handled Under Controls a CPA Firm Can Put in Front of a Peer Reviewer",
   intro: [
     "The first question a partner asks is not what software we run. It is where the data goes, who can reach it, and what happens on the day someone leaves. Those are the answers below.",
-    "Our professionals work in a locked-down remote environment: your systems, our controls, nothing resting on a local machine. The technology matters, but it is in service of that — not the other way round.",
+    "Our professionals work in a locked-down remote environment: your systems, our controls, nothing resting on a local machine. The technology matters, but it is in service of that, not the other way round.",
   ],
 
   /*
@@ -689,7 +734,7 @@ export const technology = {
   capabilities: [
     { title: "Remote access to your own environment", icon: "Plug" },
     { title: "General ledger, tax, payroll and workpaper platforms", icon: "Database" },
-    { title: "Multi-entity and multi-state reporting", icon: "Layers" },
+    { title: "Multi-entity, multi-state and multi-province reporting", icon: "Layers" },
     { title: "Reporting packs to your format and calendar", icon: "BarChart3" },
     {
       title: "Automation used where it removes error, not as a selling point",
@@ -828,12 +873,12 @@ export const workflow = {
     },
     {
       title: "3-Day Free Trial",
-      duration: "Days 2–5",
+      duration: "Days 2 to 5",
       body: "We take on real work at our cost. You judge the output against your own standard, with your own reviewer, before any money changes hands.",
     },
     {
       title: "Match and Onboard",
-      duration: "Week 1–2",
+      duration: "Weeks 1 to 2",
       body: "Your professional is selected, signs engagement-level NDAs, and is briefed on your templates, checklists and conventions before touching live work.",
     },
     {
@@ -859,19 +904,19 @@ export const faqs: FaqGroup[] = [
     items: [
       {
         q: "What does ADAS Globus Pro actually do?",
-        a: "We give U.S. CPA, accounting and tax firms qualified accounting staff — bookkeepers, accountants, tax preparers, reviewers, payroll and audit support — who work inside your software as part of your team. Part-time, full-time or just for the season. The work is prepared to your templates and returned for your review.",
+        a: "We give U.S. and Canadian CPA, accounting and tax firms qualified accounting staff (bookkeepers, accountants, tax preparers, reviewers, payroll and audit support) who work inside your software as part of your team. Part-time, full-time or just for the season. The work is prepared to your templates and returned for your review.",
       },
       {
         q: "Are you a CPA firm?",
-        a: "No. ADAS Globus Pro is a staffing partner, not a licensed CPA firm. We do not sign returns, issue audit opinions, or practise public accounting in any U.S. state. Your firm keeps the client relationship, the professional judgement and the final sign-off on everything we prepare.",
+        a: "No. ADAS Globus Pro is a staffing partner, not a licensed CPA firm. We do not sign returns, issue audit opinions, or practice public accounting in any U.S. state or Canadian province. Your firm keeps the client relationship, the professional judgement and the final sign-off on everything we prepare.",
       },
       {
         q: "Who are your typical clients?",
-        a: "U.S. CPA firms, accounting firms and tax practices — most commonly between two and fifty professionals, where the partners are doing preparation work because the firm cannot hire fast enough. We also support corporate finance teams, but CPA and tax firms are the core of what we do.",
+        a: "CPA firms, accounting firms and tax practices in the U.S. and Canada, most commonly between two and fifty professionals, where the partners are doing preparation work because the firm cannot hire fast enough. We also support corporate finance teams, but CPA and tax firms are the core of what we do.",
       },
       {
         q: "Who runs ADAS Globus Pro?",
-        a: "Chartered Accountants — the firm is owned and run by qualified CAs, not by a sales organisation with an accounting department attached. It matters day to day: the person setting your review protocol has closed books and reviewed returns, so scoping conversations happen in your vocabulary and the work is supervised by someone who can tell good output from plausible output.",
+        a: "Chartered Accountants. The firm is owned and run by qualified CAs, not by a sales organisation with an accounting department attached. It matters day to day: the person setting your review protocol has closed books and reviewed returns, so scoping conversations happen in your vocabulary and the work is supervised by someone who can tell good output from plausible output.",
       },
     ],
   },
@@ -880,7 +925,7 @@ export const faqs: FaqGroup[] = [
     items: [
       {
         q: "Do we have to change our software?",
-        a: "No — that is the point. We work inside your existing environment: QuickBooks Online or Desktop, Xero, Sage Intacct, NetSuite, and the tax stack on top of it — UltraTax, Drake, ProSeries, Lacerte, CCH Axcess. There is no migration, no parallel chart of accounts, and nothing your clients would notice.",
+        a: "No, that is the point. We work inside your existing environment: QuickBooks Online or Desktop, Xero, Sage Intacct, NetSuite, and the tax stack on top of it, such as UltraTax, Drake, ProSeries, Lacerte and CCH Axcess. There is no migration, no parallel chart of accounts, and nothing your clients would notice.",
       },
       {
         q: "How long does onboarding take?",
@@ -888,11 +933,11 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "What engagement models do you offer?",
-        a: "Four: part-time against an agreed scope, full-time exclusively to your firm, seasonal for the January-to-April peak, and a dedicated multi-grade team for firms building a permanent offshore function. Part-time is the commonest starting point — most firms do not need a whole seat on day one.",
+        a: "Four: part-time against an agreed scope, full-time exclusively to your firm, seasonal for the January-to-April peak, and a dedicated multi-grade team for firms building a permanent offshore function. Part-time is the commonest starting point. Most firms do not need a whole seat on day one.",
       },
       {
         q: "How do we communicate day to day?",
-        a: "Through a named engagement manager, in whichever channel your firm already uses — email, Teams, Slack, or your practice management tool. You receive daily timesheets and a weekly task plan, so the work is visible without you having to ask.",
+        a: "Through a named engagement manager, in whichever channel your firm already uses: email, Teams, Slack or your practice management tool. You receive daily timesheets and a weekly task plan, so the work is visible without you having to ask.",
       },
       {
         q: "Can you handle busy-season volume?",
@@ -913,7 +958,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "How does this work with our confidentiality obligations?",
-        a: "Confidentiality agreements are signed at organisation level and individually by every professional assigned to your engagement. Firms subject to AICPA confidentiality rules around disclosing client information to a third-party service provider should follow their own client-consent process — we will supply whatever documentation your compliance review requires.",
+        a: "Confidentiality agreements are signed at organisation level and individually by every professional assigned to your engagement. Firms subject to AICPA or provincial CPA confidentiality rules around disclosing client information to a third-party service provider should follow their own client-consent process, and we will supply whatever documentation your compliance review requires.",
       },
       {
         q: "What physical and technical controls are in place?",
@@ -921,7 +966,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "What certifications do you hold?",
-        a: "AICPA/SOC 2 and ISO/IEC 27001. SOC 2 means an independent auditor has tested the controls described on this page rather than taking our word for them; ISO/IEC 27001 is the international standard for information security management — documented policy, assessed risk, defined controls, and a recurring audit that checks we still follow them. Ask us and we will send the certification documentation for your file.",
+        a: "AICPA/SOC 2 and ISO/IEC 27001. SOC 2 means an independent auditor has tested the controls described on this page rather than taking our word for them; ISO/IEC 27001 is the international standard for information security management: documented policy, assessed risk, defined controls, and a recurring audit that checks we still follow them. Ask us and we will send the certification documentation for your file.",
       },
       {
         q: "Can you support our peer review or client due diligence?",
@@ -938,11 +983,11 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "Who is accountable if something goes wrong?",
-        a: "The named engagement manager on your account. Issues are raised in writing with what happened, what was corrected and what changed in the process — not absorbed quietly and repeated next month.",
+        a: "The named engagement manager on your account. Issues are raised in writing with what happened, what was corrected and what changed in the process, rather than absorbed quietly and repeated next month.",
       },
       {
         q: "Will the same people stay on our account?",
-        a: "Yes, that is the model — continuity is what makes an offshore team useful rather than merely cheap. Every engagement also has a trained second, so planned leave or illness does not stall a deadline.",
+        a: "Yes, that is the model. Continuity is what makes an offshore team useful rather than merely cheap. Every engagement also has a trained second, so planned leave or illness does not stall a deadline.",
       },
       {
         q: "What is your turnaround time?",
@@ -955,11 +1000,11 @@ export const faqs: FaqGroup[] = [
     items: [
       {
         q: "How is pricing structured?",
-        a: "By engagement model — a monthly rate for dedicated or part-time capacity, or scoped pricing for defined project work. Pricing is set against the scope agreed at discovery, so it does not move because a month was busier than expected.",
+        a: "By engagement model: a monthly rate for dedicated or part-time capacity, or scoped pricing for defined project work. Pricing is set against the scope agreed at discovery, so it does not move because a month was busier than expected.",
       },
       {
         q: "Can we try before committing?",
-        a: "Yes — three days of real work, free. We agree the deliverable, the turnaround and the review protocol up front, you assess the output with your own reviewer, and no money changes hands either way. There is no card and no commitment.",
+        a: "Yes. Three days of real work, free. We agree the deliverable, the turnaround and the review protocol up front, you assess the output with your own reviewer, and no money changes hands either way. There is no card and no commitment.",
       },
       {
         q: "Are we locked into a long contract?",
@@ -967,7 +1012,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "How much does outsourcing actually save?",
-        a: "Depending on the role and the engagement, firms commonly see 60% or more against the cost of the equivalent U.S. hire — and that comparison is not just salary. It also removes benefits and payroll taxes, recruiting fees, weeks of onboarding before the first billable return, and the cost of a hire that does not work out. We will put a specific number against your specific role on the call rather than leave you with a brochure figure.",
+        a: "Depending on the role and the engagement, firms commonly see 60% or more against the cost of an equivalent full-time hire, and that comparison is not just salary. It also removes benefits and payroll taxes, recruiting fees, weeks of onboarding before the first billable return, and the cost of a hire that does not work out. We will put a specific number against your specific role on the call rather than leave you with a brochure figure.",
       },
     ],
   },
@@ -1064,9 +1109,10 @@ export const softwareFlat: SoftwareTool[] = Object.values(softwareStack).flat();
 /**
  * U.S. states, for the lead form.
  *
- * Replaces the country picker the global site used. On a U.S.-only site the
- * state is the useful field: it drives which filing calendar applies, whether
- * a nexus conversation is needed, and which of our people picks up the call.
+ * Replaces the country picker the global site used. The state (or, since 17
+ * October, the province) is the useful field: it drives which filing calendar
+ * applies, whether a nexus conversation is needed, and which of our people
+ * picks up the call.
  */
 export const usStates = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
@@ -1078,6 +1124,17 @@ export const usStates = [
   "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
   "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
   "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming",
+] as const;
+
+/**
+ * Canadian provinces and territories, for the same field. Added with the
+ * Canadian practice on 17 October; the form groups them under their own
+ * heading so neither list has to be scrolled past to reach the other.
+ */
+export const caProvinces = [
+  "Alberta", "British Columbia", "Manitoba", "New Brunswick",
+  "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut",
+  "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon",
 ] as const;
 
 /** Services offered in the contact form's interest picker. */
@@ -1092,9 +1149,10 @@ export const serviceInterests = [
   "Full-time dedicated professional",
   "Busy-season surge capacity",
   "Bookkeeping & month-end close",
-  "Tax preparation (1040 / 1120 / 1065)",
+  "U.S. tax preparation (1040 / 1120 / 1065)",
+  "Canadian tax preparation (T1 / T2 / T3)",
   "Tax review",
   "Audit support & workpapers",
   "Payroll or AP/AR support",
-  "Not sure yet — advise me",
+  "Not sure yet, advise me",
 ];

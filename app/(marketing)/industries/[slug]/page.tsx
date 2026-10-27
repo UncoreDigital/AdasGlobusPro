@@ -139,7 +139,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
                   Talk to someone who knows the sector
                 </h2>
                 <p className="mt-3 text-[14px] leading-[1.7] text-white/65">
-                  Bring the awkward question — the one your last provider could not answer.
+                  Bring the awkward question, the one your last provider could not answer.
                   One business day to a proposed engagement structure.
                 </p>
                 <Link

@@ -5,9 +5,10 @@ import { offices, site } from "@/lib/site";
 /**
  * Utility strip above the header.
  *
- * The global site puts a six-country strip here. On the U.S. site that space
+ * The global site puts a six-country strip here. On this site that space
  * carries the one thing a visiting partner is checking instead: that there is a
- * real U.S. office and a U.S. number to call.
+ * real North American office and a number to call. The U.S. line serves
+ * Canada too (both are +1), so there is one number rather than two.
  *
  * Hidden below md — on a phone the contact details are one tap away in the
  * drawer and the footer, and 40px of chrome above a sticky header costs more
@@ -50,7 +51,7 @@ export default async function TopBar() {
             {us.city}
           </span>
           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-light">
-            Serving U.S. CPA Firms Nationwide
+            Serving CPA Firms Across the U.S. and Canada
           </span>
         </div>
       </div>

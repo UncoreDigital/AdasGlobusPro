@@ -7,7 +7,7 @@ import { industries, industriesIntro } from "@/lib/industries-data";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Industries We Serve — Sector-Specific Accounting Expertise",
+  title: "Industries We Serve: Sector-Specific Accounting Expertise",
   description: industriesIntro.subheading,
   alternates: { canonical: "/industries" },
 };

@@ -1,17 +1,19 @@
 import { normaliseOrigin } from "@/lib/origin";
+import { defaultRegion, getRegion, type RegionLink } from "@/lib/regions";
 
 /**
  * Single source of truth for brand, contact and navigation.
  *
- * ── This site is the U.S. site. ──────────────────────────────────────────────
+ * ── This site is the U.S. and Canada site. ───────────────────────────────────
  * adasglobus.com stays live and keeps the global (US/UK/CA/AU/UAE) positioning.
- * This build is a separate, U.S.-only property: every claim, form number,
- * standard and time zone on it is American, and copy that would only matter to
- * a UK or Australian reader has been removed rather than translated.
+ * This build is a separate, North American property. It was U.S.-only until
+ * 17 October 2026, when the client split the firm into U.S. and Canadian
+ * practices and asked for "U.S. and Canada" wherever the site said "U.S.",
+ * plus a country switch in the header (see lib/regions.ts).
  *
  * Two consequences to hold on to when editing:
- *   1. Do not reintroduce multi-jurisdiction claims. "US GAAP, IFRS, UK FRS 102
- *      and Australian AAS" is the global site's line, not this one's.
+ *   1. Two countries, not five. "US GAAP, IFRS, UK FRS 102 and Australian AAS"
+ *      is the global site's line, not this one's; Canada is the only addition.
  *   2. Because both sites carry related content on different domains, the copy
  *      here is deliberately rewritten rather than reused, so search engines see
  *      two distinct properties instead of one duplicated twice.
@@ -23,8 +25,8 @@ import { normaliseOrigin } from "@/lib/origin";
  *
  * The domain and the contact address are the Pro ones too: this site is
  * canonical at www.adasglobuspro.com and publishes info@adasglobuspro.com.
- * adasglobus.com is the parent's, and nothing here should point at it except
- * `globalSite` below, which cross-links it deliberately.
+ * adasglobus.com is the parent's, and nothing here points at it. The footer's
+ * "Global site" link to it was removed at the client's request on 24 October.
  */
 
 export const site = {
@@ -42,12 +44,16 @@ export const site = {
   tagline: "Finance. Talent. Growth.",
 
   /*
-    Rewritten on the 24 August brief. The old line — "Precision-Engineered
-    Accounting Outsourcing for U.S. CPA Firms and Enterprises" — was exactly the
-    enterprise-outsourcing register the client asked us to drop, and "Enterprises"
-    named an audience they do not sell to.
+    The default page title after the brand: "ADAS Globus Pro | Accounting for
+    U.S. and Canadian CPA and Accounting Firms". The client's 17 October
+    document asked for this as "the very first line" of the site.
+
+    History: on the 24 August brief it was "Add Accounting Capacity Without
+    Adding U.S. Headcount", replacing "Precision-Engineered Accounting
+    Outsourcing for U.S. CPA Firms and Enterprises". That headline survives as
+    the homepage H1 (lib/content.ts `hero`).
   */
-  proposition: "Add Accounting Capacity Without Adding U.S. Headcount",
+  proposition: "Accounting for U.S. and Canadian CPA and Accounting Firms",
 
   /*
     Rewritten to match the rest of the site. The previous value here described
@@ -70,7 +76,7 @@ export const site = {
        Subscribe for updates!"
   */
   description:
-    "ADAS Globus Pro gives U.S. CPA firms offshore accountants, bookkeepers and tax preparers who work inside your systems as part of your team. ",
+    "ADAS Globus Pro gives U.S. and Canadian CPA firms offshore accountants, bookkeepers and tax preparers who work inside your systems as part of your team.",
 
   /**
    * Canonical origin. Settled: www.adasglobuspro.com.
@@ -113,8 +119,6 @@ export const site = {
     ["adasglobus.com"]
   ),
 
-  /** The global site, cross-linked from the footer. */
-  globalSite: "https://adasglobus.com",
 
   /**
    * Master artwork supplied by the client, optimised into /public/assets.
@@ -147,11 +151,20 @@ export const site = {
   email: "info@adasglobuspro.com",
   emailHref: "mailto:info@adasglobuspro.com",
 
-  /** The U.S. line is the primary on this site. */
-  phone: "+1 (307) 533-0018",
-  phoneHref: "tel:+13075330018",
+  /*
+    The U.S. line, primary on this site and serving Canada too (+1).
 
-  whatsapp: "https://wa.me/13075330018",
+    Changed on 24 October 2026 when the client updated their U.S. number;
+    the old line was +1 (307) 533-0018. WhatsApp moved with it.
+
+    NOTE: the admin's Settings > phone overrides this in the top bar, the
+    footer and the contact page (see lib/settings.ts). That value lives in
+    Supabase, so it has to be changed there as well.
+  */
+  phone: "+1 (307) 241-5595",
+  phoneHref: "tel:+13072415595",
+
+  whatsapp: "https://wa.me/13072415595",
 
   founded: 2020,
 
@@ -176,17 +189,26 @@ export const site = {
 } as const;
 
 /**
- * Locations shown on the U.S. site.
+ * Locations shown on the site: the footer, /about, /contact and the
+ * Organization structured data all render from this list.
+ *
+ * Changed on the client's 24 October instructions:
+ *   · A Canadian office, in Edmonton. It has no phone of its own; the +1 U.S.
+ *     line serves Canada too.
+ *   · No Indian phone numbers anywhere. `phone` is optional for that reason,
+ *     and every renderer skips the line when it is absent.
+ *   · The two Ahmedabad centres are "Delivery Centre I" (Bodakdev) and
+ *     "Delivery Centre II" (Keshavbaug Capital, moved from Paldi on 27
+ *     October), in that order per the client's sketch, and
+ *     both are headed "Ahmedabad, India". The locality moved out of the bold
+ *     heading and lives only in the address now.
+ *
+ * `locality` is the bare city, kept separate because schema.org's
+ * addressLocality wants "Ahmedabad", not the display string.
  *
  * The Dubai office is real and stays on the global site, but to a U.S. CPA firm
  * evaluating an offshore partner it reads as off-topic, and a sales address
- * dilutes the one that matters — the Wyoming one.
- *
- * The two Indian entries are both delivery centres in Ahmedabad, so the city
- * line carries the locality — "Paldi, Ahmedabad" and "Bodakdev, Ahmedabad" —
- * rather than repeating "Ahmedabad, Gujarat" twice under identical headings.
- * `locality` is the bare city, kept separate because schema.org's
- * addressLocality wants "Ahmedabad", not the display string.
+ * dilutes the ones that matter.
  *
  * India is named openly as the delivery centre rather than buried. Hiding where
  * the work happens is the fastest way to lose this audience: it is the first
@@ -197,7 +219,24 @@ export const site = {
  * flag glyphs, so a regional-indicator pair falls back to the bare letters, and
  * this audience is overwhelmingly Windows. See components/CountryCode.tsx.
  */
-export const offices = [
+export type Office = {
+  id: string;
+  country: string;
+  code: "US" | "CA" | "IN";
+  /** The small label above the heading, e.g. "U.S. Office". */
+  role: string;
+  /** The bold heading. */
+  city: string;
+  locality: string;
+  address: string;
+  phone?: string;
+  phoneHref?: string;
+  timezone: string;
+  tzLabel: string;
+  primary: boolean;
+};
+
+export const offices: Office[] = [
   {
     id: "us-sheridan",
     country: "United States",
@@ -205,9 +244,11 @@ export const offices = [
     role: "U.S. Office",
     city: "Sheridan, Wyoming",
     locality: "Sheridan",
-    address: "30 N Gould St Ste 66976, Sheridan, Wyoming 82801",
-    phone: "+1 (307) 533-0018",
-    phoneHref: "tel:+13075330018",
+    /* Written the way U.S. addresses are, per the client's 17 October
+       document: the "Ste 66976" suite number removed, state abbreviated. */
+    address: "30 N Gould St, Sheridan, WY 82801",
+    phone: "+1 (307) 241-5595",
+    phoneHref: "tel:+13072415595",
     /* Wyoming is Mountain Time, so this is America/Denver and not the
        America/Chicago the Austin address carried. TopBar reads `timezone` to
        render the live U.S. clock, so a stale zone here shows the wrong hour. */
@@ -216,47 +257,64 @@ export const offices = [
     primary: true,
   },
   {
-    id: "in-paldi",
-    country: "India",
-    code: "IN",
-    role: "Delivery Centre",
-    city: "Paldi, Ahmedabad",
-    locality: "Ahmedabad",
-    address: "304-305, Silver Oaks Complex, Paldi, Ahmedabad, Gujarat 380007",
-    phone: "+91 94294 61564",
-    phoneHref: "tel:+919429461564",
-    timezone: "Asia/Kolkata",
-    tzLabel: "IST",
+    id: "ca-edmonton",
+    country: "Canada",
+    code: "CA",
+    role: "Canadian Office",
+    city: "Edmonton, Alberta",
+    locality: "Edmonton",
+    /* The client's address, with a comma after the city to match the
+       U.S. card beside it. */
+    address: "9622 42 Ave NW, Edmonton, AB T6E 5Y4",
+    timezone: "America/Edmonton",
+    tzLabel: "MT",
     primary: false,
   },
   {
     id: "in-bodakdev",
     country: "India",
     code: "IN",
-    role: "Delivery Centre",
-    city: "Bodakdev, Ahmedabad",
+    role: "Delivery Centre I",
+    city: "Ahmedabad, India",
     locality: "Ahmedabad",
     address: "Shilp Epitome, 1301/1302, Rajpath Rangoli Rd, Bodakdev, Ahmedabad, Gujarat 380059",
-    phone: "+91 94268 71877",
-    phoneHref: "tel:+919426871877",
     timezone: "Asia/Kolkata",
     tzLabel: "IST",
     primary: false,
   },
-] as const;
+  {
+    /* Relocated from 304-305, Silver Oaks Complex, Paldi, Ahmedabad 380007
+       (client email, 27 October). Written "Beside" where the client wrote
+       "Besides", and with "Gujarat" to match Delivery Centre I. */
+    id: "in-keshavbaug",
+    country: "India",
+    code: "IN",
+    role: "Delivery Centre II",
+    city: "Ahmedabad, India",
+    locality: "Ahmedabad",
+    address: "615-616, Keshavbaug Capital, Beside ITC Narmada, Ahmedabad, Gujarat 380015",
+    timezone: "Asia/Kolkata",
+    tzLabel: "IST",
+    primary: false,
+  },
+];
 
 /**
- * U.S. time-zone coverage, replacing the global site's six-country strip.
+ * U.S. and Canadian time-zone coverage, replacing the global site's
+ * six-country strip.
  *
- * The claim this makes is the one a U.S. firm actually cares about: work moves
- * overnight and is on the reviewer's desk before the office opens — in
- * whichever zone that office is.
+ * The claim this makes is the one a North American firm actually cares about:
+ * work moves overnight and is on the reviewer's desk before the office opens,
+ * in whichever zone that office is. `cities` names one U.S. and one Canadian
+ * city per zone so the strip says "both countries" without a second row.
+ * Atlantic is Canadian only; Newfoundland is left off rather than claimed.
  */
 export const timeZones = [
-  { label: "Eastern", tz: "America/New_York", abbr: "ET" },
-  { label: "Central", tz: "America/Chicago", abbr: "CT" },
-  { label: "Mountain", tz: "America/Denver", abbr: "MT" },
-  { label: "Pacific", tz: "America/Los_Angeles", abbr: "PT" },
+  { label: "Atlantic", tz: "America/Halifax", abbr: "AT", cities: "Halifax" },
+  { label: "Eastern", tz: "America/New_York", abbr: "ET", cities: "New York · Toronto" },
+  { label: "Central", tz: "America/Chicago", abbr: "CT", cities: "Chicago · Winnipeg" },
+  { label: "Mountain", tz: "America/Denver", abbr: "MT", cities: "Denver · Calgary" },
+  { label: "Pacific", tz: "America/Los_Angeles", abbr: "PT", cities: "Los Angeles · Vancouver" },
 ] as const;
 
 /**
@@ -304,12 +362,29 @@ export const features = {
    * move if the client wants nothing shown until both are confirmed.
    */
   certifications: true,
+
+  /**
+   * The U.S. / Canada switch in the header, from the 17 October call.
+   *
+   * "dropdown" is the default and the recommendation: it takes a third country
+   * without a redesign, and the client named the UK, Europe and Australia as
+   * possible next markets. "tabs" is the side-by-side version the client asked
+   * about, kept so both can be screenshotted for them to choose. `false` hides
+   * the switch and the header shows the U.S. menu only.
+   */
+  regionSwitcher: "dropdown" as "dropdown" | "tabs" | false,
 } as const;
 
 export type NavItem = {
   name: string;
   href: string;
-  dropdown?: { name: string; href: string; blurb?: string }[];
+  dropdown?: RegionLink[];
+  /**
+   * Set on the services item. The header swaps `dropdown` for the selected
+   * country's list from lib/regions.ts; `dropdown` itself is the U.S. list,
+   * used wherever no country has been chosen.
+   */
+  regional?: boolean;
 };
 
 export const navItems: NavItem[] = [
@@ -329,33 +404,9 @@ export const navItems: NavItem[] = [
   {
     name: "Our Expertise",
     href: "/services",
-    dropdown: [
-      {
-        name: "Dynamic Solutions Suite",
-        href: "/services/dynamic-solutions-suite",
-        blurb: "Accounting, tax, compliance and audit under one framework",
-      },
-      {
-        name: "Elite Accounting Solutions",
-        href: "/services/elite-accounting-solutions",
-        blurb: "Audit-ready books, reconciliations and month-end close",
-      },
-      {
-        name: "Spectrum of Taxes",
-        href: "/services/spectrum-of-taxes",
-        blurb: "1040 through 990, SALT and international information returns",
-      },
-      {
-        name: "Audit Excellence",
-        href: "/services/audit-excellence",
-        blurb: "Working papers, substantive testing, SOX and SOC support",
-      },
-      {
-        name: "Dedicated Offshore Professionals",
-        href: "/services/dedicated-offshore-professionals",
-        blurb: "Trained accountants as an extension of your team, not a recruitment fee",
-      },
-    ],
+    /* Per country since 17 October. The lists live in lib/regions.ts. */
+    dropdown: getRegion(defaultRegion).services,
+    regional: true,
   },
   /*
     Industries left the top nav on the 24 August brief — the client's outreach

@@ -1,8 +1,51 @@
-# Image brief — ADAS Globus (U.S. site)
+# Image brief: ADAS Globus Pro (U.S. and Canada site)
 
-Everything here is either **already imported** from the old site or **still needed**.
-Generate the "still needed" set in ChatGPT or Gemini, drop the files into
-`public/assets/…` at the paths given, and the pages pick them up with no code change.
+## October 2026: replace the AI images with real photographs
+
+On the 17 October call the client said the site looks AI-made and asked for
+real photos: **New York / Manhattan** for the U.S. side and **Canadian cities**
+for the Canadian side. The hero, team, busy-season, service and industry images
+are AI-generated (the about-page photo came from the client's old site), so this
+list replaces the generation prompts further down. Those prompts are kept for reference only. Do not generate new images.
+
+### Rules
+
+- **Real photographs only.** Our own shoot, the client's own photos, or licensed
+  stock (Unsplash/Pexels licence, or paid stock such as Adobe Stock or
+  Shutterstock). No AI-generated, AI-extended or AI-upscaled images.
+- **Real people where we can.** The client has a real office in Ahmedabad; a
+  photo of the actual team at work beats any stock shot for credibility.
+- **No legible text or logos** in frame (screens, signage, documents).
+- **Landscape 3:2, at least 2400 px wide**, unless the row says otherwise.
+  Send the original; the build script crops, resizes and converts to WebP.
+- **A cool navy grade is fine** to keep the set consistent, but keep it
+  natural. Heavy blue tinting is part of what reads as AI now.
+
+### Shot list, in priority order
+
+| # | Slot (file) | Where it shows | Subject | Notes |
+|---|---|---|---|---|
+| 1 | `photos/hero-us` | Homepage hero, full width | **Manhattan** skyline at dusk, ideally seen from inside an office | Headline sits over the **left ~45%** of the frame, so keep that side dark and quiet; subject and light on the right |
+| 2 | `photos/team-floor` | `/team` page, and the free-trial band on the homepage | **The real Ahmedabad delivery floor**, people working | Most valuable photo on the list. Candid, nobody looking at the camera |
+| 3 | `photos/handshake-city` | `/about`, "Our Story" | **Toronto** skyline (CN Tower) or a Canadian city street | Displayed at about 1.15:1, so keep the subject central |
+| 4 | ~~`photos/busy-season`~~ | Not used any more | n/a | The calendar card it sat in was removed on 21 October; skip it |
+| 5 | `services/*-hd` (5 files) | Banner on each service page | Real office or desk scenes, one per service | Slugs: `dynamic-solutions-suite`, `elite-accounting-solutions`, `spectrum-of-taxes`, `audit-excellence`, `professional-hiring` |
+| 6 | `industries/*-hd` (5 files) | Industry cards and pages | Real scenes of each sector | Slugs: `manufacturing`, `it-software-tech-services`, `hospitality`, `qsr-restaurants-food-chains`, `e-commerce`. Lowest priority: these pages are footer-only |
+| 7 | `og.jpg` | Link previews (LinkedIn, WhatsApp) | Optional: Manhattan or Toronto, darkened behind the logo | Exactly 1200 × 630 |
+
+Already real, no action: the five leadership headshots in `team/`.
+
+### Handing the files over
+
+Put the originals in `assets-src/` under the same folder and name (for example
+`assets-src/photos/hero-us.jpg`) and tell the developer. `scripts/build-photo-assets.js`
+currently expects `.png` masters, so either export PNG or update the `src`
+extension in its `PHOTOS` list, then run `node scripts/build-photo-assets.js`.
+
+---
+
+The rest of this file is the August brief, written when the plan was to generate
+the images. It is superseded by the section above.
 
 ---
 

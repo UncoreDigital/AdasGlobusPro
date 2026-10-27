@@ -6,15 +6,23 @@ import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import { Button } from "@/components/ui/Button";
-import { bookingUrl, getSettings } from "@/lib/settings";
+import { bookingPageExists, bookingUrl, getSettings } from "@/lib/settings";
 import { offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Talk to Us — Staffing for U.S. CPA and Accounting Firms",
+  title: "Talk to Us: Staffing for U.S. and Canadian CPA and Accounting Firms",
   description:
     "Tell us your volumes, your software and your review protocol. A senior member of the advisory team responds within one business day with a proposed engagement structure.",
   alternates: { canonical: "/contact" },
 };
+
+/*
+  Office boxes, laid out to the client's 24 October sketch: one box for each
+  North American office, then a single box headed "Ahmedabad, India" holding
+  both delivery centres.
+*/
+const northAmericanOffices = offices.filter((office) => office.code !== "IN");
+const deliveryCentres = offices.filter((office) => office.code === "IN");
 
 export default async function ContactPage() {
   /* The admin can override the published number; lib/site.ts is the fallback. */
@@ -27,14 +35,15 @@ export default async function ContactPage() {
     card below does not render and the enquiry form remains the only path —
     which is what this page did before the client's 2 September request.
   */
-  const booking = bookingUrl(settings.calendly);
+  const candidate = bookingUrl(settings.calendly);
+  const booking = candidate && (await bookingPageExists(candidate)) ? candidate : null;
 
   return (
     <>
       <PageBanner
         eyebrow="Talk to Us"
         title="Tell Us the Role You Cannot Fill"
-        lead="Not a sales script. Tell us the role, the volumes, the software and the review standard you work to, and we will come back with a cost and a start date — or tell you honestly if we are not the right fit. Then prove it with three days of free work."
+        lead="Not a sales script. Tell us the role, the volumes, the software and the review standard you work to, and we will come back with a cost and a start date, or tell you honestly if we are not the right fit. Then prove it with three days of free work."
         breadcrumbs={[{ name: "Talk to Us" }]}
       />
 
@@ -125,7 +134,7 @@ export default async function ContactPage() {
               </Reveal>
 
               <RevealGroup className="space-y-4">
-                {offices.map((office) => (
+                {northAmericanOffices.map((office) => (
                   <RevealItem
                     key={office.id}
                     className="rounded-2xl border border-border bg-white p-6"
@@ -141,14 +150,36 @@ export default async function ContactPage() {
                       <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                       {office.address}
                     </p>
-                    <a
-                      href={office.phoneHref}
-                      className="mt-2.5 inline-block text-[13.5px] font-semibold text-brand hover:text-brand-light"
-                    >
-                      {office.phone}
-                    </a>
+                    {office.phone && (
+                      <a
+                        href={office.phoneHref}
+                        className="mt-2.5 inline-block text-[13.5px] font-semibold text-brand hover:text-brand-light"
+                      >
+                        {office.phone}
+                      </a>
+                    )}
                   </RevealItem>
                 ))}
+
+                <RevealItem className="rounded-2xl border border-border bg-white p-6">
+                  <h3 className="flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-navy-deep">
+                    <CountryCode code="IN" />
+                    Ahmedabad, India
+                  </h3>
+                  <ul className="mt-4 space-y-4 border-t border-border pt-4">
+                    {deliveryCentres.map((office) => (
+                      <li key={office.id}>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent-dark">
+                          {office.role}
+                        </p>
+                        <p className="mt-1.5 flex gap-2.5 text-[13.5px] leading-relaxed text-ink-muted">
+                          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                          {office.address}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </RevealItem>
               </RevealGroup>
             </aside>
           </div>
@@ -164,14 +195,16 @@ export default async function ContactPage() {
             "@id": `${site.url}/#organization`,
             "@type": "Organization",
             name: site.name,
-            contactPoint: offices.map((office) => ({
+            /* One +1 line serves both countries, and the delivery centres no
+               longer publish numbers, so there is a single contact point. */
+            contactPoint: {
               "@type": "ContactPoint",
-              telephone: office.phone,
+              telephone: phone,
               email: site.email,
               contactType: "sales",
-              areaServed: office.country,
+              areaServed: ["US", "CA"],
               availableLanguage: "English",
-            })),
+            },
           },
         }}
       />

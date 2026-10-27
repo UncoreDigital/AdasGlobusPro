@@ -180,7 +180,7 @@ export default function Hero({
                 the card border; -mt-px lets the two edges meet. */}
             <div className="mx-auto -mt-px w-fit rounded-b-xl border border-t-0 border-accent/40 bg-navy-deep px-5 py-2.5">
               <p className="text-[12.5px] font-semibold text-accent-light">
-                3-day free trial — no card, no commitment
+                3-day free trial. No card, no commitment.
               </p>
             </div>
           </motion.div>

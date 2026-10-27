@@ -49,6 +49,7 @@ export default function PrivacyPolicyPage() {
       heading: "Cookies and analytics",
       body: [
         "This site sets no advertising or cross-site tracking cookies. Authentication cookies are set only within the administrator area at /admin and are never set for public visitors.",
+        "To open on the right country's services, the site checks which country your connection comes from. That check is not stored. If you choose a country yourself, the choice is remembered in your own browser only.",
       ],
     },
     {
@@ -60,7 +61,7 @@ export default function PrivacyPolicyPage() {
     {
       heading: "Client data under engagement",
       body: [
-        "Personal and financial data we process on behalf of a client firm under an engagement is governed by that engagement's contract, confidentiality agreement and data protection terms — not by this website policy. Our information security environment is described on the Technology & Security page.",
+        "Personal and financial data we process on behalf of a client firm under an engagement is governed by that engagement's contract, confidentiality agreement and data protection terms, not by this website policy. Our information security environment is described on the Technology & Security page.",
       ],
     },
     {

@@ -382,7 +382,7 @@ export default function PostEditor({ post }: { post: Post | null }) {
             {state === "saved" && stale && (
               <p className="mt-4 flex items-start gap-2 text-[12.5px] font-medium text-amber-700">
                 <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                Saved. The live page could not be refreshed just now — it will
+                Saved. The live page could not be refreshed just now. It will
                 update itself within five minutes.
               </p>
             )}

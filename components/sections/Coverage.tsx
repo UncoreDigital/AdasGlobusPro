@@ -10,16 +10,18 @@ import { timeZones } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 
 /**
- * "Your Evening Is Our Morning" — the overnight delivery cycle.
+ * "Your Workday Ends. Your Progress Does Not." The overnight delivery cycle,
+ * in the client's words since 21 October (see `coverage` in lib/content.ts).
  *
- * Replaces the global site's six-country presence band, which on a U.S.-only
- * site is noise: a partner in Ohio does not care that there is a Dubai office.
+ * Replaces the global site's six-country presence band, which here is noise:
+ * a partner in Ohio or Ontario does not care that there is a Dubai office.
  * What they are working out is whether the time difference is a problem or the
- * product, so the section answers that directly and shows the four U.S. zones
- * running live underneath.
+ * product, so the section answers that directly and shows the North American
+ * zones running live underneath, Atlantic through Pacific since Canada was
+ * added on 17 October.
  *
- * The live clocks are the point. A list of time zones claims coverage; four
- * running clocks demonstrate it, and it is the one part of the page that is
+ * The live clocks are the point. A list of time zones claims coverage; running
+ * clocks demonstrate it, and they are the one part of the page that is
  * different every time the visitor loads it.
  */
 export default function Coverage({
@@ -43,8 +45,8 @@ export default function Coverage({
           <Reveal>
             <span className="eyebrow eyebrow-on-dark mb-4">{coverage.eyebrow}</span>
             <h2 className="text-[1.75rem] font-extrabold leading-[1.15] text-white sm:text-4xl lg:text-[2.6rem]">
-              Your Evening Is{" "}
-              <span className="text-gradient-accent-on-dark">Our Morning</span>
+              {coverage.heading}{" "}
+              <span className="text-gradient-accent-on-dark">{coverage.accent}</span>
             </h2>
             <p className="mt-5 text-[15.5px] leading-[1.75] text-white/70">
               {coverage.subheading}
@@ -90,14 +92,20 @@ export default function Coverage({
               </RevealItem>
             ))}
           </RevealGroup>
+
+          <Reveal className="mt-12 text-center">
+            <p className="font-display text-[1.15rem] font-bold text-white sm:text-xl">
+              {coverage.tagline}
+            </p>
+          </Reveal>
         </div>
 
-        {/* Live U.S. clocks */}
+        {/* Live clocks, U.S. and Canada */}
         <Reveal className="mt-16">
           <p className="text-center text-[13px] font-semibold text-white/50">
             {coverage.kicker}
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {timeZones.map((zone) => (
               <div
                 key={zone.abbr}
@@ -107,6 +115,7 @@ export default function Coverage({
                   {zone.label}
                 </p>
                 <Clock timezone={zone.tz} label={zone.abbr} />
+                <p className="mt-1.5 text-[11.5px] text-white/45">{zone.cities}</p>
               </div>
             ))}
           </div>
@@ -145,7 +154,7 @@ export default function Coverage({
 /**
  * A single time-zone clock.
  *
- * Renders an em dash until mounted rather than the server's time: the server
+ * Renders a blank "--:--" until mounted rather than the server's time: the server
  * clock and the visitor's differ by whatever the request took, and hydrating a
  * mismatched time is both a React warning and a visibly wrong number.
  */
@@ -173,7 +182,7 @@ function Clock({ timezone, label }: { timezone: string; label: string }) {
       transition={{ duration: 0.4, ease: EASE }}
       className="mt-3 font-display text-2xl font-extrabold tabular-nums text-white"
     >
-      {time ?? "—"}
+      {time ?? "--:--"}
       <span className="ml-1.5 text-[12px] font-semibold text-white/40">{label}</span>
     </motion.p>
   );
