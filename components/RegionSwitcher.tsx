@@ -9,6 +9,8 @@ import {
   defaultRegion,
   getRegion,
   isRegionCode,
+  regionForCountry,
+  regionForTimeZone,
   regions,
   type RegionCode,
 } from "@/lib/regions";
@@ -29,13 +31,20 @@ import { cn } from "@/lib/utils";
  * the first time the visitor opens the menu, picks a country or dismisses the
  * callout.
  *
+ * The starting country follows the visitor's location: Canada for a visitor
+ * in Canada, the U.S. for everyone else (client request, 22 October). Their
+ * own choice, once made, always wins. See `useRegion`.
+ *
  * Storage is a convenience only. Every read is guarded, and with storage
- * blocked the site simply starts on the U.S. every visit.
+ * blocked the site still detects the country, it just cannot remember a choice.
  */
 
 const REGION_KEY = "agp-region";
 const INTRO_KEY = "agp-region-intro";
 const HINT_KEY = "agp-region-hint";
+/* This session's location lookup, so it runs once per visit rather than on
+   every full page load. "none" means "not one of ours: use the default". */
+const DETECTED_KEY = "agp-region-detected";
 
 function read(storage: () => Storage, key: string) {
   try {
@@ -57,23 +66,90 @@ const local = () => window.localStorage;
 const session = () => window.sessionStorage;
 
 /**
+ * Which of our countries the visitor is in, or null for "use the default".
+ *
+ * Asks /api/region, which reports the country Vercel has already resolved from
+ * the connection. A known country decides it outright, so a visitor in India
+ * gets the default rather than a time-zone guess. Only when the country is
+ * unknown (local development, another host, or the request failing) does the
+ * browser's time zone decide instead.
+ */
+async function detectRegion(): Promise<RegionCode | null> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2500);
+    const res = await fetch("/api/region", { signal: controller.signal, cache: "no-store" });
+    clearTimeout(timer);
+    if (res.ok) {
+      const { country } = (await res.json()) as { country: string | null };
+      if (country) return regionForCountry(country);
+    }
+  } catch {
+    /* Unknown, so fall through to the time zone. */
+  }
+  try {
+    return regionForTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  } catch {
+    return null;
+  }
+}
+
+/**
  * The visitor's country, plus whether they have discovered the switch yet.
  *
  * Owned once, by the header, and passed down: the desktop switch, the compact
  * one beside the menu button and the one in the drawer are all the same
  * control, and three independent states would disagree after the first click.
  *
- * Starts on the default and reads storage after mount. Reading during render
- * would make the server HTML and the first client render differ.
+ * Which country it starts on, in order:
+ *   1. the visitor's own earlier choice, saved in this browser;
+ *   2. their location (see `detectRegion`), looked up once per session;
+ *   3. the default, the U.S.
+ * A detected country is never saved, so someone who travels gets the right
+ * one next time; only an explicit choice is remembered.
+ *
+ * Starts on the default and settles after mount. Reading storage or the
+ * location during render would make the server HTML and the first client
+ * render differ.
  */
 export function useRegion() {
   const [region, setRegionState] = useState<RegionCode>(defaultRegion);
   const [discovered, setDiscovered] = useState(true);
+  /** True when the current country came from the visitor's location. */
+  const [detected, setDetected] = useState(false);
+  /* Set the moment the visitor picks a country, so a lookup that resolves
+     after their click cannot overrule it. */
+  const chosen = useRef(false);
 
   useEffect(() => {
-    const saved = read(local, REGION_KEY);
-    if (isRegionCode(saved)) setRegionState(saved);
     setDiscovered(read(local, INTRO_KEY) === "done");
+
+    const saved = read(local, REGION_KEY);
+    if (isRegionCode(saved)) {
+      setRegionState(saved);
+      return;
+    }
+
+    const apply = (code: RegionCode | null) => {
+      if (chosen.current || !code) return;
+      setRegionState(code);
+      setDetected(code !== defaultRegion);
+    };
+
+    const cached = read(session, DETECTED_KEY);
+    if (cached !== null) {
+      apply(isRegionCode(cached) ? cached : null);
+      return;
+    }
+
+    let live = true;
+    detectRegion().then((code) => {
+      write(session, DETECTED_KEY, code ?? "none");
+      if (live) apply(code);
+    });
+    return () => {
+      live = false;
+    };
   }, []);
 
   const markDiscovered = useCallback(() => {
@@ -83,14 +159,16 @@ export function useRegion() {
 
   const setRegion = useCallback(
     (code: RegionCode) => {
+      chosen.current = true;
       setRegionState(code);
+      setDetected(false);
       write(local, REGION_KEY, code);
       markDiscovered();
     },
     [markDiscovered]
   );
 
-  return { region, setRegion, discovered, markDiscovered };
+  return { region, setRegion, discovered, markDiscovered, detected };
 }
 
 type SwitcherProps = {
@@ -111,6 +189,8 @@ type DropdownProps = SwitcherProps & {
   compact?: boolean;
   /** Show the one-time callout. */
   hint?: boolean;
+  /** The country was set from the visitor's location; the callout says so. */
+  detected?: boolean;
 };
 
 export function RegionDropdown({
@@ -120,6 +200,7 @@ export function RegionDropdown({
   onDiscovered,
   compact = false,
   hint = true,
+  detected = false,
   className,
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
@@ -297,12 +378,16 @@ export function RegionDropdown({
                 className="absolute -top-1.5 right-6 h-3 w-3 rotate-45 bg-navy-deep"
                 aria-hidden="true"
               />
+              {/* A visitor placed in Canada is told so, and how to undo it;
+                  everyone else is told Canada exists. */}
               <p className="flex items-center gap-2 text-[13.5px] font-bold">
-                <Flag code="CA" className="shadow-none" />
-                Now serving Canada too
+                <Flag code={detected ? current.iso : "CA"} className="shadow-none" />
+                {detected ? `Showing services for ${current.name}` : "Now serving Canada too"}
               </p>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/70">
-                Choose your country here to see the services for your firm.
+                {detected
+                  ? `Matched to your location. Not in ${current.name}? Change your country here.`
+                  : "Choose your country here to see the services for your firm."}
               </p>
               <button
                 type="button"

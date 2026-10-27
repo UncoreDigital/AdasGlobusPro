@@ -4,7 +4,9 @@ import { whyUs } from "@/lib/content";
 import { getIcon } from "@/lib/icons";
 
 /**
- * "Why Choose ADAS Globus Pro" — four differentiators on the navy band.
+ * "Why Choose ADAS Globus Pro": three differentiators on the navy band, set
+ * three across. Four until the client's 21 October document, which also
+ * dropped "Over a Conventional Outsourcer" from the heading.
  *
  * Dark on purpose: it sits between two white sections and is the page's centre
  * of gravity. Cards are numbered because these are claims a reader compares
@@ -23,14 +25,14 @@ export default function WhyUs() {
       <div className="container relative">
         <SectionHeading
           eyebrow="Why ADAS Globus Pro"
-          title="Four Reasons Firms Choose Us Over"
-          accent="a Conventional Outsourcer"
+          title="Three Reasons Firms"
+          accent="Choose Us"
           lead="Offshore capacity is easy to buy and hard to integrate. These are the commitments that decide whether an engagement becomes part of your practice or another vendor to manage."
           onDark
           align="center"
         />
 
-        <RevealGroup className="mt-14 grid gap-5 md:grid-cols-2">
+        <RevealGroup className="mt-14 grid gap-5 lg:grid-cols-3">
           {whyUs.map((item, i) => {
             const Icon = getIcon(item.icon);
             return (

@@ -11,6 +11,11 @@
  * in lib/site.ts). Adding a country is a new entry here and a flag in
  * components/Flag.tsx; nothing in the header changes.
  *
+ * Which country a visitor starts on (client request, 22 October): a visitor in
+ * Canada opens on Canada, a visitor in the U.S. on the U.S., and everyone else
+ * on the default, the U.S. A country the visitor picks themselves always wins
+ * over the detected one. See `useRegion` in components/RegionSwitcher.tsx.
+ *
  * What a switch does today: it swaps the "Our Expertise" dropdown and remembers
  * the choice in the visitor's browser. It does not change URLs, so it carries
  * no SEO weight. If Canada later gets its own pages, the switch should route to
@@ -126,4 +131,33 @@ export function getRegion(code: RegionCode): Region {
 
 export function isRegionCode(value: unknown): value is RegionCode {
   return regions.some((r) => r.code === value);
+}
+
+/** The region for an ISO country code, or null when it is not one of ours. */
+export function regionForCountry(iso: string): RegionCode | null {
+  const match = regions.find((r) => r.iso === iso.toUpperCase());
+  return match ? match.code : null;
+}
+
+/*
+  Canada's IANA time zones, for when the visitor's country is unknown (local
+  development, or a host other than Vercel). A browser reports the zone the
+  machine is set to, and these names exist only for Canadian locations, so a
+  match is a reliable "in Canada". U.S. zones need no list: anything that is
+  not Canadian falls through to the default, which is the U.S.
+*/
+const CANADIAN_TIME_ZONES = new Set([
+  "America/St_Johns", "America/Halifax", "America/Glace_Bay", "America/Moncton",
+  "America/Goose_Bay", "America/Blanc-Sablon", "America/Toronto", "America/Montreal",
+  "America/Nipigon", "America/Thunder_Bay", "America/Iqaluit", "America/Pangnirtung",
+  "America/Atikokan", "America/Winnipeg", "America/Rainy_River", "America/Resolute",
+  "America/Rankin_Inlet", "America/Regina", "America/Swift_Current", "America/Edmonton",
+  "America/Cambridge_Bay", "America/Yellowknife", "America/Inuvik", "America/Creston",
+  "America/Dawson_Creek", "America/Fort_Nelson", "America/Whitehorse", "America/Dawson",
+  "America/Vancouver",
+]);
+
+/** "ca" for a Canadian time zone, otherwise null. */
+export function regionForTimeZone(timeZone: string): RegionCode | null {
+  return CANADIAN_TIME_ZONES.has(timeZone) || timeZone.startsWith("Canada/") ? "ca" : null;
 }

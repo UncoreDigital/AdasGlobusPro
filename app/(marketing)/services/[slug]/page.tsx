@@ -6,7 +6,6 @@ import JsonLd from "@/components/JsonLd";
 import PageBanner from "@/components/PageBanner";
 import Reveal, { RevealGroup, RevealItem } from "@/components/Reveal";
 import CTA from "@/components/sections/CTA";
-import { boundary } from "@/lib/content";
 import { getIcon } from "@/lib/icons";
 import { getService, services, serviceSlugs } from "@/lib/services-data";
 import { site } from "@/lib/site";
@@ -69,7 +68,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               <Reveal className="mt-10 rounded-2xl border border-border bg-slate-50 p-7">
                 <h2 className="flex items-center gap-2.5 text-[12px] font-bold uppercase tracking-[0.16em] text-brand">
                   <Target className="h-4 w-4" aria-hidden="true" />
-                  Who this is for
+                  This is for
                 </h2>
                 <ul className="mt-5 space-y-3">
                   {service.whoItsFor.map((item) => (
@@ -214,17 +213,9 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               </Reveal>
             </aside>
           </div>
-
-          {/*
-            Scope-of-practice notice. On service pages specifically, because
-            this is where a reader is closest to assuming we sign or file.
-          */}
-          <Reveal className="mt-16 rounded-xl border border-border bg-slate-50 p-6">
-            <p className="text-[13px] leading-relaxed text-ink-muted">
-              <strong className="font-semibold text-navy-deep">Scope of practice.</strong>{" "}
-              {boundary}
-            </p>
-          </Reveal>
+          {/* The scope-of-practice notice that closed this page was removed at
+              the client's request on 21 October 2026. The FAQ "Are you a CPA
+              firm?" still states it. */}
         </div>
       </section>
 

@@ -28,7 +28,7 @@ list replaces the generation prompts further down. Those prompts are kept for re
 | 1 | `photos/hero-us` | Homepage hero, full width | **Manhattan** skyline at dusk, ideally seen from inside an office | Headline sits over the **left ~45%** of the frame, so keep that side dark and quiet; subject and light on the right |
 | 2 | `photos/team-floor` | `/team` page, and the free-trial band on the homepage | **The real Ahmedabad delivery floor**, people working | Most valuable photo on the list. Candid, nobody looking at the camera |
 | 3 | `photos/handshake-city` | `/about`, "Our Story" | **Toronto** skyline (CN Tower) or a Canadian city street | Displayed at about 1.15:1, so keep the subject central |
-| 4 | `photos/busy-season` | Homepage, "calendar we work to" card | A real team member at a desk in season | Shown as a small thumbnail (96 × 64 px); low priority |
+| 4 | ~~`photos/busy-season`~~ | Not used any more | n/a | The calendar card it sat in was removed on 21 October; skip it |
 | 5 | `services/*-hd` (5 files) | Banner on each service page | Real office or desk scenes, one per service | Slugs: `dynamic-solutions-suite`, `elite-accounting-solutions`, `spectrum-of-taxes`, `audit-excellence`, `professional-hiring` |
 | 6 | `industries/*-hd` (5 files) | Industry cards and pages | Real scenes of each sector | Slugs: `manufacturing`, `it-software-tech-services`, `hospitality`, `qsr-restaurants-food-chains`, `e-commerce`. Lowest priority: these pages are footer-only |
 | 7 | `og.jpg` | Link previews (LinkedIn, WhatsApp) | Optional: Manhattan or Toronto, darkened behind the logo | Exactly 1200 × 630 |

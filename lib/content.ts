@@ -32,17 +32,18 @@
  *
  *  3. ADAS Globus Pro is not a CPA firm and does not sign, file or issue opinions.
  *     Copy must never imply otherwise — the client firm keeps the engagement,
- *     the judgement and the sign-off. See `boundary` below.
+ *     the judgement and the sign-off. The FAQ "Are you a CPA firm?" is the one
+ *     place that now says so outright.
  */
 
 import type { CountryIso } from "@/lib/regions";
 
 /* ---------------------------------------------------------------------------
-   The liability boundary. Rendered on service pages and in the footer.
+   The liability boundary used to live here as `boundary`, rendered as a
+   "Scope of practice" notice on /about and every service page. The client
+   asked for it to be removed altogether (21 October 2026). The same statement
+   remains in the FAQ "Are you a CPA firm?" below.
    --------------------------------------------------------------------------- */
-
-export const boundary =
-  "ADAS Globus Pro provides trained accounting professionals who work as an extension of your team. We are not a CPA firm: we do not sign returns, issue audit opinions, or hold ourselves out as licensed to practice public accounting in any U.S. state or Canadian province. Your firm keeps the client relationship, the professional judgement and the final sign-off.";
 
 /* ---------------------------------------------------------------------------
    Homepage
@@ -55,11 +56,11 @@ export const hero = {
   subhead: "Accounting for U.S. and Canadian CPA and accounting firms",
   primaryCta: { label: "Start Your 3-Day Free Trial", href: "/contact" },
   secondaryCta: { label: "Talk to Us", href: "/contact" },
-  lead: "Qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team: part-time, full-time or just for the season, without the cost of a U.S. or Canadian hire.",
+  lead: "Qualified bookkeepers, accountants, tax preparers and reviewers who work inside your software as part of your team: part-time, full-time or just for the season, without the cost of a full-time hire.",
   chips: [
     "Built and run by Chartered Accountants",
     "Part-time · Full-time · Seasonal",
-    "Potentially 60%+ below a U.S. or Canadian hire",
+    "Potentially 60%+ below a full-time hire",
     "3-day free trial",
   ],
 };
@@ -76,7 +77,8 @@ export const aboutTeaser = {
 };
 
 /**
- * "Why Choose ADAS Globus Pro" — four differentiators.
+ * "Why Choose ADAS Globus Pro": three differentiators. There were four until
+ * the client's 21 October document dropped "An Extension of Your Team".
  *
  * Rewritten for the North American reader. The global site's version claims
  * fluency in "US GAAP, IFRS, UK FRS 102, Australian AAS and UAE corporate tax",
@@ -100,11 +102,6 @@ export const whyUs = [
     body: "U.S. GAAP, IRS requirements, CRA guidance, and Canadian accounting standards from day one, including the complexities that matter: multi-state and multi-province compliance, tax reporting, cross-border considerations, and the documentation depth expected by professional reviewers.",
     icon: "BadgeCheck",
   },
-  {
-    title: "An Extension of Your Team",
-    body: "Your people stay on review, client relationships and advisory work. Ours handle the agreed bookkeeping, accounting and tax preparation. You set the priorities and hold the sign-off; we make the capacity available.",
-    icon: "Users2",
-  },
 ];
 
 /**
@@ -120,25 +117,8 @@ export const busySeason = {
   body: "Between the January 31 information-return deadline and the April filing deadlines, a practice in the U.S. or Canada needs roughly twice the preparer capacity it can justify employing for the other eight months. Hire for the peak and you carry the cost through the trough. Do not hire, and you turn work away or burn out the people you have, and experienced preparers are the hardest role in the profession to fill right now.",
   resolution:
     "Seasonal capacity solves the arithmetic. Bring people on in January and stand them down in May, staffed by professionals who learned your templates in the autumn so week one is productive rather than instructional.",
-  /*
-    Statutory dates, U.S. and Canadian, in calendar order. A date that falls on
-    a weekend moves to the next business day in both countries; the list names
-    the rule rather than one year's shifted date, which is how "Mar 17" (right
-    for 2025 only) had ended up here.
-
-    ⚠️ The two Canadian rows are standard CRA deadlines, added so the calendar
-    matches the "U.S. and Canada" copy around it. The client is sending
-    Canadian technical pointers after the 17 October call; check these against
-    them.
-  */
-  milestones: [
-    { date: "Jan 31", label: "1099-NEC, 1099-MISC and W-2 filing", country: "US" as CountryIso },
-    { date: "Feb 28", label: "T4 and T5 slip filing", country: "CA" as CountryIso },
-    { date: "Mar 15", label: "Form 1065 and 1120-S deadline", country: "US" as CountryIso },
-    { date: "Apr 15", label: "Form 1040 and 1120 deadline", country: "US" as CountryIso },
-    { date: "Apr 30", label: "T1 personal return deadline", country: "CA" as CountryIso },
-    { date: "Fall", label: "Extended returns and year-end planning", country: "US" as CountryIso },
-  ],
+  /* The filing calendar that sat beside this text was removed on the client's
+     21 October document. See components/sections/BusySeason.tsx. */
 };
 
 /** "Our USPs — Operational Commitments Embedded Into Every Engagement" */
@@ -174,42 +154,55 @@ export const technologyTeaser = {
 };
 
 /**
- * "Around the Clock" band — reframed for the U.S.
+ * The overnight band: "Your Workday Ends. Your Progress Does Not."
  *
- * The global site's version is a six-country strip, which on a U.S. site is
- * noise. The claim that matters here is the overnight cycle: work handed off at
- * close of business is back before the next morning, in any U.S. time zone.
+ * Rewritten on the client's 21 October document from their recommended copy
+ * (which they said could be rephrased). Their text, and where it went:
+ *
+ *   heading     "Your Workday Ends. Your Progress Does Not."  (verbatim)
+ *   subheading  their first paragraph, with "your US office" made "your
+ *               office" because the site now serves Canada too
+ *   cycle[3]    their second paragraph, on overlapping working hours
+ *   tagline     "Less waiting. Faster turnaround. More time to focus on your
+ *               clients."  (verbatim)
+ *
+ * The four-step cycle stayed because it shows the claim rather than stating
+ * it; its steps were rewritten to tell the client's version. Their copy is
+ * also more modest than what it replaced: "much of the work is ready", not
+ * "completed work is waiting".
  */
 export const coverage = {
   eyebrow: "How the Day Works",
-  heading: "Your Evening Is Our Morning",
+  heading: "Your Workday Ends.",
+  accent: "Your Progress Does Not.",
   subheading:
-    "The time difference is the product. Work handed off at close of business is reviewed, prepared and returned before your team logs in.",
+    "While your office is closed, your offshore team keeps working on your accounting tasks. By the time you start your next business day, much of the work is ready for your review.",
+  tagline: "Less waiting. Faster turnaround. More time to focus on your clients.",
   kicker: "Coverage across U.S. and Canadian time zones, Atlantic through Pacific.",
   cycle: [
     {
       time: "5:00 PM",
       zone: "Your office",
       label: "Hand-off",
-      body: "You queue the day's work: returns to prepare, reconciliations to clear, workpapers to build.",
+      body: "Your workday ends. You queue the work: returns to prepare, reconciliations to clear, workpapers to build.",
     },
     {
       time: "Overnight",
-      zone: "Delivery centre",
-      label: "Prepared",
-      body: "Your dedicated team works the queue in your software, against your templates and checklists.",
-    },
-    {
-      time: "Before dawn",
-      zone: "Delivery centre",
-      label: "Reviewed",
-      body: "Preparer, reviewer and engagement-manager sign-off, with open items flagged in writing.",
+      zone: "Our team",
+      label: "Working",
+      body: "Your offshore team keeps going while your office is closed, in your software and against your checklists.",
     },
     {
       time: "9:00 AM",
       zone: "Your office",
-      label: "On your desk",
-      body: "Completed work and a short status note are waiting, so your team's day starts on review and client conversations rather than on preparation.",
+      label: "Ready",
+      body: "Much of the work is ready for your review when your next business day starts, with open items flagged in writing.",
+    },
+    {
+      time: "Overlap",
+      zone: "Shared hours",
+      label: "Connect",
+      body: "With overlapping working hours, you can discuss questions, share feedback and clarify next steps without waiting another full day.",
     },
   ],
 };
@@ -570,7 +563,8 @@ export type AccountingRole = {
 };
 
 export const rolesIntro = {
-  eyebrow: "Accounting Roles We Support",
+  /* "Accounting" removed at the client's request (27 October). */
+  eyebrow: "The Roles We Support",
   heading: "The People You Cannot Hire Fast Enough",
   lead: "Every role below is an employed, trained and supervised member of our team who works inside your systems as part of yours, available part-time, full-time or for the season.",
 };
@@ -673,8 +667,8 @@ export const taxDesk = {
 
 export const costAdvantage = {
   eyebrow: "The Cost Case",
-  heading: "Potentially 60%+ Below the Cost of a U.S. or Canadian Hire",
-  body: "Depending on the role and the engagement, an ADAS Globus Pro professional typically costs well under half of the equivalent seat in the U.S. or Canada, and the comparison is not just salary.",
+  heading: "Potentially 60%+ Below the Cost of a Full-Time Hire",
+  body: "Depending on the role and the engagement, an ADAS Globus Pro professional typically costs well under half of an equivalent full-time hire, and the comparison is not just salary.",
   avoided: [
     { item: "Benefits and payroll taxes", note: "Health cover, 401(k) or RRSP match, FICA, CPP and EI" },
     { item: "Recruiting cost", note: "Agency fees, job boards, partner time spent interviewing" },
@@ -1018,7 +1012,7 @@ export const faqs: FaqGroup[] = [
       },
       {
         q: "How much does outsourcing actually save?",
-        a: "Depending on the role and the engagement, firms commonly see 60% or more against the cost of the equivalent hire in the U.S. or Canada, and that comparison is not just salary. It also removes benefits and payroll taxes, recruiting fees, weeks of onboarding before the first billable return, and the cost of a hire that does not work out. We will put a specific number against your specific role on the call rather than leave you with a brochure figure.",
+        a: "Depending on the role and the engagement, firms commonly see 60% or more against the cost of an equivalent full-time hire, and that comparison is not just salary. It also removes benefits and payroll taxes, recruiting fees, weeks of onboarding before the first billable return, and the cost of a hire that does not work out. We will put a specific number against your specific role on the call rather than leave you with a brochure figure.",
       },
     ],
   },

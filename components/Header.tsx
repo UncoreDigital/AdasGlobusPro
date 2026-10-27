@@ -31,7 +31,7 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [drawer, setDrawer] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { region, setRegion, discovered, markDiscovered } = useRegion();
+  const { region, setRegion, discovered, markDiscovered, detected } = useRegion();
   const switcher = features.regionSwitcher;
 
   /* With the switch off, the services menu stays on the U.S. list. */
@@ -225,6 +225,7 @@ export default function Header() {
                 onChange={setRegion}
                 discovered={discovered}
                 onDiscovered={markDiscovered}
+                detected={detected}
                 className="mr-1 hidden lg:block"
               />
             )}
@@ -234,6 +235,7 @@ export default function Header() {
                 onChange={setRegion}
                 discovered={discovered}
                 onDiscovered={markDiscovered}
+                detected={detected}
                 compact
                 className="lg:hidden"
               />

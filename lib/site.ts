@@ -25,8 +25,8 @@ import { defaultRegion, getRegion, type RegionLink } from "@/lib/regions";
  *
  * The domain and the contact address are the Pro ones too: this site is
  * canonical at www.adasglobuspro.com and publishes info@adasglobuspro.com.
- * adasglobus.com is the parent's, and nothing here should point at it except
- * `globalSite` below, which cross-links it deliberately.
+ * adasglobus.com is the parent's, and nothing here points at it. The footer's
+ * "Global site" link to it was removed at the client's request on 24 October.
  */
 
 export const site = {
@@ -119,8 +119,6 @@ export const site = {
     ["adasglobus.com"]
   ),
 
-  /** The global site, cross-linked from the footer. */
-  globalSite: "https://adasglobus.com",
 
   /**
    * Master artwork supplied by the client, optimised into /public/assets.
@@ -153,11 +151,20 @@ export const site = {
   email: "info@adasglobuspro.com",
   emailHref: "mailto:info@adasglobuspro.com",
 
-  /** The U.S. line is the primary on this site. */
-  phone: "+1 (307) 533-0018",
-  phoneHref: "tel:+13075330018",
+  /*
+    The U.S. line, primary on this site and serving Canada too (+1).
 
-  whatsapp: "https://wa.me/13075330018",
+    Changed on 24 October 2026 when the client updated their U.S. number;
+    the old line was +1 (307) 533-0018. WhatsApp moved with it.
+
+    NOTE: the admin's Settings > phone overrides this in the top bar, the
+    footer and the contact page (see lib/settings.ts). That value lives in
+    Supabase, so it has to be changed there as well.
+  */
+  phone: "+1 (307) 241-5595",
+  phoneHref: "tel:+13072415595",
+
+  whatsapp: "https://wa.me/13072415595",
 
   founded: 2020,
 
@@ -182,21 +189,26 @@ export const site = {
 } as const;
 
 /**
- * Locations shown on the site.
+ * Locations shown on the site: the footer, /about, /contact and the
+ * Organization structured data all render from this list.
  *
- * No Canadian address yet. The client's 17 October document recommends taking
- * a virtual office in Canada; when one exists, it goes here with code "CA" and
- * the footer, /about, /contact and the structured data all pick it up.
+ * Changed on the client's 24 October instructions:
+ *   · A Canadian office, in Edmonton. It has no phone of its own; the +1 U.S.
+ *     line serves Canada too.
+ *   · No Indian phone numbers anywhere. `phone` is optional for that reason,
+ *     and every renderer skips the line when it is absent.
+ *   · The two Ahmedabad centres are "Delivery Centre I" (Bodakdev) and
+ *     "Delivery Centre II" (Keshavbaug Capital, moved from Paldi on 27
+ *     October), in that order per the client's sketch, and
+ *     both are headed "Ahmedabad, India". The locality moved out of the bold
+ *     heading and lives only in the address now.
+ *
+ * `locality` is the bare city, kept separate because schema.org's
+ * addressLocality wants "Ahmedabad", not the display string.
  *
  * The Dubai office is real and stays on the global site, but to a U.S. CPA firm
  * evaluating an offshore partner it reads as off-topic, and a sales address
- * dilutes the one that matters — the Wyoming one.
- *
- * The two Indian entries are both delivery centres in Ahmedabad, so the city
- * line carries the locality — "Paldi, Ahmedabad" and "Bodakdev, Ahmedabad" —
- * rather than repeating "Ahmedabad, Gujarat" twice under identical headings.
- * `locality` is the bare city, kept separate because schema.org's
- * addressLocality wants "Ahmedabad", not the display string.
+ * dilutes the ones that matter.
  *
  * India is named openly as the delivery centre rather than buried. Hiding where
  * the work happens is the fastest way to lose this audience: it is the first
@@ -207,7 +219,24 @@ export const site = {
  * flag glyphs, so a regional-indicator pair falls back to the bare letters, and
  * this audience is overwhelmingly Windows. See components/CountryCode.tsx.
  */
-export const offices = [
+export type Office = {
+  id: string;
+  country: string;
+  code: "US" | "CA" | "IN";
+  /** The small label above the heading, e.g. "U.S. Office". */
+  role: string;
+  /** The bold heading. */
+  city: string;
+  locality: string;
+  address: string;
+  phone?: string;
+  phoneHref?: string;
+  timezone: string;
+  tzLabel: string;
+  primary: boolean;
+};
+
+export const offices: Office[] = [
   {
     id: "us-sheridan",
     country: "United States",
@@ -218,8 +247,8 @@ export const offices = [
     /* Written the way U.S. addresses are, per the client's 17 October
        document: the "Ste 66976" suite number removed, state abbreviated. */
     address: "30 N Gould St, Sheridan, WY 82801",
-    phone: "+1 (307) 533-0018",
-    phoneHref: "tel:+13075330018",
+    phone: "+1 (307) 241-5595",
+    phoneHref: "tel:+13072415595",
     /* Wyoming is Mountain Time, so this is America/Denver and not the
        America/Chicago the Austin address carried. TopBar reads `timezone` to
        render the live U.S. clock, so a stale zone here shows the wrong hour. */
@@ -228,34 +257,47 @@ export const offices = [
     primary: true,
   },
   {
-    id: "in-paldi",
-    country: "India",
-    code: "IN",
-    role: "Delivery Centre",
-    city: "Paldi, Ahmedabad",
-    locality: "Ahmedabad",
-    address: "304-305, Silver Oaks Complex, Paldi, Ahmedabad, Gujarat 380007",
-    phone: "+91 94294 61564",
-    phoneHref: "tel:+919429461564",
-    timezone: "Asia/Kolkata",
-    tzLabel: "IST",
+    id: "ca-edmonton",
+    country: "Canada",
+    code: "CA",
+    role: "Canadian Office",
+    city: "Edmonton, Alberta",
+    locality: "Edmonton",
+    /* The client's address, with a comma after the city to match the
+       U.S. card beside it. */
+    address: "9622 42 Ave NW, Edmonton, AB T6E 5Y4",
+    timezone: "America/Edmonton",
+    tzLabel: "MT",
     primary: false,
   },
   {
     id: "in-bodakdev",
     country: "India",
     code: "IN",
-    role: "Delivery Centre",
-    city: "Bodakdev, Ahmedabad",
+    role: "Delivery Centre I",
+    city: "Ahmedabad, India",
     locality: "Ahmedabad",
     address: "Shilp Epitome, 1301/1302, Rajpath Rangoli Rd, Bodakdev, Ahmedabad, Gujarat 380059",
-    phone: "+91 94268 71877",
-    phoneHref: "tel:+919426871877",
     timezone: "Asia/Kolkata",
     tzLabel: "IST",
     primary: false,
   },
-] as const;
+  {
+    /* Relocated from 304-305, Silver Oaks Complex, Paldi, Ahmedabad 380007
+       (client email, 27 October). Written "Beside" where the client wrote
+       "Besides", and with "Gujarat" to match Delivery Centre I. */
+    id: "in-keshavbaug",
+    country: "India",
+    code: "IN",
+    role: "Delivery Centre II",
+    city: "Ahmedabad, India",
+    locality: "Ahmedabad",
+    address: "615-616, Keshavbaug Capital, Beside ITC Narmada, Ahmedabad, Gujarat 380015",
+    timezone: "Asia/Kolkata",
+    tzLabel: "IST",
+    primary: false,
+  },
+];
 
 /**
  * U.S. and Canadian time-zone coverage, replacing the global site's

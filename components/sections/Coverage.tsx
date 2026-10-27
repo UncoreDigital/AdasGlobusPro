@@ -10,7 +10,8 @@ import { timeZones } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 
 /**
- * "Your Evening Is Our Morning" — the overnight delivery cycle.
+ * "Your Workday Ends. Your Progress Does Not." The overnight delivery cycle,
+ * in the client's words since 21 October (see `coverage` in lib/content.ts).
  *
  * Replaces the global site's six-country presence band, which here is noise:
  * a partner in Ohio or Ontario does not care that there is a Dubai office.
@@ -44,8 +45,8 @@ export default function Coverage({
           <Reveal>
             <span className="eyebrow eyebrow-on-dark mb-4">{coverage.eyebrow}</span>
             <h2 className="text-[1.75rem] font-extrabold leading-[1.15] text-white sm:text-4xl lg:text-[2.6rem]">
-              Your Evening Is{" "}
-              <span className="text-gradient-accent-on-dark">Our Morning</span>
+              {coverage.heading}{" "}
+              <span className="text-gradient-accent-on-dark">{coverage.accent}</span>
             </h2>
             <p className="mt-5 text-[15.5px] leading-[1.75] text-white/70">
               {coverage.subheading}
@@ -91,9 +92,15 @@ export default function Coverage({
               </RevealItem>
             ))}
           </RevealGroup>
+
+          <Reveal className="mt-12 text-center">
+            <p className="font-display text-[1.15rem] font-bold text-white sm:text-xl">
+              {coverage.tagline}
+            </p>
+          </Reveal>
         </div>
 
-        {/* Live U.S. clocks */}
+        {/* Live clocks, U.S. and Canada */}
         <Reveal className="mt-16">
           <p className="text-center text-[13px] font-semibold text-white/50">
             {coverage.kicker}

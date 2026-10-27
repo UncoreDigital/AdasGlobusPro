@@ -23,7 +23,9 @@ export type Settings = Record<string, string | null>;
 
 /** Fallbacks used when Supabase is unreachable or a row is missing. */
 const FALLBACK: Settings = {
-  clients: "1,150+",
+  /* "250+" per the client's 27 October email (was "1,150+"). This is only the
+     fallback: the live figure is the `clients` row in admin Settings. */
+  clients: "250+",
   accuracy: "99%+",
   countries: "6",
   employees: "120+",
@@ -84,6 +86,35 @@ export function bookingUrl(value: string | null | undefined) {
     return url.protocol === "https:" ? url.toString() : null;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Whether the booking page actually exists.
+ *
+ * `bookingUrl` can only check that the link is well formed. The link the site
+ * shipped with was well formed and pointed at a Calendly page that does not
+ * exist (calendly.com/adasgloubuspro, with a typo, and no account behind the
+ * corrected spelling either), so for two months the contact page offered a
+ * prominent "Schedule a meeting" button that led to a 404 (client email, 27
+ * October).
+ *
+ * This asks the booking host. Only a definite "not found" (404 or 410) hides
+ * the button; a timeout, a network error or any other status keeps it, so a
+ * slow or bot-wary scheduler is never hidden by mistake. Cached for five
+ * minutes, the same as the pages, so fixing the link in admin Settings shows
+ * up on the next revalidation with no deploy.
+ */
+export async function bookingPageExists(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(5000),
+      next: { revalidate: 300 },
+    });
+    return res.status !== 404 && res.status !== 410;
+  } catch {
+    return true;
   }
 }
 

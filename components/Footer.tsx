@@ -94,7 +94,7 @@ export default async function Footer() {
         </div>
 
         {/* Offices */}
-        <div className="grid gap-8 border-t border-white/10 py-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 border-t border-white/10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           {offices.map((office) => (
             <div key={office.id}>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent-light">
@@ -108,13 +108,15 @@ export default async function Footer() {
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                 {office.address}
               </p>
-              <a
-                href={office.phoneHref}
-                className="mt-2.5 inline-flex items-center gap-2.5 text-[13.5px] text-white/75 transition-colors hover:text-accent-light"
-              >
-                <Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                {office.phone}
-              </a>
+              {office.phone && (
+                <a
+                  href={office.phoneHref}
+                  className="mt-2.5 inline-flex items-center gap-2.5 text-[13.5px] text-white/75 transition-colors hover:text-accent-light"
+                >
+                  <Phone className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                  {office.phone}
+                </a>
+              )}
             </div>
           ))}
         </div>
@@ -127,14 +129,6 @@ export default async function Footer() {
             <Link href="/privacy-policy" className="transition-colors hover:text-white/80">
               Privacy Policy
             </Link>
-            <a
-              href={site.globalSite}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-white/80"
-            >
-              Global site
-            </a>
             <a
               href={site.builtBy.url}
               target="_blank"

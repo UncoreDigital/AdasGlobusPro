@@ -10,7 +10,7 @@ import SectionHeading from "@/components/SectionHeading";
 import CTA from "@/components/sections/CTA";
 import EngagementModels from "@/components/sections/EngagementModels";
 import Workflow from "@/components/sections/Workflow";
-import { about, boundary, team } from "@/lib/content";
+import { about, team } from "@/lib/content";
 import { figure, getSettings } from "@/lib/settings";
 import { features, offices, site } from "@/lib/site";
 import { fadeLeft, fadeRight } from "@/lib/motion";
@@ -269,12 +269,12 @@ export default async function AboutPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Where We Are"
-            title="A U.S. Office and"
-            accent="Two Delivery Centres"
+            title="Our U.S. and Canadian Offices"
+            accent="and Two Delivery Centres"
             lead="We name where the work happens rather than leaving you to ask. It is the first question on almost every discovery call."
             align="center"
           />
-          <RevealGroup className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="mx-auto mt-12 grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {offices.map((office) => (
               <RevealItem
                 key={office.id}
@@ -290,22 +290,17 @@ export default async function AboutPage() {
                 <p className="mt-3.5 text-[14px] leading-relaxed text-ink-muted">
                   {office.address}
                 </p>
-                <a
-                  href={office.phoneHref}
-                  className="mt-3 inline-block text-[14px] font-semibold text-brand hover:text-brand-light"
-                >
-                  {office.phone}
-                </a>
+                {office.phone && (
+                  <a
+                    href={office.phoneHref}
+                    className="mt-3 inline-block text-[14px] font-semibold text-brand hover:text-brand-light"
+                  >
+                    {office.phone}
+                  </a>
+                )}
               </RevealItem>
             ))}
           </RevealGroup>
-
-          <Reveal className="mx-auto mt-12 max-w-3xl rounded-xl border border-border bg-white p-6">
-            <p className="text-[13px] leading-relaxed text-ink-muted">
-              <strong className="font-semibold text-navy-deep">Scope of practice.</strong>{" "}
-              {boundary}
-            </p>
-          </Reveal>
         </div>
       </section>
 

@@ -210,25 +210,31 @@ export const services: Service[] = [
       "Returns arrive review-ready: the workpapers are complete, the diagnostics are cleared, the carryforwards tie to last year, and open questions are listed in writing rather than buried in the file. Our preparers work in your tax software (Drake, UltraTax CS, Lacerte, ProSeries, ProConnect, CCH Axcess) against your own review checklist.",
       "Nothing is signed or filed by ADAS Globus Pro. Your firm remains the preparer of record and holds the final review.",
     ],
-    scopeHeading: "Service scope",
+    /*
+      Canadian, per the client's 21 October document: "for the scope under
+      taxes, remove the US filings and put more for Canadian taxes". The U.S.
+      returns still appear on this page, in the two groups below, which are now
+      labelled U.S. so a reader can tell the two countries apart.
+
+      ⚠️ Drafted from standard CRA filings, not from a list the client
+      supplied. Confirm each line is work the team actually does, and whether
+      Quebec returns (TP-1, CO-17) belong here too.
+    */
+    scopeHeading: "Canadian tax scope",
     scope: [
-      "Individual returns: Form 1040 and 1040-NR with all schedules",
-      "Corporate returns: Form 1120 and Form 1120-S with Schedule K-1 preparation",
-      "Partnership returns: Form 1065 with partner allocations and K-1s",
-      "Trust and estate returns: Form 1041",
-      "Non-profit compliance: Form 990, 990-EZ, 990-N and 990-PF",
-      "Information returns: 1099-NEC, 1099-MISC, W-2 and W-3, ahead of the January 31 deadline",
-      "Employment tax returns: Forms 940 and 941",
-      "State and local tax compliance, including nexus analysis and multi-state apportionment",
-      "International information returns: FBAR (FinCEN 114), Forms 5471, 5472 and 8938",
-      "Extensions, estimated tax scheduling and prior-year amended returns",
-      /* From the client's mockup of the tax card. The full Canadian scope is
-         to follow from the client after the 17 October call. */
-      "Canadian returns: T1 for individuals, T2 for corporations and T3 for trusts, prepared to CRA requirements",
+      "Personal returns: T1 for individuals, including self-employment, rental, investment and capital gains schedules",
+      "Corporate returns: T2 with GIFI financial statement schedules, for Canadian-controlled private corporations and other corporations",
+      "Trust returns: T3 trust income tax and information returns, with T3 slips",
+      "Partnership information returns: T5013 with partner slips",
+      "GST/HST returns, with input tax credit reconciliation",
+      "Information slips: T4, T4A and T5 slips and summaries, ahead of the end-of-February deadline",
+      "Foreign reporting: T1135 foreign income verification statements",
+      "Instalment scheduling, prior-year adjustments and amended returns",
+      "Draft responses to CRA review letters and information requests, for your sign-off",
     ],
     groups: [
       {
-        name: "Entity Returns",
+        name: "U.S. Entity Returns",
         items: [
           "C Corporations: Form 1120",
           "S Corporations: Form 1120-S and Schedule K-1",
@@ -239,7 +245,7 @@ export const services: Service[] = [
         ],
       },
       {
-        name: "Specialist Filings",
+        name: "U.S. Specialist Filings",
         items: [
           "Non-profits: Forms 990, 990-EZ, 990-N",
           "Private foundations: Form 990-PF",
@@ -386,7 +392,7 @@ export const services: Service[] = [
         ],
       },
     ],
-    outcomes: ["Employed and supervised by us", "Part-time, full-time or seasonal", "Potentially 60%+ below a U.S. or Canadian hire"],
+    outcomes: ["Employed and supervised by us", "Part-time, full-time or seasonal", "Potentially 60%+ below a full-time hire"],
     whoItsFor: [
       "Firms that have tried and failed to hire locally at this grade",
       "Practices wanting a permanent offshore bench rather than project help",
