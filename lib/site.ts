@@ -155,7 +155,7 @@ export const site = {
     The U.S. line, primary on this site and serving Canada too (+1).
 
     Changed on 24 October 2026 when the client updated their U.S. number;
-    the old line was +1 (307) 533-0018. WhatsApp moved with it.
+    the old line was +1 (307) 533-0018.
 
     NOTE: the admin's Settings > phone overrides this in the top bar, the
     footer and the contact page (see lib/settings.ts). That value lives in
@@ -164,7 +164,13 @@ export const site = {
   phone: "+1 (307) 241-5595",
   phoneHref: "tel:+13072415595",
 
-  whatsapp: "https://wa.me/13072415595",
+  /*
+    WhatsApp stays on the old line, +1 (307) 533-0018. The new number above is
+    a virtual line with no WhatsApp account, so a wa.me link to it goes nowhere
+    (client, 28 October 2026). Deliberately not derived from `phone`: the two
+    are different numbers. Used by the floating button and the contact page.
+  */
+  whatsapp: "https://wa.me/13075330018",
 
   founded: 2020,
 
